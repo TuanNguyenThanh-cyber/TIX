@@ -1,0 +1,29 @@
+@mixin styleText($color,$fs,$fw,$lineheight) {
+    color: $color;
+    font-size: $fs;
+    font-weight: $fw;
+    line-height: $lineheight;
+}
+
+@mixin styleButton($color,$bg-color,$pd-tb,$pd-lr,$color-hover,$bg-color-hover) {
+    color: $color;
+    background-color: $bg-color;
+    padding: $pd-tb $pd-lr;
+    &:hover{
+        color: $color-hover;
+        background-color: $bg-color-hover;
+    }
+}
+
+// Responsive
+@mixin mobile {
+    @media only screen and (max-width: $mobile-width) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media only screen and (max-width: $tablet-width) {
+        @content;
+    }
+}
