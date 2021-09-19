@@ -1,106 +1,41 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import "./header.scss";
 import { LocationOnOutlined, ArrowDropDownOutlined } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
-
-const arrayProvinces = [
-  {
-    name: "Hồ Chí Minh",
-    value: "GP01",
-  },
-  {
-    name: "Hà Nội",
-    value: "GP02",
-  },
-  {
-    name: "Đà Nẵng",
-    value: "GP03",
-  },
-  {
-    name: "Hải Phòng",
-    value: "GP04",
-  },
-  {
-    name: "Biên Hòa",
-    value: "GP05",
-  },
-  {
-    name: "Nha Trang",
-    value: "GP06",
-  },
-  {
-    name: "Cần Thơ",
-    value: "GP07",
-  },
-  {
-    name: "Vũng Tàu",
-    value: "GP08",
-  },
-  {
-    name: "Thái Bình",
-    value: "GP09",
-  },
-  {
-    name: "Long An",
-    value: "GP10",
-  },
-  {
-    name: "Hải Dương",
-    value: "GP11",
-  },
-  {
-    name: "Gia Lai",
-    value: "GP12",
-  },
-  {
-    name: "Hà Tĩnh",
-    value: "GP13",
-  },
-  {
-    name: "Phú Yên",
-    value: "GP14",
-  },
-  {
-    name: "Mỹ Tho",
-    value: "GP15",
-  },
-];
+import { arrayProvinces } from "../../FakeData";
+import "./header.scss";
 
 export default function Header() {
-  const [isDropdown, setIsDropdown] = useState(false);
+  const [open, setOpen] = useState(false);
   const [province, setProvince] = useState("Hồ Chí Minh");
   const [gp, setGp] = useState("GP01"); // gp: That is a querystring (maNhom) to callAPI getAllMovies
   const dropdownRef = useRef(null);
 
-  const handleDropdown = useCallback(() => {
-    setIsDropdown(!isDropdown);
-  }, [isDropdown]);
+  console.log(open);
+
+  const handleToggle = useCallback(() => {
+    setOpen(!open);
+  }, [open]);
 
   const handleChooseProvince = (province, e) => {
     e.preventDefault();
     setProvince(province.name);
     setGp(province.value);
-    handleDropdown();
+    handleToggle();
   };
 
   useEffect(() => {
-    if (isDropdown) {
-      function handleClickOutside(event) {
-        if (
-          dropdownRef.current &&
-          !dropdownRef.current.contains(event.target)
-        ) {
-          handleDropdown();
-        }
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        handleToggle();
       }
-      // Bind the event listener
-      document.addEventListener("click", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("click", handleClickOutside);
-      };
     }
-  }, [isDropdown, handleDropdown]);
+    // Bind the event listener
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [open, handleToggle]);
 
   return (
     <Grid
@@ -136,11 +71,11 @@ export default function Header() {
           <img src="/img/avatar.png" alt="" />
           <span className="header-right-account-name">Đăng nhập</span>
         </div>
-        <div className="header-right-location" onClick={handleDropdown}>
+        <div className="header-right-location" onClick={handleToggle}>
           <LocationOnOutlined className="header-right-location-icon"></LocationOnOutlined>
           <span className="header-right-location-name">{province}</span>
           <ArrowDropDownOutlined className="header-right-location-icon"></ArrowDropDownOutlined>
-          {isDropdown && (
+          {open && (
             <ul className="dropdown-menu selectScroll" ref={dropdownRef}>
               {arrayProvinces.map((province) => (
                 <li key={province.value}>

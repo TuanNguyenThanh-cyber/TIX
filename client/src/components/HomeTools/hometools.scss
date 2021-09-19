@@ -1,0 +1,63 @@
+@import "/src/scss/main.scss";
+#homeTools {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    max-width: 940px;
+    margin: auto;
+    padding: 20px 12px;
+
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 100%;
+    z-index: 2;
+
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+
+    .homeTools-label {
+        font-size: 16px;
+        font-weight: 700;
+        color: $color-black-0;
+    }
+
+    .homeTools-movie {
+        width: 30%;
+        margin-right: 10px;
+    }
+
+    .homeTools-theater {
+        width: calc(70% / 4);
+        margin-right: 10px;
+    }
+
+    .homeTools-day {
+        width: calc(70% / 4);
+        margin-right: 10px;
+    }
+
+    .homeTools-time {
+        width: calc(70% / 4);
+        margin-right: 10px;
+    }
+
+    .homeTools-btn {
+        width: calc(70% / 4);
+        button {
+            cursor: pointer;
+            width: 100%;
+            background-color: #4a4a4a;
+            border: none;
+            text-transform: uppercase;
+            border-radius: 5px;
+            padding: 15px 25px;
+            color: $color-white-0;
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+}

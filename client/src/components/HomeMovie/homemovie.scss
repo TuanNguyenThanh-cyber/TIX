@@ -1,0 +1,204 @@
+@import "/src/scss/main.scss";
+#homeMovie {
+    max-width: 940px;
+    padding-top: 75px;
+    margin: auto;
+    position: relative;
+
+    .homeMovie-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: none;
+        background-color: $color-white-0;
+
+        .homeMovie-tab {
+            color: $color-black-0;
+            .homeMovie-tab-item {
+                font-size: 20px;
+                transition: all 0.5s;
+                text-transform: capitalize;
+                margin-right: 15px;
+            }
+
+            .Mui-selected {
+                font-size: 24px;
+                color: $color-red-0;
+            }
+
+            .homeMovie-tab-item:not(.Mui-selected):hover {
+                font-size: 24px;
+            }
+        }
+    }
+
+    .homeMovie-slider {
+        max-width: 940;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 30px;
+
+        .carousel-slider {
+            overflow: visible;
+        }
+
+        .homeSlider-item {
+            .homeSlider-movie {
+                .homeSlider-movie-content {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    cursor: pointer;
+
+                    &:hover {
+                        .btn-play {
+                            transition: all 0.5s;
+                            opacity: 1;
+                        }
+
+                        .backgroundLinear {
+                            transition: all 0.5s;
+                            opacity: 1;
+                        }
+                    }
+
+                    .homeSlider-movie-img {
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 5px;
+                    }
+
+                    .backgroundLinear {
+                        opacity: 0;
+                        position: absolute;
+                        width: 100%;
+                        height: 100%;
+                        top: 0;
+                        border-radius: 5px;
+                        background: linear-gradient(to top, #000, transparent 100%);
+                    }
+
+                    .btn-play {
+                        opacity: 0;
+                        cursor: pointer;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+
+                        width: 60px;
+                        height: 60px;
+
+                        border: none;
+                        background: none;
+                        transition: all 0.2s;
+
+                        &:hover {
+                            opacity: 0.7;
+                        }
+                    }
+
+                    .homeSlider-rating {
+                        background-color: rgba(12, 27, 54, 0.8);
+                        border: 1px solid #1f2e46;
+                        border-radius: 4px;
+                        padding: 5px;
+                        position: absolute;
+                        top: 12px;
+                        right: 12px;
+                        color: #fff;
+                        width: 54px;
+                        text-align: center;
+
+                        .homeSlider-rating-text {
+                            text-align: center;
+                            font-size: 15px;
+                        }
+
+                        .homeSlider-rating-star {
+                            font-size: 8px;
+                            color: $color-red-1;
+                        }
+                    }
+                }
+
+                .homeSlider-movie-info {
+                    position: relative;
+                    margin-top: 10px;
+
+                    .homeSlider-movie-title {
+                        font-size: 16px;
+                        color: #000;
+                        line-height: 22px;
+                        display: flex;
+                        align-items: center;
+
+                        .homeSlider-movie-age {
+                            text-align: center;
+                            font-size: 14px;
+                            background-color: #fb4226;
+                            border-radius: 5px;
+                            padding: 5px;
+                            color: #fff;
+                            min-width: 33px;
+                            text-align: center;
+                            display: inline-block;
+                            margin-right: 8px;
+                        }
+
+                        .homeSlider-movie-name {
+                            text-align: left;
+                            color: $color-black-0;
+                            font-weight: 500;
+
+                            // Hidden text css
+
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 2; // Number of line to show: N
+                            line-height: 1.5em; // X
+                            max-height: 3em; // X * N
+                        }
+                    }
+
+                    .homeSlider-movie-time {
+                        text-align: left;
+                        font-size: 13px;
+                        color: #4a4a4a;
+                        margin-bottom: 15px;
+                        margin-top: 8px;
+                    }
+                }
+            }
+        }
+
+        .button-custom-prev {
+            background-image: url("https://tix.vn/app/assets/img/icons/back-session.png");
+            left: -70px;
+        }
+
+        .button-custom-next {
+            background-image: url("https://tix.vn/app/assets/img/icons/next-session.png");
+            right: -70px;
+        }
+
+        .button-custom-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: transparent;
+            border: none;
+            width: 50px;
+            height: 100px;
+            z-index: 2;
+            opacity: 0.5;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            cursor: pointer;
+        }
+    }
+}
