@@ -4,6 +4,7 @@
     padding-top: 75px;
     margin: auto;
     position: relative;
+    margin-bottom: 20px;
 
     .homeMovie-header {
         display: flex;
@@ -32,7 +33,7 @@
         }
     }
 
-    .homeMovie-slider {
+    .homeSlider {
         max-width: 940;
         display: flex;
         align-items: center;
@@ -45,6 +46,7 @@
 
         .homeSlider-item {
             .homeSlider-movie {
+                cursor: pointer;
                 .homeSlider-movie-content {
                     position: relative;
                     width: 100%;

@@ -1,19 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import {
-  makeStyles,
-  AppBar,
-  Tabs,
-  Tab,
-  Typography,
-  Box,
-  Slide,
-  Grid,
-} from "@material-ui/core";
-import { Star } from "@material-ui/icons";
-import { Carousel } from "react-responsive-carousel";
-import { listMovies } from "../../FakeData";
-import VideoPopUp from "../VideoPopUp";
+import { makeStyles, AppBar, Tabs, Tab } from "@material-ui/core";
+import { listsMovie } from "../../FakeData";
+import ListsMovie from "../ListsMovie";
 import "./homemovie.scss";
 
 function TabPanel(props) {
@@ -65,101 +54,6 @@ export default function HomeMovie() {
     setValue(newValue);
   };
 
-  // Custom Carousel
-  const handleItemSlide = (index, item) => {};
-  const customArrowPrev = (onClickHandler, hasPrev, label) =>
-    hasPrev && (
-      <button
-        className="button-custom-control button-custom-prev"
-        onClick={onClickHandler}
-        title={label}
-      ></button>
-    );
-  const customArrowNext = (onClickHandler, hasNext, label) =>
-    hasNext && (
-      <button
-        className="button-custom-control button-custom-next"
-        onClick={onClickHandler}
-        title={label}
-      ></button>
-    );
-
-  // Handle PopUp Video
-  const handlePopUpVideo = (videoID) => {
-    setIsVideoPopUp(true);
-    setVideoID(videoID);
-  };
-
-  // Function Render Carousel Movie
-  const renderCarousel = () => {
-    return (
-      <div className="homeMovie-slider">
-        <Carousel
-          emulateTouch={true}
-          autoPlay={false}
-          infiniteLoop={false}
-          showThumbs={false}
-          showStatus={false}
-          showIndicators={false}
-          onClickItem={handleItemSlide}
-          renderArrowPrev={customArrowPrev}
-          renderArrowNext={customArrowNext}
-        >
-          {listMovies.map((list, index) => (
-            <Grid container spacing={3} className="homeSlider-item">
-              {list.map((movie) => (
-                <Grid item xs={3} key={movie.videoID}>
-                  <div className="homeSlider-movie">
-                    <div className="homeSlider-movie-content">
-                      <img
-                        src={movie.srcImg}
-                        alt=""
-                        className="homeSlider-movie-img"
-                      />
-                      <div className="backgroundLinear"></div>
-                      <button
-                        className="btn-play"
-                        onClick={() => handlePopUpVideo(movie.videoID)}
-                      >
-                        <img src="/img/play-video.png" alt="" />
-                      </button>
-                      <div className="homeSlider-rating">
-                        <p className="homeSlider-rating-text">10</p>
-                        <p style={{ display: "flex" }}>
-                          <Star className="homeSlider-rating-star"></Star>
-                          <Star className="homeSlider-rating-star"></Star>
-                          <Star className="homeSlider-rating-star"></Star>
-                          <Star className="homeSlider-rating-star"></Star>
-                          <Star className="homeSlider-rating-star"></Star>
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="homeSlider-movie-info">
-                      <div className="homeSlider-movie-title">
-                        <p className="homeSlider-movie-age">P</p>
-                        <p className="homeSlider-movie-name">
-                          Bàn Tay Diệt Quỷ - Evil Expeller (C16)
-                        </p>
-                      </div>
-                      <p className="homeSlider-movie-time">120 phút</p>
-                    </div>
-                  </div>
-                </Grid>
-              ))}
-            </Grid>
-          ))}
-        </Carousel>
-        <VideoPopUp
-          isPopUp={isVideoPopUp}
-          setPopUp={setIsVideoPopUp}
-          videoID={videoID}
-        ></VideoPopUp>
-      </div>
-    );
-  };
-
-  console.log(listMovies[0]);
   return (
     <div id="homeMovie" className={classes.root}>
       {/* Home Moive Header */}
@@ -187,8 +81,16 @@ export default function HomeMovie() {
         </Tabs>
       </AppBar>
       {/* Home Moive Carousel */}
-      <TabPanel value={value} index={0} children={renderCarousel()}></TabPanel>
-      <TabPanel value={value} index={1} children={renderCarousel()}></TabPanel>
+      <TabPanel
+        value={value}
+        index={0}
+        children={<ListsMovie lists={listsMovie}></ListsMovie>}
+      ></TabPanel>
+      <TabPanel
+        value={value}
+        index={1}
+        children={<ListsMovie lists={listsMovie}></ListsMovie>}
+      ></TabPanel>
     </div>
   );
 }

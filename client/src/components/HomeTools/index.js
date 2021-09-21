@@ -34,7 +34,6 @@ export default function HomeTools() {
     }
   };
 
-  console.log({ movie, theater, day, time });
   return (
     <div id="homeTools">
       {/* Movie */}

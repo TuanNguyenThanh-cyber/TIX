@@ -10,8 +10,6 @@ export default function Header() {
   const [gp, setGp] = useState("GP01"); // gp: That is a querystring (maNhom) to callAPI getAllMovies
   const dropdownRef = useRef(null);
 
-  console.log(open);
-
   const handleToggle = useCallback(() => {
     setOpen(!open);
   }, [open]);
