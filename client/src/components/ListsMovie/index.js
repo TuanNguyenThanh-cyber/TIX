@@ -3,7 +3,7 @@ import { Star } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { Carousel } from "react-responsive-carousel";
 import VideoPopUp from "../VideoPopUp";
-import "./listfilms.scss";
+import "./listsmovie.scss";
 
 export default function ListsMovie(props) {
   const { lists } = props;
@@ -87,7 +87,12 @@ export default function ListsMovie(props) {
                         Bàn Tay Diệt Quỷ - Evil Expeller (C16)
                       </p>
                     </div>
-                    <p className="homeSlider-movie-time">120 phút</p>
+                    <div className="homeSlider-movie-time">
+                      <p>120 phút</p>
+                    </div>
+                    <div className="btn-red-buyticket">
+                      <button className="btn-red">Mua vé</button>
+                    </div>
                   </div>
                 </div>
               </Grid>

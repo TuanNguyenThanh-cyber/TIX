@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: "flex",
-    height: 500,
+    height: 940,
     maxWidth: 940,
     margin: "auto",
     border: `1px solid rgba(0, 0, 0, 0.12)`,
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     borderRight: `1px solid ${theme.palette.divider}`,
   },
   tab: {
-    margin: "10px 0",
+    padding: 10,
   },
 }));
 
@@ -100,7 +100,14 @@ export default function VerticalTabsMovie() {
       {/* Tab 2 */}
       {arrayLogo.map((logo, index) => (
         <TabPanel value={theaterIndex} index={index} key={index}>
-          <div className={classes.root}>
+          <div
+            className={classes.root}
+            style={{
+              borderTop: "none",
+              borderLeft: "none",
+              borderRight: "none",
+            }}
+          >
             <Tabs
               orientation="vertical"
               variant="scrollable"
