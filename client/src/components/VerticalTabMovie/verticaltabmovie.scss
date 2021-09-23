@@ -1,0 +1,216 @@
+@import "/src/scss/main.scss";
+#verticalTabMovie {
+    max-width: 940px;
+    display: flex;
+    margin: auto;
+
+    // Tab 1
+    .listLogoCinema {
+        min-height: 705px;
+        width: 92px;
+        float: left;
+        border: 1px solid #ebebec;
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+
+        .listLogoCinema-item {
+            .listLogoCinema-link {
+                display: block;
+                padding: 20px;
+                position: relative;
+                transition: all 0.2s;
+                opacity: 0.6;
+
+                img {
+                    width: 50px;
+                }
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 50%;
+                    width: calc(100% - 40px);
+                    transform: translateX(-50%);
+                    border-bottom: 1px solid #fff;
+                    border-color: rgba(238, 238, 238, 0.88);
+                }
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .active {
+                opacity: 1;
+            }
+        }
+    }
+
+    // Tab 2
+    .listTheaterCluster {
+        min-height: 705px;
+        border-top: 1px solid #ebebec;
+        border-bottom: 1px solid #ebebec;
+        width: 30%;
+        overflow-y: hidden;
+
+        .listTheaterCluster-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+            padding: 20px;
+            width: 100%;
+            position: relative;
+            opacity: 0.6;
+            cursor: pointer;
+            transition: all 0.2s;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: calc(100% - 40px);
+                transform: translateX(-50%);
+                border-bottom: 1px solid #fff;
+                border-color: rgba(238, 238, 238, 0.88);
+            }
+
+            &:first-child {
+                padding-top: 20px;
+            }
+
+            &:hover {
+                opacity: 1;
+            }
+
+            img {
+                width: 50px;
+            }
+
+            .theaterCluster-info {
+                padding-left: 10px;
+
+                .theaterCluster-name {
+                    font-size: 14px;
+                    color: #8bc541;
+                    display: block;
+                }
+
+                .theaterCluster-address {
+                    font-size: 12px;
+                    color: #949494;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    display: -webkit-box;
+                    -webkit-box-orient: vertical;
+                    -webkit-line-clamp: 1; // Number of line to show: N
+                    line-height: 1.5em; // X
+                    max-height: 1.5em; // X * N
+                }
+
+                .theaterCluster-detail {
+                    display: block;
+                    color: #fb4226;
+                    font-size: 12px;
+                }
+            }
+        }
+
+        .active {
+            opacity: 1;
+        }
+    }
+
+    // Tab 3
+    .listMovie {
+        min-height: 705px;
+        width: calc(100% - 30% - 92px);
+        border: 1px solid #ebebec;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        .listMovie-item {
+            padding: 20px;
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                width: calc(100% - 40px);
+                transform: translateX(-50%);
+                border-bottom: 1px solid #fff;
+                border-color: rgba(238, 238, 238, 0.88);
+            }
+            .listMovie-item-content {
+                display: flex;
+                align-items: center;
+
+                img {
+                    width: 50px;
+                    height: 50px;
+                }
+                .listMovie-item-info {
+                    margin-left: 10px;
+                    .listMovie-item-info-age {
+                        background-color: $color-green-0;
+                        text-transform: uppercase;
+                        color: white;
+                        padding: 5px 10px;
+                        border-radius: 4px;
+                    }
+
+                    .listMovie-item-info-name {
+                        margin-left: 10px;
+                        font-size: 16px;
+                        color: black;
+                        font-weight: 500;
+                    }
+
+                    .listMovie-item-info-time {
+                        display: block;
+                        margin-top: 10px;
+                        font-size: 12px;
+                        color: #949494;
+                    }
+                }
+            }
+            .listMovie-item-typeMovie {
+                margin: 10px 0;
+                color: black;
+                font-size: 16px;
+                font-weight: 500;
+            }
+            .listMovie-item-booking {
+                .listMovie-item-booking-time {
+                    border: 1px solid #ebebec;
+                    background-color: #eaeaea;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    color: $color-gray-4;
+                    font-size: 16px;
+                    cursor: pointer;
+                    transition: all 0.5s;
+
+                    &:hover {
+                        background-color: $color-gray-7;
+                    }
+
+                    .listMovie-item-booking-time-start {
+                        color: $color-green-0;
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

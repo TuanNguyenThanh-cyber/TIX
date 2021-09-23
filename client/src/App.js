@@ -3,7 +3,8 @@ import Header from "./components/Header";
 import Slider from "./components/Slider";
 import HomeMovie from "./components/HomeMovie";
 import HomeBackGroundBlur from "./components/HomeBackGroundBlur";
-import VerticalTabsMovie from "./components/VerticalTabsMovie";
+import VerticalTabMovie from "./components/VerticalTabMovie";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
       <Slider></Slider>
       <HomeMovie></HomeMovie>
       <HomeBackGroundBlur></HomeBackGroundBlur>
-      <VerticalTabsMovie></VerticalTabsMovie>
+      <VerticalTabMovie></VerticalTabMovie>
       <HomeBackGroundBlur></HomeBackGroundBlur>
+      <Footer></Footer>
     </>
   );
 }

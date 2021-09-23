@@ -52,7 +52,7 @@ export default function Slider() {
             <div className="backgroundLinear"></div>
             <button
               className="btn-play"
-              onClick={() => handlePopUpVideo(slider.videoID)}
+              onClick={(e) => handlePopUpVideo(slider.videoID)}
             >
               <img src="/img/play-video.png" alt="" />
             </button>

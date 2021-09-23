@@ -212,3 +212,75 @@ export const arrayTheaterCluster = [
     img: "/img/TheaterCluster/bhd-star-vincom-thao-dien-16105955634183.png",
   },
 ];
+
+export const arrayMovies = [
+  {
+    img:
+      "/img/Movie/ban-tay-diet-quy-evil-expeller-c16-16167437811994_215x318.png",
+    videoID: "uqJ9u7GSaYM",
+  },
+  {
+    img: "/img/Movie/trang-ti-16194120693380_215x318.jpg",
+    videoID: "VTnGOjtaWAY",
+  },
+]
+
+export const arrrayLogoPartner = [
+  {
+    img: "/img/Partner/123go.png",
+  },
+  {
+    img: "/img/Partner/AGRIBANK.png",
+  },
+  {
+    img: "/img/Partner/bhd.png",
+  },
+  {
+    img: "/img/Partner/bt.png",
+  },
+  {
+    img: "/img/Partner/cgv.png",
+  },
+  {
+    img: "/img/Partner/cinesta.png",
+  },
+  {
+    img: "/img/Partner/cnx.png",
+  },
+  {
+    img: "/img/Partner/dcine.png",
+  },
+  {
+    img: "/img/Partner/dongdacinema.png",
+  },
+  {
+    img: "/img/Partner/galaxycine.png",
+  },
+  {
+    img: "/img/Partner/ivb.png",
+  },
+  {
+    img: "/img/Partner/laban.png",
+  },
+  {
+    img: "/img/Partner/megags.png",
+  },
+  {
+    img: "/img/Partner/payoo.png",
+  },
+  {
+    img: "/img/Partner/STARLIGHT.png",
+  },
+  {
+    img: "/img/Partner/TOUCH.png",
+  },
+  {
+    img: "/img/Partner/VCB.png",
+  },
+  {
+    img: "/img/Partner/VIETTINBANK.png",
+  },
+  {
+    img: "/img/Partner/zalopay.png",
+  },
+]
