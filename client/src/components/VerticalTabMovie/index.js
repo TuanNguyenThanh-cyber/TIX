@@ -47,9 +47,9 @@ export default function VerticalTabMovie() {
       {/* Tab 1 */}
       <ul className="listLogoCinema">
         {arrayLogo.map((logo, index) => (
-          <li className="listLogoCinema-item">
+          <li className="listLogoCinema-item" key={index}>
             <a
-              href=""
+              href="/"
               className={styleActive(index, "logo")}
               onClick={(e) => handleChangeItem(e, index, "logo")}
             >
@@ -65,6 +65,7 @@ export default function VerticalTabMovie() {
           <div
             className={styleActive(index, "theaterCluster")}
             onClick={(e) => handleChangeItem(e, index, "theaterCluster")}
+            key={index}
           >
             <img src={theaterCluster.img} alt="" />
             <div className="theaterCluster-info">
@@ -72,7 +73,7 @@ export default function VerticalTabMovie() {
               <span className="theaterCluster-address">
                 L3-Bitexco Icon 68, 2 Hải Triều, Q.1
               </span>
-              <a href="" className="theaterCluster-detail">
+              <a href="/" className="theaterCluster-detail">
                 [chi tiết]
               </a>
             </div>
@@ -82,8 +83,8 @@ export default function VerticalTabMovie() {
 
       {/* Tab 3 */}
       <div className="listMovie">
-        {arrayMovies.map((movie) => (
-          <div className="listMovie-item">
+        {arrayMovies.map((movie, index) => (
+          <div className="listMovie-item" key={index}>
             <div className="listMovie-item-content">
               <img src={movie.img} alt="" />
               <div className="listMovie-item-info">
@@ -92,7 +93,7 @@ export default function VerticalTabMovie() {
                   Ted and his friend 2
                 </span>
                 <p className="listMovie-item-info-time">
-                  109 phút - TIX 9.4 - IMDb 8.7
+                  120 phút - TIX 9.4 - IMDb 8.7
                 </p>
               </div>
             </div>

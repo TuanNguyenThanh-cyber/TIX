@@ -4,6 +4,8 @@ import Slider from "./components/Slider";
 import HomeMovie from "./components/HomeMovie";
 import HomeBackGroundBlur from "./components/HomeBackGroundBlur";
 import VerticalTabMovie from "./components/VerticalTabMovie";
+import HomeNews from "./components/HomeNews";
+import AppHome from "./components/AppHome";
 import Footer from "./components/Footer";
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
       <HomeBackGroundBlur></HomeBackGroundBlur>
       <VerticalTabMovie></VerticalTabMovie>
       <HomeBackGroundBlur></HomeBackGroundBlur>
+      <HomeNews></HomeNews>
+      <AppHome></AppHome>
       <Footer></Footer>
     </>
   );

@@ -1,11 +1,5 @@
-.btn-white {
-    margin: 0 10px;
-    border-color: $color-black-0;
-    @include styleText($color-black-0, $fs-0 - 2, $fw-normal, $line-height-0);
-    @include styleButton($color-gray-4, $color-white-0, $pd-1 + 1, $pd-1 + 2, $color-black-0, $color-white-0);
-}
-
-.btn-red {
+// Btn red buy ticket and hover
+.btn-buy-ticket {
     width: 100%;
     padding: 12px 10px;
     text-transform: uppercase;
@@ -20,4 +14,38 @@
     &:hover {
         background-color: $color-red-2;
     }
+}
+
+// Btn reading more (Btn white hover red)
+.btn-read-more {
+    font-size: 14px;
+    color: #949494;
+    border: 1px solid #949494;
+    border-radius: 4px;
+    text-align: center;
+    background: 0 0;
+    padding: 7px 25px;
+    transition: all 0.2s;
+    margin: 35px auto;
+    display: block;
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #fb4226;
+        border-color: #fb4226;
+        color: #fff;
+    }
+}
+
+// Btn app (Btn red not hover)
+.btn-app {
+    background-color: #fb4226;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: medium;
+    font-weight: 700;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }

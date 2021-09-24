@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles, AppBar, Tabs, Tab } from "@material-ui/core";
-import { listsMovie } from "../../FakeData";
-import CardMovie from "../CardMovie";
-import "./homemovie.scss";
+import { arrayNewsTab1, arrayNewsTab2, arrayNewsTab3 } from "../../FakeData";
+import HomeNewsContent from "../HomeNewsContent";
+import "./homenews.scss";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -41,57 +41,59 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HomeMovie() {
+export default function HomeNews() {
   // Material-UI
   const classes = useStyles();
   const [value, setValue] = useState(0);
-
-  // Carousel
-  const [isVideoPopUp, setIsVideoPopUp] = useState(false);
-  const [videoID, setVideoID] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   return (
-    <div id="homeMovie" className={classes.root}>
-      {/* Home Moive Header */}
-      <AppBar position="static" className="homeMovie-header">
+    <div id="homeNews" className={classes.root}>
+      {/* Home News Header */}
+      <AppBar position="static" className="homeNews-header">
         <Tabs
           value={value}
           onChange={handleChange}
           TabIndicatorProps={{ style: { display: "none" } }}
           aria-label="simple tabs example"
-          className="homeMovie-tab"
+          className="homeNews-tab"
         >
           <Tab
-            label="Đang chiếu"
+            label="Điện ảnh 24h"
             disableRipple={true}
             disableFocusRipple={true}
-            className="homeMovie-tab-item"
+            className="homeNews-tab-item"
             {...a11yProps(0)}
           />
           <Tab
-            label="Sắp chiếu"
+            label="Review"
             disableRipple={true}
             disableFocusRipple={true}
-            className="homeMovie-tab-item"
+            className="homeNews-tab-item"
             {...a11yProps(1)}
+          />
+          <Tab
+            label="Khuyến mãi"
+            disableRipple={true}
+            disableFocusRipple={true}
+            className="homeNews-tab-item"
+            {...a11yProps(2)}
           />
         </Tabs>
       </AppBar>
-      {/* Home Moive Carousel */}
-      <TabPanel
-        value={value}
-        index={0}
-        children={<CardMovie lists={listsMovie}></CardMovie>}
-      ></TabPanel>
-      <TabPanel
-        value={value}
-        index={1}
-        children={<CardMovie lists={listsMovie}></CardMovie>}
-      ></TabPanel>
+      {/* Home New Content */}
+      <TabPanel value={value} index={0}>
+        {<HomeNewsContent dataNews={arrayNewsTab1}></HomeNewsContent>}
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        {<HomeNewsContent dataNews={arrayNewsTab2}></HomeNewsContent>}
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        {<HomeNewsContent dataNews={arrayNewsTab3}></HomeNewsContent>}
+      </TabPanel>
     </div>
   );
 }

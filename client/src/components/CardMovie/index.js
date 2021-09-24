@@ -5,7 +5,7 @@ import { Carousel } from "react-responsive-carousel";
 import VideoPopUp from "../VideoPopUp";
 import "./listsmovie.scss";
 
-export default function ListsMovie(props) {
+export default function CardMovie(props) {
   const { lists } = props;
 
   // Carousel
@@ -38,7 +38,7 @@ export default function ListsMovie(props) {
   };
 
   return (
-    <div className="homeSlider">
+    <div className="cardMovie">
       <Carousel
         emulateTouch={true}
         autoPlay={false}
@@ -51,15 +51,15 @@ export default function ListsMovie(props) {
         renderArrowNext={customArrowNext}
       >
         {lists.map((list, index) => (
-          <Grid container key={index} spacing={3} className="homeSlider-item">
+          <Grid container key={index} spacing={3} className="cardMovie-item">
             {list.map((movie, index) => (
               <Grid item xs={3} key={index}>
-                <div className="homeSlider-movie">
-                  <div className="homeSlider-movie-content">
+                <div className="cardMovie-movie">
+                  <div className="cardMovie-movie-content">
                     <img
                       src={movie.srcImg}
                       alt=""
-                      className="homeSlider-movie-img"
+                      className="cardMovie-movie-img"
                     />
                     <div className="backgroundLinear"></div>
                     <button
@@ -68,30 +68,30 @@ export default function ListsMovie(props) {
                     >
                       <img src="/img/play-video.png" alt="" />
                     </button>
-                    <div className="homeSlider-rating">
-                      <p className="homeSlider-rating-text">10</p>
+                    <div className="cardMovie-rating">
+                      <p className="cardMovie-rating-text">10</p>
                       <p style={{ display: "flex" }}>
-                        <Star className="homeSlider-rating-star"></Star>
-                        <Star className="homeSlider-rating-star"></Star>
-                        <Star className="homeSlider-rating-star"></Star>
-                        <Star className="homeSlider-rating-star"></Star>
-                        <Star className="homeSlider-rating-star"></Star>
+                        <Star className="cardMovie-rating-star"></Star>
+                        <Star className="cardMovie-rating-star"></Star>
+                        <Star className="cardMovie-rating-star"></Star>
+                        <Star className="cardMovie-rating-star"></Star>
+                        <Star className="cardMovie-rating-star"></Star>
                       </p>
                     </div>
                   </div>
 
-                  <div className="homeSlider-movie-info">
-                    <div className="homeSlider-movie-title">
-                      <p className="homeSlider-movie-age">P</p>
-                      <p className="homeSlider-movie-name">
+                  <div className="cardMovie-movie-info">
+                    <div className="cardMovie-movie-title">
+                      <p className="cardMovie-movie-age">P</p>
+                      <p className="cardMovie-movie-name">
                         Bàn Tay Diệt Quỷ - Evil Expeller (C16)
                       </p>
                     </div>
-                    <div className="homeSlider-movie-time">
+                    <div className="cardMovie-movie-time">
                       <p>120 phút</p>
                     </div>
                     <div className="btn-red-buyticket">
-                      <button className="btn-red">Mua vé</button>
+                      <button className="btn-buy-ticket">Mua vé</button>
                     </div>
                   </div>
                 </div>

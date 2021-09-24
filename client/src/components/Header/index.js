@@ -41,32 +41,32 @@ export default function Header() {
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      className="header"
+      id="header"
     >
       <Grid item className="header-left">
         <a href="/">
-          <img src="/img/web-logo.png" alt="" />
+          <img src="/img/Header/web-logo.png" alt="" />
         </a>
       </Grid>
       <Grid item className="header-center">
         <ul>
           <li>
-            <a href="/">Lịch chiếu</a>
+            <a href="#homeMovie">Lịch chiếu</a>
           </li>
           <li>
-            <a href="/">Cụm rạp</a>
+            <a href="#verticalTabMovie">Cụm rạp</a>
           </li>
           <li>
-            <a href="/">Tin tức</a>
+            <a href="#homeNews">Tin tức</a>
           </li>
           <li>
-            <a href="/">Ứng dụng</a>
+            <a href="#appHome">Ứng dụng</a>
           </li>
         </ul>
       </Grid>
       <Grid item className="header-right">
         <div className="header-right-account">
-          <img src="/img/avatar.png" alt="" />
+          <img src="/img/Header/avatar.png" alt="" />
           <span className="header-right-account-name">Đăng nhập</span>
         </div>
         <div className="header-right-location" onClick={handleToggle}>

@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  InputLabel,
-  FormHelperText,
-  FormControl,
-  Select,
-  NativeSelect,
-  MenuItem,
-} from "@material-ui/core";
+import { InputLabel, FormControl, Select } from "@material-ui/core";
 import "./hometools.scss";
 
 export default function HomeTools() {
@@ -129,7 +122,7 @@ export default function HomeTools() {
 
       {/* Button */}
       <div className="homeTools-btn">
-        <button className="">Mua vé ngay</button>
+        <button>Mua vé ngay</button>
       </div>
     </div>
   );
