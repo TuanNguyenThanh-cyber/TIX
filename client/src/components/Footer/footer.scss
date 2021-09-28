@@ -8,75 +8,84 @@
         max-width: 940px;
         margin: auto;
 
-        .footer-top-item {
-            .footer-top-title {
-                color: #fff;
-                margin-bottom: 10px;
-                font-size: 16px;
-            }
-            .footer-top-policy {
-                display: inline-block;
-                margin-right: 20px;
-                .footer-top-policy-link {
-                    font-size: 12px;
-                    font-weight: 700;
-                    white-space: nowrap;
-                    color: #949494;
-                    display: block;
-                    transition: all 0.2s;
-                    line-height: 2.3;
+        .footer-top {
+            .footer-top-item {
+                .footer-top-title {
+                    color: #fff;
+                    margin-bottom: 10px;
+                    font-size: 16px;
+                }
+                .footer-top-policy {
+                    display: inline-block;
+                    margin-right: 20px;
+                    .footer-top-policy-link {
+                        font-size: 12px;
+                        font-weight: 700;
+                        white-space: nowrap;
+                        color: #949494;
+                        display: block;
+                        transition: all 0.2s;
+                        line-height: 2.3;
 
-                    &:hover {
-                        color: #fff;
+                        &:hover {
+                            color: #fff;
+                        }
                     }
                 }
-            }
-            .footer-top-partner {
-                margin-bottom: 10px;
-                .footer-top-partner-item {
-                    opacity: 1;
-                    transition: all 0.2s;
-                    img {
-                        border-radius: 50%;
-                        height: 30px;
-                        width: 30px;
-                        margin-right: 15px;
-                    }
-                    &:hover {
-                        opacity: 0.5;
+                .footer-top-partner {
+                    margin-bottom: 10px;
+                    .footer-top-partner-item {
+                        opacity: 1;
+                        transition: all 0.2s;
+                        img {
+                            border-radius: 50%;
+                            height: 30px;
+                            width: 30px;
+                            margin-right: 15px;
+                        }
+                        &:hover {
+                            opacity: 0.5;
+                        }
                     }
                 }
-            }
-            .footer-top-app {
-                height: 30px;
-                width: auto;
-                margin: 5px;
-            }
-            .footer-top-social {
-                height: 30px;
-                width: auto;
-                margin: 5px;
+                .footer-top-app {
+                    height: 30px;
+                    width: auto;
+                    margin: 5px;
+                }
+                .footer-top-social {
+                    height: 30px;
+                    width: auto;
+                    margin: 5px;
+                }
             }
         }
 
-        .footer-bottom-item {
-            .footer-bottom-img {
-                width: 80px;
-                height: auto;
-                border-radius: 5px;
-            }
-            span {
-                display: block;
-                line-height: 1.8;
-                color: #949494;
-                font-size: 12px;
-                font-weight: 400;
-            }
-            .footer-bottom-title {
-                color: #fff;
-                display: block;
-                font-size: 12px;
-                font-weight: 500;
+        .footer-divider {
+            border-top: 1px solid #4a4a4a;
+            margin: 20px 0;
+        }
+
+        .footer-bottom {
+            .footer-bottom-item {
+                .footer-bottom-img {
+                    width: 80px;
+                    height: auto;
+                    border-radius: 5px;
+                }
+                span {
+                    display: block;
+                    line-height: 1.8;
+                    color: #949494;
+                    font-size: 12px;
+                    font-weight: 400;
+                }
+                .footer-bottom-title {
+                    color: #fff;
+                    display: block;
+                    font-size: 12px;
+                    font-weight: 500;
+                }
             }
         }
     }

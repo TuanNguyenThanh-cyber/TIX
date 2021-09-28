@@ -37,9 +37,9 @@ export default function HomeNewsContent(props) {
 
         {dataNews[1].map((item, index) => (
           <Grid item xs={4} className="homeNews-item" key={index}>
-            <div className="homeNews-content-img">
+            <a href="" className="homeNews-content-img">
               <img src={item.img} alt="" />
-            </div>
+            </a>
             <div className="homeNews-content">
               <a href="/" className="homeNews-content-title">
                 {item.title}
