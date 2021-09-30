@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { LocationOnOutlined, ArrowDropDownOutlined } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { arrayProvinces } from "../../FakeData";
+import { Link } from "react-router-dom";
 import "./header.scss";
 
 export default function Header() {
@@ -65,10 +66,10 @@ export default function Header() {
         </ul>
       </Grid>
       <Grid item className="header-right">
-        <div className="header-right-account">
+        <Link to="/login" className="header-right-account">
           <img src="/img/Header/avatar.png" alt="" />
           <span className="header-right-account-name">Đăng nhập</span>
-        </div>
+        </Link>
         <div className="header-right-location" onClick={handleToggle}>
           <LocationOnOutlined className="header-right-location-icon"></LocationOnOutlined>
           <span className="header-right-location-name">{province}</span>
