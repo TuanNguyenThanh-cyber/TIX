@@ -11,9 +11,8 @@ import rootReducer from "./redux/reducers";
 
 const middleware = applyMiddleware(thunk);
 const enhancer = compose(
-  middleware // middleware
-  // redux devtoolss
-  // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  middleware,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 const store = createStore(rootReducer, enhancer);

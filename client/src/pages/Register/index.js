@@ -1,8 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from "react-redux";
+import { register as registerAction } from "../../redux/actions/auth";
+import { Close } from "@material-ui/icons";
+import ReactLoading from "react-loading";
 import "./register.scss";
 
 // Regex VietNam phone number
@@ -31,6 +35,9 @@ const schema = yup.object().shape({
 });
 
 export default function Register() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const { isLoading, error } = useSelector((state) => state.register);
   const {
     register,
     handleSubmit,
@@ -38,8 +45,23 @@ export default function Register() {
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
   const handleRegister = (value) => {
-    console.log(value);
+    let { taiKhoan, matKhau, email, soDt, hoTen } = value;
+    const req = {
+      taiKhoan,
+      matKhau,
+      email,
+      soDt,
+      hoTen,
+      maNhom: "GP15",
+      maLoaiNguoiDung: "KhachHang",
+    };
+    dispatch(registerAction(req));
   };
+
+  const handleClose = () => {
+    history.push("/");
+  };
+
   return (
     <div id="register">
       <div className="register-container">
@@ -136,8 +158,20 @@ export default function Register() {
             )}
           </div>
 
+          {error && <div className="register-form-error">{error}</div>}
+
           <button type="submit" className="btn-register">
-            Đăng ký
+          {isLoading ? (
+              <ReactLoading
+                type="spinningBubbles"
+                color="#fff"
+                height={15}
+                width={15}
+                className="react-loading"
+              />
+            ) : (
+              "Đăng ký"
+            )}
           </button>
         </form>
 
@@ -146,9 +180,9 @@ export default function Register() {
           <Link to="/login"> Vui lòng đăng nhập tại đây.</Link>
         </p>
 
-        <Link to="/" className="link-to-back-home">
-          Quay trở về trang chủ.
-        </Link>
+        <button to="/" className="btn-close" onClick={handleClose}>
+          <Close className="btn-close-icon"></Close>
+        </button>
       </div>
     </div>
   );

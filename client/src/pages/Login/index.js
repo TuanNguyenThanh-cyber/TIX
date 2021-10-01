@@ -1,8 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { login } from "../../redux/actions/auth";
+import { Close } from "@material-ui/icons";
+import ReactLoading from "react-loading";
 import "./login.scss";
 
 // Tạo schema validation
@@ -15,6 +19,10 @@ const schema = yup.object().shape({
 });
 
 export default function Login() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const userInfo = localStorage.getItem("userInfo");
+  const { isLoading, error } = useSelector((state) => state.login);
   const {
     register,
     handleSubmit,
@@ -22,13 +30,24 @@ export default function Login() {
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
   const handleLogin = (value) => {
-    console.log(value);
+    dispatch(login(value));
   };
+
+  const handleClose = () => {
+    history.push("/");
+  };
+
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     history.push("/");
+  //   }
+  //   return () => {};
+  // }, [userInfo]);
+
   return (
     <div id="login">
       <div className="login-container">
         <p className="login-title">Đăng nhập</p>
-
         <form className="login-form" onSubmit={handleSubmit(handleLogin)}>
           <div className="login-form-item">
             <div className="login-form-input-label">
@@ -59,8 +78,20 @@ export default function Login() {
           </div>
 
           <button type="submit" className="btn-login">
-            Đăng nhập
+            {isLoading ? (
+              <ReactLoading
+                type="spinningBubbles"
+                color="#fff"
+                height={15}
+                width={15}
+                className="react-loading"
+              />
+            ) : (
+              "Đăng nhập"
+            )}
           </button>
+
+          {error && <div className="login-form-error">{error}</div>}
         </form>
 
         <div className="login-form-help">
@@ -80,9 +111,9 @@ export default function Login() {
           <Link to="/register"> Vui lòng đăng ký tại đây.</Link>
         </p>
 
-        <Link to="/" className="link-to-back-home">
-          Quay trở về trang chủ.
-        </Link>
+        <button to="/" className="btn-close" onClick={handleClose}>
+          <Close className="btn-close-icon"></Close>
+        </button>
       </div>
     </div>
   );
