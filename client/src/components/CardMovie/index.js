@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Star } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { Carousel } from "react-responsive-carousel";
+import arrayConversion from "../../utils/arrayConversion";
+import getVideoIdYoutube from "../../utils/getVideoIdYoutube";
 import VideoPopUp from "../VideoPopUp";
-import "./listsmovie.scss";
+import "./cardmovie.scss";
 
-export default function CardMovie(props) {
-  const { lists } = props;
+export default function CardMovie() {
+  const { getMovieListData } = useSelector((state) => state.getMovieList);
 
   // Carousel
   const [isVideoPopUp, setIsVideoPopUp] = useState(false);
@@ -32,9 +35,9 @@ export default function CardMovie(props) {
     );
 
   // Handle PopUp Video
-  const handlePopUpVideo = (videoID) => {
+  const handlePopUpVideo = (trailer) => {
     setIsVideoPopUp(true);
-    setVideoID(videoID);
+    setVideoID(getVideoIdYoutube(trailer));
   };
 
   return (
@@ -42,7 +45,7 @@ export default function CardMovie(props) {
       <Carousel
         emulateTouch={true}
         autoPlay={false}
-        infiniteLoop={false}
+        infiniteLoop={true}
         showThumbs={false}
         showStatus={false}
         showIndicators={false}
@@ -50,55 +53,54 @@ export default function CardMovie(props) {
         renderArrowPrev={customArrowPrev}
         renderArrowNext={customArrowNext}
       >
-        {lists.map((list, index) => (
-          <Grid container key={index} spacing={3} className="cardMovie-item">
-            {list.map((movie, index) => (
-              <Grid item xs={3} key={index}>
-                <div className="cardMovie-movie">
-                  <div className="cardMovie-movie-content">
-                    <img
-                      src={movie.srcImg}
-                      alt=""
-                      className="cardMovie-movie-img"
-                    />
-                    <div className="backgroundLinear"></div>
-                    <button
-                      className="btn-play"
-                      onClick={() => handlePopUpVideo(movie.videoID)}
-                    >
-                      <img src="/img/play-video.png" alt="" />
-                    </button>
-                    <div className="cardMovie-rating">
-                      <p className="cardMovie-rating-text">10</p>
-                      <p style={{ display: "flex" }}>
-                        <Star className="cardMovie-rating-star"></Star>
-                        <Star className="cardMovie-rating-star"></Star>
-                        <Star className="cardMovie-rating-star"></Star>
-                        <Star className="cardMovie-rating-star"></Star>
-                        <Star className="cardMovie-rating-star"></Star>
-                      </p>
+        {getMovieListData &&
+          arrayConversion(getMovieListData, 8).map((list, index) => (
+            <Grid container key={index} spacing={3} className="cardMovie-item">
+              {list.map((movie, index) => (
+                <Grid item xs={3} key={index}>
+                  <div className="cardMovie-movie">
+                    <div className="cardMovie-movie-content">
+                      <img
+                        src={movie.hinhAnh}
+                        alt=""
+                        className="cardMovie-movie-img"
+                      />
+                      <div className="backgroundLinear"></div>
+                      <button
+                        className="btn-play"
+                        onClick={() => handlePopUpVideo(movie.trailer)}
+                      >
+                        <img src="/img/play-video.png" alt="" />
+                      </button>
+                      <div className="cardMovie-rating">
+                        <p className="cardMovie-rating-text">{movie.danhGia}</p>
+                        <p style={{ display: "flex" }}>
+                          <Star className="cardMovie-rating-star"></Star>
+                          <Star className="cardMovie-rating-star"></Star>
+                          <Star className="cardMovie-rating-star"></Star>
+                          <Star className="cardMovie-rating-star"></Star>
+                          <Star className="cardMovie-rating-star"></Star>
+                        </p>
+                      </div>
                     </div>
-                  </div>
 
-                  <div className="cardMovie-movie-info">
-                    <div className="cardMovie-movie-title">
-                      <p className="cardMovie-movie-age">P</p>
-                      <p className="cardMovie-movie-name">
-                        Bàn Tay Diệt Quỷ - Evil Expeller (C16)
-                      </p>
-                    </div>
-                    <div className="cardMovie-movie-time">
-                      <p>120 phút</p>
-                    </div>
-                    <div className="btn-red-buyticket">
-                      <button className="btn-buy-ticket">Mua vé</button>
+                    <div className="cardMovie-movie-info">
+                      <div className="cardMovie-movie-title">
+                        <p className="cardMovie-movie-age">P</p>
+                        <p className="cardMovie-movie-name">{movie.tenPhim}</p>
+                      </div>
+                      <div className="cardMovie-movie-time">
+                        <p>120 phút</p>
+                      </div>
+                      <div className="btn-red-buyticket">
+                        <button className="btn-buy-ticket">Mua vé</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Grid>
-            ))}
-          </Grid>
-        ))}
+                </Grid>
+              ))}
+            </Grid>
+          ))}
       </Carousel>
       <VideoPopUp
         isPopUp={isVideoPopUp}

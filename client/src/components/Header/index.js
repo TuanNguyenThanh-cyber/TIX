@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { changeGp } from "../../redux/actions/gp";
 import { LocationOnOutlined, ArrowDropDownOutlined } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { arrayProvinces } from "../../FakeData";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./header.scss";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [province, setProvince] = useState("Hồ Chí Minh");
-  const [gp, setGp] = useState("GP01"); // gp: That is a querystring (maNhom) to callAPI getAllMovies
+  const [gp, setGp] = useState("GP02"); // gp: That is a querystring (maNhom) to callAPI getAllMovies
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
 
   const handleToggle = useCallback(() => {
     setOpen(!open);
@@ -21,6 +24,10 @@ export default function Header() {
     setGp(province.value);
     handleToggle();
   };
+
+  useEffect(() => {
+    dispatch(changeGp(gp));
+  }, [gp]);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -55,7 +62,7 @@ export default function Header() {
             <a href="#homeMovie">Lịch chiếu</a>
           </li>
           <li>
-            <a href="#verticalTabMovie">Cụm rạp</a>
+            <a href="#homeBookingMovie">Cụm rạp</a>
           </li>
           <li>
             <a href="#homeNews">Tin tức</a>

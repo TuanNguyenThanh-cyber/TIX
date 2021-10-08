@@ -37,12 +37,9 @@ export default function Login() {
     history.push("/");
   };
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     history.push("/");
-  //   }
-  //   return () => {};
-  // }, [userInfo]);
+  if (userInfo) {
+    history.push("/");
+  }
 
   return (
     <div id="login">

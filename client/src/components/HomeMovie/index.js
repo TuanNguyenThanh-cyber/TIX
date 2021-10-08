@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { makeStyles, AppBar, Tabs, Tab } from "@material-ui/core";
-import { listsMovie } from "../../FakeData";
 import CardMovie from "../CardMovie";
 import "./homemovie.scss";
 
@@ -82,16 +81,12 @@ export default function HomeMovie() {
         </Tabs>
       </AppBar>
       {/* Home Moive Carousel */}
-      <TabPanel
-        value={value}
-        index={0}
-        children={<CardMovie lists={listsMovie}></CardMovie>}
-      ></TabPanel>
-      <TabPanel
-        value={value}
-        index={1}
-        children={<CardMovie lists={listsMovie}></CardMovie>}
-      ></TabPanel>
+      <TabPanel value={value} index={0}>
+        {<CardMovie />}
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        {<CardMovie />}
+      </TabPanel>
     </div>
   );
 }
