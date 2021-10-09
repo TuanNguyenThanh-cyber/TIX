@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -26,7 +26,7 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
   const handleLogin = (value) => {
@@ -96,7 +96,7 @@ export default function Login() {
             <input type="checkbox" />
             <span>Remember me?</span>
           </div>
-          <a href="">Need help?</a>
+          <a href="/">Need help?</a>
         </div>
 
         <p className="login-text-info">

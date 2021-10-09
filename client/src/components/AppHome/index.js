@@ -47,6 +47,7 @@ export default function AppHome() {
                 <img
                   src={item.img}
                   className="appHome-right-carousel-item-img"
+                  alt=""
                 />
               </div>
             ))}

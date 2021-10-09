@@ -41,7 +41,7 @@ export default function Register() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: "onChange" });
 
   const handleRegister = (value) => {
@@ -161,7 +161,7 @@ export default function Register() {
           {error && <div className="register-form-error">{error}</div>}
 
           <button type="submit" className="btn-register">
-          {isLoading ? (
+            {isLoading ? (
               <ReactLoading
                 type="spinningBubbles"
                 color="#fff"

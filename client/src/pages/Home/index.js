@@ -19,7 +19,7 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getMovieList(gp));
-  }, [gp]);
+  }, [gp, dispatch]);
 
   return (
     <AppLayout>

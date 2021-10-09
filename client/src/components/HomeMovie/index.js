@@ -45,10 +45,6 @@ export default function HomeMovie() {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
-  // Carousel
-  const [isVideoPopUp, setIsVideoPopUp] = useState(false);
-  const [videoID, setVideoID] = useState("");
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };

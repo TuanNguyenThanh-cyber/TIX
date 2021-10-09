@@ -4,6 +4,7 @@ import {
   getTheaterSystem,
   getInfoTheaterSystemShowtimes,
 } from "../../redux/actions/theater";
+import { getHoursAndMins, getDate } from "../../utils/separateDayAndTime";
 import "./homebookingmovie.scss";
 
 export default function HomeBookingMovie() {
@@ -14,6 +15,7 @@ export default function HomeBookingMovie() {
   const [idTheaterCluster, setIdTheaterCluster] = useState(
     "bhd-star-cineplex-bitexco"
   );
+  const [arrayMovieTab3, setArrayMovieTab3] = useState([]); // Array movie for tab 3
 
   // State in reducer
   const { theaterSystemData } = useSelector((state) => state.getTheaterSystem);
@@ -28,6 +30,7 @@ export default function HomeBookingMovie() {
   const handleChangeTheaterSystem = (e, index, maHeThongRap) => {
     e.preventDefault();
     setIndexTheater(index);
+    setIndexTheaterCluster(0);
     setIdTheaterSystem(maHeThongRap);
   };
 
@@ -57,17 +60,45 @@ export default function HomeBookingMovie() {
   // When component render call api get all theater system
   useEffect(() => {
     dispatch(getTheaterSystem());
-  }, []);
+  }, [dispatch]);
 
-  // When indexTheater change => setIndexTheaterCluster = 0
-  useEffect(() => {
-    setIndexTheaterCluster(0);
-  }, [indexTheater]);
-
-  // When idTheaterSystem, gp changed call api get all cluster theater, all film based on idTheaterSystem and gp
+  // When idTheaterSystem, gp changed => call api => get all cluster theater, film, setIdTheaterCluster : based on idTheaterSystem and gp
   useEffect(() => {
     dispatch(getInfoTheaterSystemShowtimes(idTheaterSystem, gp));
-  }, [gp, idTheaterSystem]);
+    switch (idTheaterSystem) {
+      case "BHDStar":
+        setIdTheaterCluster("bhd-star-cineplex-bitexco");
+        break;
+      case "CGV":
+        setIdTheaterCluster("cgv-aeon-binh-tan");
+        break;
+      case "CineStar":
+        setIdTheaterCluster("cns-hai-ba-trung");
+        break;
+      case "Galaxy":
+        setIdTheaterCluster("glx-kinh-duong-vuong");
+        break;
+      case "LotteCinima":
+        setIdTheaterCluster("lotte-cantavil");
+        break;
+      case "MegaGS":
+        setIdTheaterCluster("megags-cao-thang");
+        break;
+      default:
+        break;
+    }
+  }, [gp, idTheaterSystem, dispatch]);
+
+  // When theaterSystemShowtimesData and idTheaterCluster changed, update new arrayMovie
+  useEffect(() => {
+    if (theaterSystemShowtimesData) {
+      theaterSystemShowtimesData[0].lstCumRap.map((theaterCluster, index) => {
+        if (theaterCluster.maCumRap === idTheaterCluster) {
+          setArrayMovieTab3([...theaterCluster.danhSachPhim]);
+        }
+      });
+    }
+  }, [theaterSystemShowtimesData, idTheaterCluster]);
 
   return (
     <div id="homeBookingMovie">
@@ -127,45 +158,38 @@ export default function HomeBookingMovie() {
 
       {/* Tab 3 */}
       <div className="listMovie">
-        {theaterSystemShowtimesData &&
-          theaterSystemShowtimesData[0].lstCumRap.map(
-            (theaterCluster, index) => {
-              // Compare maCumRap and idTheaterCluster to get all movie depend on idTheaterCluster
-              if (theaterCluster.maCumRap === idTheaterCluster) {
-                theaterCluster.danhSachPhim.map((movie, index) => {
-                  return (
-                    // Render UI
-                    <div className="listMovie-item" key={index}>
-                      <div className="listMovie-item-content">
-                        <img src={movie.hinhAnh} alt="" />
-                        <div className="listMovie-item-info">
-                          <span className="listMovie-item-info-age">P</span>
-                          <span className="listMovie-item-info-name">
-                            {movie.tenPhim}
-                          </span>
-                          <p className="listMovie-item-info-time">
-                            120 phút - TIX 9.4 - IMDb 8.7
-                          </p>
-                        </div>
-                      </div>
-                      <div className="listMovie-item-typeMovie">
-                        <span>2D Digital</span>
-                      </div>
-                      <div className="listMovie-item-booking">
-                        <button className="listMovie-item-booking-time">
-                          <span className="listMovie-item-booking-time-start">
-                            10:00
-                          </span>{" "}
-                          - 11:30
-                        </button>
-                      </div>
-                    </div>
-                    // Render UI
-                  );
-                });
-              }
-            }
-          )}
+        {arrayMovieTab3.map((movie, index) => (
+          <div className="listMovie-item" key={index}>
+            <div className="listMovie-item-content">
+              <img src={movie.hinhAnh} alt="" />
+              <div className="listMovie-item-info">
+                <span className="listMovie-item-info-age">P</span>
+                <span className="listMovie-item-info-name">
+                  {movie.tenPhim}
+                </span>
+                <p className="listMovie-item-info-time">
+                  120 phút - TIX 9.4 - IMDb 8.7
+                </p>
+              </div>
+            </div>
+            <div className="listMovie-item-typeMovie">
+              <span>2D Digital</span>
+            </div>
+            {movie.lstLichChieuTheoPhim.map((showtime, item) => (
+              <div className="listMovie-item-booking" key={item}>
+                <button className="listMovie-item-booking-time">
+                  <span className="listMovie-item-booking-time-start">
+                    {getHoursAndMins(showtime.ngayChieuGioChieu)}
+                  </span>
+                  - {getHoursAndMins(showtime.ngayChieuGioChieu, 2)}
+                  <p className="listMovie-item-booking-day">
+                    Ngày chiếu: {getDate(showtime.ngayChieuGioChieu)}
+                  </p>
+                </button>
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   );

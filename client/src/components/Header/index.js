@@ -4,7 +4,7 @@ import { changeGp } from "../../redux/actions/gp";
 import { LocationOnOutlined, ArrowDropDownOutlined } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { arrayProvinces } from "../../FakeData";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./header.scss";
 
 export default function Header() {
@@ -27,7 +27,7 @@ export default function Header() {
 
   useEffect(() => {
     dispatch(changeGp(gp));
-  }, [gp]);
+  }, [gp, dispatch]);
 
   useEffect(() => {
     function handleClickOutside(event) {
