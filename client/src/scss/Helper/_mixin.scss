@@ -1,29 +1,45 @@
-@mixin styleText($color,$fs,$fw,$lineheight) {
+@mixin styleText($color, $fs, $fw, $lineheight) {
     color: $color;
     font-size: $fs;
     font-weight: $fw;
     line-height: $lineheight;
 }
 
-@mixin styleButton($color,$bg-color,$pd-tb,$pd-lr,$color-hover,$bg-color-hover) {
+@mixin styleButton($color, $bg-color, $pd-tb, $pd-lr, $color-hover, $bg-color-hover) {
     color: $color;
     background-color: $bg-color;
     padding: $pd-tb $pd-lr;
-    &:hover{
+    &:hover {
         color: $color-hover;
         background-color: $bg-color-hover;
     }
 }
 
 // Responsive
+// 480px
 @mixin mobile {
     @media only screen and (max-width: $mobile-width) {
         @content;
     }
 }
 
+// 768px
 @mixin tablet {
     @media only screen and (max-width: $tablet-width) {
+        @content;
+    }
+}
+
+// 1024px
+@mixin laptop {
+    @media only screen and (max-width: $laptop-width) {
+        @content;
+    }
+}
+
+// 1200px
+@mixin desktop {
+    @media only screen and (max-width: $desktop-width) {
         @content;
     }
 }

@@ -81,7 +81,7 @@ export const arraySliders = [
   },
   {
     srcImg: "/img/Slider/ban-tay-diet-quy-demon-hunter-c16-16165641754017.png",
-    videoID: "v20G-Z1kKD8",
+    videoID: "s05oOsz_SvA",
   },
   {
     srcImg: "/img/Slider/lat-mat-48h-16176186348562.jpg",

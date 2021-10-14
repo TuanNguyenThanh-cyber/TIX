@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeGp } from "../../redux/actions/gp";
 import { LocationOnOutlined, ArrowDropDownOutlined } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
@@ -12,6 +12,10 @@ export default function Header() {
   const [province, setProvince] = useState("Hồ Chí Minh");
   const [gp, setGp] = useState("GP02"); // gp: That is a querystring (maNhom) to callAPI getAllMovies
   const dropdownRef = useRef(null);
+
+  const infoUser = localStorage.getItem("userInfo")
+    ? JSON.parse(localStorage.getItem("userInfo"))
+    : null;
   const dispatch = useDispatch();
 
   const handleToggle = useCallback(() => {
@@ -75,7 +79,9 @@ export default function Header() {
       <Grid item className="header-right">
         <Link to="/login" className="header-right-account">
           <img src="/img/Header/avatar.png" alt="" />
-          <span className="header-right-account-name">Đăng nhập</span>
+          <span className="header-right-account-name">
+            {infoUser ? infoUser.taiKhoan : "Đăng nhập"}
+          </span>
         </Link>
         <div className="header-right-location" onClick={handleToggle}>
           <LocationOnOutlined className="header-right-location-icon"></LocationOnOutlined>

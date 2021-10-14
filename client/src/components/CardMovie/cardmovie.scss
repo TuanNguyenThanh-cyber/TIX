@@ -6,7 +6,7 @@
     justify-content: center;
     margin-top: 30px;
 
-    .carousel-root{
+    .carousel-root {
         width: 100%;
         height: 100%;
     }
@@ -103,7 +103,7 @@
                     top: 12px;
                     right: 12px;
                     color: #fff;
-                    width: 54px;
+                    width: 60px;
                     text-align: center;
 
                     .cardMovie-rating-text {
@@ -112,7 +112,7 @@
                     }
 
                     .cardMovie-rating-star {
-                        font-size: 8px;
+                        font-size: 10px;
                         color: $color-red-1;
                     }
                 }

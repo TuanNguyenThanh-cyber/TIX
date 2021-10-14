@@ -22,11 +22,7 @@ export function login(value) {
         "Đăng nhập thành công!",
         "Chúc bạn có trải nghiệm vui vẻ tại TIX!",
         "success"
-      ).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href="/";
-        }
-      });
+      );
     } catch (error) {
       dispatch({
         type: LOGIN_FAILURE,

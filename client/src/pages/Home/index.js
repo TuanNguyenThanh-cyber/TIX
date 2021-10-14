@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMovieList } from "../../redux/actions/movie";
+import { infoUser } from "../../redux/actions/user";
 
 // Components
 import AppLayout from "../../layouts/AppLayout";

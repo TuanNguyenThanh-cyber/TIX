@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Star } from "@material-ui/icons";
+import { Star, StarHalf } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { Carousel } from "react-responsive-carousel";
 import arrayConversion from "../../utils/arrayConversion";
@@ -74,13 +74,26 @@ export default function CardMovie() {
                       </button>
                       <div className="cardMovie-rating">
                         <p className="cardMovie-rating-text">{movie.danhGia}</p>
-                        <p style={{ display: "flex" }}>
-                          <Star className="cardMovie-rating-star"></Star>
-                          <Star className="cardMovie-rating-star"></Star>
-                          <Star className="cardMovie-rating-star"></Star>
-                          <Star className="cardMovie-rating-star"></Star>
-                          <Star className="cardMovie-rating-star"></Star>
-                        </p>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "center",
+                          }}
+                        >
+                          {[...Array(Math.floor(movie.danhGia / 2))].map(
+                            (star, index) => {
+                              return (
+                                <Star
+                                  className="cardMovie-rating-star"
+                                  key={index}
+                                ></Star>
+                              );
+                            }
+                          )}
+                          {movie.danhGia % 2 !== 0 && (
+                            <StarHalf className="cardMovie-rating-star"></StarHalf>
+                          )}
+                        </div>
                       </div>
                     </div>
 
