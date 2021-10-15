@@ -5,6 +5,7 @@ import LoadingPage from "../components/LoadingPage";
 const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
+const MovieDetail = lazy(() => import("../pages/MovieDetail"));
 
 export default function Routes() {
   return (
@@ -24,6 +25,9 @@ export default function Routes() {
               </Route>
               <Route path="/register" exact>
                 <Register></Register>
+              </Route>
+              <Route path="/movie/:id" exact>
+                <MovieDetail></MovieDetail>
               </Route>
             </Switch>
           </Route>

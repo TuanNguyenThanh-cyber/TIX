@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
 import { Star, StarHalf } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { Carousel } from "react-responsive-carousel";
@@ -10,6 +11,7 @@ import "./cardmovie.scss";
 
 export default function CardMovie() {
   const { getMovieListData } = useSelector((state) => state.getMovieList);
+  const history = useHistory();
 
   // Carousel
   const [isVideoPopUp, setIsVideoPopUp] = useState(false);
@@ -35,7 +37,8 @@ export default function CardMovie() {
     );
 
   // Handle PopUp Video
-  const handlePopUpVideo = (trailer) => {
+  const handlePopUpVideo = (e, trailer) => {
+    e.preventDefault();
     setIsVideoPopUp(true);
     setVideoID(getVideoIdYoutube(trailer));
   };
@@ -59,7 +62,10 @@ export default function CardMovie() {
               {list.map((movie, index) => (
                 <Grid item xs={3} key={index}>
                   <div className="cardMovie-movie">
-                    <div className="cardMovie-movie-content">
+                    <Link
+                      className="cardMovie-movie-content"
+                      to={`/movie/${movie.maPhim}`}
+                    >
                       <img
                         src={movie.hinhAnh}
                         alt=""
@@ -68,7 +74,7 @@ export default function CardMovie() {
                       <div className="backgroundLinear"></div>
                       <button
                         className="btn-play"
-                        onClick={() => handlePopUpVideo(movie.trailer)}
+                        onClick={(e) => handlePopUpVideo(e, movie.trailer)}
                       >
                         <img src="/img/play-video.png" alt="" />
                       </button>
@@ -95,7 +101,7 @@ export default function CardMovie() {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </Link>
 
                     <div className="cardMovie-movie-info">
                       <div className="cardMovie-movie-title">

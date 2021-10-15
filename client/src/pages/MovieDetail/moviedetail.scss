@@ -1,0 +1,209 @@
+@import "/src/scss/main.scss";
+#movieDetail {
+    margin-top: 80px;
+    .movieDetail-top {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        .movieDetail-background {
+            width: 100%;
+            height: 100%;
+            filter: blur(10px);
+            margin: -11px 0 -5px -10px;
+        }
+        .movieDetail-gradient {
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background: linear-gradient(to top, rgb(10, 32, 41), transparent 100%);
+        }
+        .movieDetail-top-main {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 870px;
+            margin: auto;
+            width: 100%;
+
+            .movieDetail-top-info {
+                display: flex;
+                align-items: center;
+
+                .movieDetail-top-info-img {
+                    margin-right: 20px;
+                    img {
+                        border-radius: 4px;
+                    }
+                }
+
+                .movieDetail-top-info-detail {
+                    .movieDetail-top-info-date {
+                        span {
+                            font-size: 14px;
+                            color: #e9e9e9;
+                            font-weight: 500;
+                        }
+                    }
+
+                    .movieDetail-top-info-title {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 5px 0;
+                        .movieDetail-top-info-age-type {
+                            margin-right: 5px;
+                            background-color: #00ac4d;
+                            color: #e9e9e9;
+                            font-size: 16px;
+                            border-radius: 4px;
+                            padding: 5px;
+                            display: inline-block;
+                            text-align: center;
+                            min-width: 33px;
+                        }
+
+                        .movieDetail-top-info-name {
+                            font-size: 24px;
+                            color: #e9e9e9;
+                            font-weight: 500;
+                        }
+                    }
+
+                    .movieDetail-top-info-time {
+                        font-size: 14px;
+                        color: #e9e9e9;
+                    }
+
+                    .movieDetail-top-btn-trailer {
+                        margin-top: 10px;
+                        background-color: #fa5238;
+                        color: #fff;
+                        border: none;
+                        text-transform: uppercase;
+                        border-radius: 4px;
+                        padding: 10px 25px;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .movieDetail-top-rating {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .CircularProgressbar-path {
+                    stroke: #00ac4d;
+                }
+
+                .CircularProgressbar-text {
+                    font-size: 30px;
+                    font-weight: 500;
+                    fill: #d6d6d6;
+                }
+
+                .movieDetail-top-rating-star {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: center;
+
+                    .movieDetail-top-rating-icon {
+                        color: #fa5238;
+                        font-size: 30px;
+                    }
+                }
+
+                .movieDetail-top-rating-amount {
+                    font-size: 14px;
+                    color: #e9e9e9;
+                    text-align: center;
+                    margin-top: 10px;
+                }
+            }
+        }
+    }
+
+    .movieDetail-bottom {
+        background-color: rgb(10, 32, 41);
+
+        .movieDetail-bottom-container {
+            position: relative;
+            max-width: 870px;
+            margin: auto;
+
+            .movieDetail-bottom-nav {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: none;
+                background-color: rgb(10, 32, 41);
+                .movieDetail-bottom-tabs {
+                    .movieDetail-bottom-tab {
+                        font-size: 20px;
+                        transition: all 0.5s;
+                        text-transform: capitalize;
+                        margin-right: 15px;
+                    }
+
+                    .Mui-selected {
+                        font-size: 24px;
+                        color: $color-red-0;
+                    }
+
+                    .movieDetail-bottom-tab-item:not(.Mui-selected):hover {
+                        font-size: 24px;
+                    }
+                }
+            }
+
+            .movieDetail-bottom-content {
+                padding: 30px 0;
+                .movieDetail-bottom-content-left {
+                    .movieDetail-bottom-content-row {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: 30px;
+
+                        .contentTitle {
+                            width: 40%;
+                            color: #fff;
+                            font-size: 14px;
+                            text-align: left;
+                            font-weight: 500;
+                        }
+
+                        .contentInfo {
+                            width: 40%;
+                            color: #e9e9e9;
+                            font-size: 14px;
+                            text-align: left;
+                        }
+                    }
+                }
+
+                .movieDetail-bottom-content-right {
+                    .movieDetail-bottom-content-row {
+                        margin-bottom: 20px;
+
+                        .contentTitle {
+                            color: #fff;
+                            font-size: 14px;
+                            font-weight: 500;
+                        }
+
+                        .contentInfo {
+                            color: #e9e9e9;
+                            font-size: 14px;
+                            line-height: 2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
