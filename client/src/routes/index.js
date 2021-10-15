@@ -26,7 +26,7 @@ export default function Routes() {
               <Route path="/register" exact>
                 <Register></Register>
               </Route>
-              <Route path="/movie/:id" exact>
+              <Route path="/movie/:idMovie" exact>
                 <MovieDetail></MovieDetail>
               </Route>
             </Switch>

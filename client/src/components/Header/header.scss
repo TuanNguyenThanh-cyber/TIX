@@ -44,8 +44,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding-right: 5px;
+            padding: 10px;
             cursor: pointer;
+            transition: all 0.5s;
+            border: none;
+            background: white;
             img {
                 width: 30px;
                 height: 30px;
@@ -55,7 +58,46 @@
             .header-right-account-name {
                 padding: 0 5px;
                 color: $color-gray-4;
+                font-size: 15px;
             }
+
+            .header-right-setting {
+                display: none;
+                position: absolute;
+                top: 100%;
+                right: 0;
+                z-index: 10;
+                min-width: 160px;
+                background-color: #ffffff;
+                padding: 5px 0;
+                border: 1px solid rgba(0, 0, 0, 0.15);
+                border-radius: 4px;
+                box-shadow: 0 6px 12px rgb(0 0 0 / 18%);
+                ul {
+                    li {
+                        a {
+                            padding: 8px 15px;
+                            display: block;
+                            color: #000000;
+                            font-size: 15px;
+                            transition: all 0.2s;
+                            font-size: 14px;
+
+                            &:hover {
+                                color: #ffffff;
+                                background-color: #60c5ef;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                .header-right-setting {
+                    display: block;
+                }
+            }
+
             &::after {
                 content: "";
                 position: absolute;

@@ -4,13 +4,14 @@ import { changeGp } from "../../redux/actions/gp";
 import { LocationOnOutlined, ArrowDropDownOutlined } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { arrayProvinces } from "../../FakeData";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./header.scss";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [province, setProvince] = useState("Hồ Chí Minh");
   const [gp, setGp] = useState("GP02"); // gp: That is a querystring (maNhom) to callAPI getAllMovies
+  const history = useHistory();
   const dropdownRef = useRef(null);
 
   const infoUser = localStorage.getItem("userInfo")
@@ -47,6 +48,19 @@ export default function Header() {
     };
   }, [open, handleToggle]);
 
+  const handleGoToLogin = (e) => {
+    e.preventDefault();
+    if (!infoUser) {
+      history.push("/login");
+    }
+  };
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("userInfo");
+    history.go(0);
+  };
+
   return (
     <Grid
       container
@@ -56,9 +70,9 @@ export default function Header() {
       id="header"
     >
       <Grid item className="header-left">
-        <a href="/">
+        <Link to="/">
           <img src="/img/Header/web-logo.png" alt="" />
-        </a>
+        </Link>
       </Grid>
       <Grid item className="header-center">
         <ul>
@@ -77,12 +91,26 @@ export default function Header() {
         </ul>
       </Grid>
       <Grid item className="header-right">
-        <Link to="/login" className="header-right-account">
+        <button className="header-right-account" onClick={handleGoToLogin}>
           <img src="/img/Header/avatar.png" alt="" />
           <span className="header-right-account-name">
             {infoUser ? infoUser.taiKhoan : "Đăng nhập"}
           </span>
-        </Link>
+          {infoUser && (
+            <div className="header-right-setting">
+              <ul>
+                <li>
+                  <Link to="/userInfo">Thông tin tài khoản</Link>
+                </li>
+                <li>
+                  <a href="" onClick={handleLogout}>
+                    Đăng xuất
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
+        </button>
         <div className="header-right-location" onClick={handleToggle}>
           <LocationOnOutlined className="header-right-location-icon"></LocationOnOutlined>
           <span className="header-right-location-name">{province}</span>

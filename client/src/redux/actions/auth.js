@@ -20,7 +20,7 @@ export function login(value) {
       dispatch({ type: LOGIN_SUCCESS, payload: { data } });
       Swal.fire(
         "Đăng nhập thành công!",
-        "Chúc bạn có trải nghiệm vui vẻ tại TIX!",
+        "Chúc bạn có những trải nghiệm vui vẻ tại TIX!",
         "success"
       );
     } catch (error) {
