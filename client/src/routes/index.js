@@ -5,6 +5,7 @@ import LoadingPage from "../components/LoadingPage";
 const Home = lazy(() => import("../pages/Home"));
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
+const Profile = lazy(() => import("../pages/Profile"));
 const MovieDetail = lazy(() => import("../pages/MovieDetail"));
 
 export default function Routes() {
@@ -25,6 +26,9 @@ export default function Routes() {
               </Route>
               <Route path="/register" exact>
                 <Register></Register>
+              </Route>
+              <Route path="/profile/:idAccount" exact>
+                <Profile></Profile>
               </Route>
               <Route path="/movie/:idMovie" exact>
                 <MovieDetail></MovieDetail>

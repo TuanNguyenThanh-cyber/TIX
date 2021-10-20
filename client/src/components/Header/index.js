@@ -100,7 +100,9 @@ export default function Header() {
             <div className="header-right-setting">
               <ul>
                 <li>
-                  <Link to="/userInfo">Thông tin tài khoản</Link>
+                  <Link to={`/profile/${infoUser?.taiKhoan}`}>
+                    Thông tin tài khoản
+                  </Link>
                 </li>
                 <li>
                   <a href="" onClick={handleLogout}>
