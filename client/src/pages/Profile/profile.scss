@@ -27,7 +27,7 @@
         }
 
         .profile-title {
-            margin-top: 100px;
+            margin-top: 80px;
             text-align: center;
 
             .profile-title-name {
@@ -59,12 +59,13 @@
 
         .profile-account {
             display: flex;
+            padding: 30px 0;
 
             .profile-menu-tabs {
                 width: 30%;
+                height: 100%;
                 background: white;
                 border-radius: 5px;
-                margin-top: 20px;
                 padding: 10px;
                 margin-right: 30px;
                 .profile-menu-tab {
@@ -97,26 +98,26 @@
                 width: 70%;
                 background: white;
                 border-radius: 5px;
-                margin-top: 20px;
-                padding: 20px;
+                padding: 0 30px;
 
                 .profile-content-container {
+                    position: relative;
                     .profile-content-info {
                         .profile-content-info-title {
                             font-weight: 500;
                             font-size: 20px;
-                            margin-bottom: 20px;
+                            margin: 30px 0;
                         }
                         .profile-content-info-line {
-                            margin-bottom: 15px;
+                            margin-bottom: 20px;
 
                             .profile-content-info-line-item {
                                 display: flex;
                                 align-items: center;
 
                                 .profile-content-info-icon {
-                                    width: 40px;
-                                    height: 40px;
+                                    width: 35px;
+                                    height: 35px;
                                     border-radius: 50%;
                                     background: $color-red-0;
                                     margin-right: 15px;
@@ -125,12 +126,169 @@
                                     justify-content: center;
 
                                     .profile-icon {
-                                        font-size: 24px;
+                                        font-size: 20px;
                                         color: white;
                                     }
                                 }
 
                                 .profile-content-info-text {
+                                }
+                            }
+                        }
+                    }
+
+                    .profile-content-change-info {
+                        width: 65%;
+                        margin: 0 auto;
+                        .profile-content-change-info-title {
+                            font-size: 30px;
+                            text-align: center;
+                            font-weight: 500;
+                            margin: 25px 0;
+                        }
+
+                        .profile-content-change-info-form {
+                            .profile-content-change-info-line {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin: 20px 0;
+
+                                .profile-content-change-info-icon {
+                                    width: 45px;
+                                    height: 45px;
+                                    border-radius: 50%;
+                                    background: $color-red-0;
+                                    margin-right: 15px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    .profile-icon {
+                                        font-size: 22px;
+                                        color: white;
+                                    }
+                                }
+
+                                .profile-content-change-info-input {
+                                    width: 100%;
+                                }
+
+                                .profile-content-change-info-form-error {
+                                    color: red;
+                                }
+
+                                .profile-content-change-info-select {
+                                    width: 100%;
+                                    height: 100%;
+                                    padding: 18.5px 14px;
+                                    border-radius: 5px;
+                                    border: 1px solid rgba(0, 0, 0, 0.23);
+
+                                    &:hover {
+                                        border: 1px solid rgba(0, 0, 0, 0.87);
+                                    }
+
+                                    &:focus-visible {
+                                        border: 1px solid rgba(0, 0, 0, 0.87);
+                                        outline: none;
+                                    }
+                                }
+                            }
+
+                            .profile-content-change-info-btn {
+                                display: flex;
+                                align-items: center;
+                                justify-content: end;
+                                .btn-change-info {
+                                    background-image: linear-gradient(to left, #e43a15 0%, #e65245 51%, #e43a15 100%);
+                                    margin-bottom: 25px;
+                                    padding: 15px 45px;
+                                    text-align: center;
+                                    font-weight: 600;
+                                    text-transform: uppercase;
+                                    transition: 0.5s;
+                                    background-size: 200% auto;
+                                    color: white;
+                                    box-shadow: 0 0 20px #eee;
+                                    border: none;
+                                    border-radius: 10px;
+                                    cursor: pointer;
+
+                                    &:hover {
+                                        background-position: right center; /* change the direction of the change here */
+                                        color: #fff;
+                                        text-decoration: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .profile-content-change-password {
+                        width: 65%;
+                        margin: 0 auto;
+
+                        .profile-content-change-password-title {
+                            font-size: 30px;
+                            text-align: center;
+                            font-weight: 500;
+                            margin: 25px 0;
+                        }
+
+                        .profile-content-change-password-form {
+                            .profile-content-change-password-line {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                margin: 20px 0;
+
+                                .profile-content-change-password-icon {
+                                    width: 45px;
+                                    height: 45px;
+                                    border-radius: 50%;
+                                    background: $color-red-0;
+                                    margin-right: 15px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+
+                                    .profile-icon {
+                                        font-size: 22px;
+                                        color: white;
+                                    }
+                                }
+
+                                .profile-content-change-password-input {
+                                    width: 100%;
+                                }
+                            }
+
+                            .profile-content-change-password-btn {
+                                display: flex;
+                                align-items: center;
+                                justify-content: end;
+                                margin-top: 10px;
+                                .btn-change-password {
+                                    background-image: linear-gradient(to left, #e43a15 0%, #e65245 51%, #e43a15 100%);
+                                    margin-bottom: 25px;
+                                    padding: 15px 45px;
+                                    text-align: center;
+                                    font-weight: 600;
+                                    text-transform: uppercase;
+                                    transition: 0.5s;
+                                    background-size: 200% auto;
+                                    color: white;
+                                    box-shadow: 0 0 20px #eee;
+                                    border: none;
+                                    border-radius: 10px;
+                                    cursor: pointer;
+
+                                    &:hover {
+                                        background-position: right center; /* change the direction of the change here */
+                                        color: #fff;
+                                        text-decoration: none;
+                                    }
                                 }
                             }
                         }
