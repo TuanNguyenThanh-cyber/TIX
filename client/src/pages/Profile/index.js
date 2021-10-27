@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Tabs, Tab, Grid, TextField } from "@material-ui/core";
@@ -18,8 +19,15 @@ import { Alert } from "@material-ui/lab";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import userApi from "../../services/userApi";
 import Swal from "sweetalert2";
-import { useHistory } from "react-router-dom";
+import {
+  NotificationContainer,
+  NotificationManager,
+} from "react-notifications";
+import { useHistory, useParams } from "react-router-dom";
+import { getInfoUser } from "../../redux/actions/user";
+import "react-notifications/lib/notifications.css";
 import "./profile.scss";
 
 // Regex VietNam phone number
@@ -33,11 +41,7 @@ const schemaForChangeInfo = yup.object().shape({
     .string()
     .required("Email không được để trống")
     .email("Không đúng định dạng email"),
-  soDt: yup
-    .string()
-    .required("Số điện thoại không được để trống")
-    .matches(phoneRegVn, "Không đúng định dạng số điện thoại"),
-  maLoaiNguoiDung: yup.string(),
+  soDt: yup.string().required("Số điện thoại không được để trống"),
 });
 
 const schemaForChangePassword = yup.object().shape({
@@ -92,8 +96,9 @@ export default function Profile() {
   const classes = useStyles();
   const [tabHeader, setHeader] = useState(0);
   const [tabProfileMenu, setTabProfileMenu] = useState(0);
-  const [province, setProvince] = useState("");
   const history = useHistory();
+  const { idAccount } = useParams();
+  const dispatch = useDispatch();
 
   // Variable For Change Info
   const {
@@ -111,43 +116,113 @@ export default function Profile() {
     register: registerForChangePassword,
     handleSubmit: handleSubmitForChangePassword,
     formState: { errors: errorsForChangePassword },
-    setValue: setValueForChangePassword,
   } = useForm({
     resolver: yupResolver(schemaForChangePassword),
     mode: "onChange",
   });
 
+  // Variable useSelector
+  const { getInfoUserData } = useSelector((state) => state.getInfoUser);
+
   // Function
+
+  // ChangeTabProfileMenu
   const handleChangeTabProfileMeunu = (event, newValue) => {
     setTabProfileMenu(newValue);
   };
 
+  // ChangeTabMenu
   const handleChangeTabHeader = (event, newValue) => {
     setHeader(newValue);
   };
 
+  // UpdateInfoUser
   const handleUpdateInfoUser = (value) => {
-    console.log(value);
+    const objToUpdateInfoUser = {
+      ...value,
+      maNhom: "GP15",
+      matKhau: getInfoUserData?.matKhau,
+      maLoaiNguoiDung: "KhachHang",
+    };
+
+    const updateUser = async () => {
+      return await userApi.updateInfoUser(objToUpdateInfoUser);
+    };
+
+    updateUser()
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getInfoUser({ taiKhoan: res.data.taiKhoan }));
+        return NotificationManager.success(
+          "Cập nhật tài khoản thành công",
+          "Thành công"
+        );
+      })
+      .catch((err) => {
+        return NotificationManager.error(err.response.data, "Thất bại");
+      });
   };
 
+  // ChangePassword
   const handleChangePassword = (value) => {
-    console.log(value);
+    // Create Obj To Change Password
+    const objToChangePassword = {
+      taiKhoan: getInfoUserData.taiKhoan,
+      matKhau: value.matKhau,
+      email: getInfoUserData.email,
+      soDt: getInfoUserData.soDT,
+      maNhom: getInfoUserData.maNhom,
+      maLoaiNguoiDung: "KhachHang",
+      hoTen: getInfoUserData.hoTen,
+    };
+
+    // Show popup warning
+    Swal.fire({
+      title: "Thay đổi mật khẩu với tài khoản này?",
+      text: "Lưu ý: Vui lòng ghi nhớ mật khẩu vừa thay đổi, sau khi đổi mật khẩu thành công sẽ trở về trang đăng nhập",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Đổi mật khẩu!",
+      cancelButtonText: "Hủy",
+    }).then((result) => {
+      // Accecpt to change password
+      if (result.isConfirmed) {
+        // Call Api to change password
+        userApi
+          .updateInfoUser(objToChangePassword)
+          // Change password success
+          .then((res) => {
+            Swal.fire(
+              "Thay đổi mật khẩu thành công!",
+              "Quay trở lại trang đăng nhập!",
+              "success"
+            ).then((result) => {
+              localStorage.removeItem("userInfo");
+              history.push("/login");
+            });
+          })
+          // Change password false
+          .catch((err) => {
+            return NotificationManager.error(err.response.data, "Thất bại");
+          });
+      }
+    });
   };
 
-  const handleChangeProvince = (e) => {
-    setProvince(e.target.value);
-  };
-
+  // Logout
   const handleLogout = () => {
     {
       Swal.fire({
-        title: "Are you sure to log out of this account?",
+        title: "Bạn có chắc đăng xuất ra khỏi tài khoản này?",
         text: "You won't be able to revert this!",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, log out!",
+        confirmButtonText: "Đăng xuất!",
+        cancelButtonText: "Thoát",
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.removeItem("userInfo");
@@ -157,14 +232,32 @@ export default function Profile() {
     }
   };
 
-  // UseEffect setValue input
+  // UseEffect
+
+  // Check user isLogin => if not => go to the Login page
   useEffect(() => {
-    setValueForChangeInfo("taiKhoan", "Vũ Thị Ngọc Minh");
-    setValueForChangeInfo("hoTen", "Vũ Thị Ngọc Minh");
-    setValueForChangeInfo("email", "minh@gmail.com");
-    setValueForChangeInfo("soDt", "0868056658");
-    setValueForChangeInfo("maLoaiNguoiDung", "Khách Hàng");
+    if (!localStorage.getItem("userInfo")) {
+      history.push("/login");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Bạn không thể truy cập trang này vì lý do chưa đăng nhập, vui lòng đăng nhập để có thể truy cập!",
+      });
+    }
+  });
+
+  // Call api getInfoUser
+  useEffect(() => {
+    dispatch(getInfoUser({ taiKhoan: idAccount }));
   }, []);
+
+  // After call api getInfoUser setValueForm
+  useEffect(() => {
+    setValueForChangeInfo("taiKhoan", getInfoUserData?.taiKhoan);
+    setValueForChangeInfo("hoTen", getInfoUserData?.hoTen);
+    setValueForChangeInfo("email", getInfoUserData?.email);
+    setValueForChangeInfo("soDt", getInfoUserData?.soDT);
+  }, [getInfoUserData]);
 
   return (
     <div id="profile">
@@ -178,7 +271,7 @@ export default function Profile() {
         </div>
 
         <div className="profile-title">
-          <p className="profile-title-name">Vũ Thị Ngọc Minh</p>
+          <p className="profile-title-name">{getInfoUserData?.hoTen}</p>
           <p className="profile-title-user-type">Khách Hàng</p>
         </div>
 
@@ -290,7 +383,7 @@ export default function Profile() {
                           <AccountBox className="profile-icon" />
                         </div>
                         <span className="profile-content-info-text">
-                          Tài khoản: Vũ Thị Ngọc Minh
+                          Tài khoản: {getInfoUserData?.taiKhoan}
                         </span>
                       </Grid>
                       <Grid
@@ -302,7 +395,7 @@ export default function Profile() {
                           <Person className="profile-icon" />
                         </div>
                         <span className="profile-content-info-text">
-                          Họ Tên: Vũ Thị Ngọc Minh
+                          Họ Tên: {getInfoUserData?.hoTen}
                         </span>
                       </Grid>
                     </Grid>
@@ -321,7 +414,7 @@ export default function Profile() {
                           <Call className="profile-icon" />
                         </div>
                         <span className="profile-content-info-text">
-                          Số điện thoại: 0868056658
+                          Số điện thoại: {getInfoUserData?.soDT}
                         </span>
                       </Grid>
                       <Grid
@@ -333,11 +426,10 @@ export default function Profile() {
                           <Email className="profile-icon" />
                         </div>
                         <span className="profile-content-info-text">
-                          Email: minh@gmail.com
+                          Email: {getInfoUserData?.email}
                         </span>
                       </Grid>
                     </Grid>
-
                     <Grid
                       container
                       spacing={2}
@@ -352,7 +444,7 @@ export default function Profile() {
                           <PersonPin className="profile-icon" />
                         </div>
                         <span className="profile-content-info-text">
-                          Mã nhóm: GP10
+                          Mã nhóm: {getInfoUserData?.maNhom}
                         </span>
                       </Grid>
                       <Grid
@@ -364,7 +456,7 @@ export default function Profile() {
                           <VerifiedUser className="profile-icon" />
                         </div>
                         <span className="profile-content-info-text">
-                          Mã loại: Khách hàng
+                          Mã loại: Khách Hàng
                         </span>
                       </Grid>
                     </Grid>
@@ -450,40 +542,7 @@ export default function Profile() {
                           {errorsForChangeInfo.soDt.message}
                         </Alert>
                       )}
-                      <div className="profile-content-change-info-line">
-                        <div className="profile-content-change-info-icon">
-                          <PersonPin className="profile-icon" />
-                        </div>
-                        <select
-                          className="profile-content-change-info-select"
-                          onChange={handleChangeProvince}
-                          defaultValue="GP03"
-                        >
-                          <option value="GP02">Thành phố Hồ Chí Minh</option>
-                          <option value="GP03">Hà Nội</option>
-                          <option value="GP04">Đà Nẵng</option>
-                          <option value="GP05">Hải Phòng</option>
-                          <option value="GP06">Nha Trang</option>
-                          <option value="GP07">Cần Thơ</option>
-                          <option value="GP08">Vũng Tàu</option>
-                          <option value="GP09">Thái Bình</option>
-                          <option value="GP10">Long An</option>
-                        </select>
-                      </div>
-                      <div className="profile-content-change-info-line">
-                        <div className="profile-content-change-info-icon">
-                          <VerifiedUser className="profile-icon" />
-                        </div>
-                        <TextField
-                          className="profile-content-change-info-input"
-                          label="Mã loại người dùng"
-                          variant="outlined"
-                          inputProps={{
-                            ...registerForChangeInfo("maLoaiNguoiDung"),
-                          }}
-                          disabled
-                        />
-                      </div>
+
                       <div className="profile-content-change-info-btn">
                         <button type="submit" className="btn-change-info">
                           Cập nhật
@@ -553,6 +612,9 @@ export default function Profile() {
                           Xác nhận
                         </button>
                       </div>
+
+                      {/* If change password success or false show notification here */}
+                      <NotificationContainer />
                     </form>
                   </div>
                 </div>

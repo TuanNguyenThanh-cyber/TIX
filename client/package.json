@@ -20,6 +20,7 @@
     "react-loading": "^2.0.3",
     "react-modal-video": "^1.2.8",
     "react-move": "^6.5.0",
+    "react-notifications": "^1.7.2",
     "react-redux": "^7.2.5",
     "react-responsive-carousel": "^3.2.21",
     "react-router-dom": "^5.3.0",
