@@ -1,0 +1,26 @@
+.empty {
+    background: rgb(255, 255, 255);
+    padding: 40px 20px;
+    border-radius: 4px;
+    text-align: center;
+    width: 100%;
+    .empty__img {
+        width: 190px;
+    }
+    .empty__note {
+        margin: 20px 0;
+    }
+
+    .empty__btn {
+        background-color: rgb(253, 216, 53);
+        color: rgb(74, 74, 74);
+        font-weight: 500;
+        padding: 10px 55px;
+        display: inline-block;
+        border-radius: 4 px;
+
+        &:hover {
+            background: rgb(253, 206, 3);
+        }
+    }
+}

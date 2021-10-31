@@ -2,9 +2,6 @@ import {
   GET_INFO_USER_REQUEST,
   GET_INFO_USER_SUCCESS,
   GET_INFO_USER_FAILURE,
-  UPDATE_INFO_USER_REQUEST,
-  UPDATE_INFO_USER_SUCCESS,
-  UPDATE_INFO_USER_FAILURE,
 } from "../constants/user";
 import userApi from "../../services/userApi";
 

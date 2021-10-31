@@ -2,7 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { AppBar, Tabs, Tab, Grid, TextField } from "@material-ui/core";
+import {
+  AppBar,
+  Tabs,
+  Tab,
+  Grid,
+  TextField,
+  Box,
+  Collapse,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@material-ui/core";
 import {
   AccountBox,
   AccountCircle,
@@ -14,6 +30,8 @@ import {
   Person,
   PersonPin,
   VerifiedUser,
+  KeyboardArrowDown,
+  KeyboardArrowUp,
 } from "@material-ui/icons";
 import { Alert } from "@material-ui/lab";
 import * as yup from "yup";
@@ -27,13 +45,15 @@ import {
 } from "react-notifications";
 import { useHistory, useParams } from "react-router-dom";
 import { getInfoUser } from "../../redux/actions/user";
+import { formatMoneyVND } from "../../utils/formatMoneyVND";
+import Empty from "../../components/Empty";
 import "react-notifications/lib/notifications.css";
 import "./profile.scss";
 
 // Regex VietNam phone number
 const phoneRegVn = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
 
-// Tạo schema validation
+// Schema validation Change Info
 const schemaForChangeInfo = yup.object().shape({
   taiKhoan: yup.string().required("Tài khoản không được để trống"),
   hoTen: yup.string().required("Họ và tên không được để trống"),
@@ -44,6 +64,7 @@ const schemaForChangeInfo = yup.object().shape({
   soDt: yup.string().required("Số điện thoại không được để trống"),
 });
 
+// Schema validation Change Password
 const schemaForChangePassword = yup.object().shape({
   matKhau: yup
     .string()
@@ -55,6 +76,8 @@ const schemaForChangePassword = yup.object().shape({
     .oneOf([yup.ref("matKhau"), null], "Không trùng khớp với mật khẩu"),
 });
 
+// Tab Panel
+// Function TabPanel
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -71,6 +94,7 @@ function TabPanel(props) {
   );
 }
 
+// TabPanel propTypes
 TabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.any.isRequired,
@@ -83,13 +107,92 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
-
+// Style Tabpanel
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     marginTop: 20,
   },
 }));
+
+// Table Booking Movie
+// Style Table
+const useRowStyles = makeStyles({
+  root: {
+    "& > *": {
+      borderBottom: "unset",
+    },
+  },
+});
+
+// Row
+function Row(props) {
+  const { ticket } = props;
+  const [open, setOpen] = React.useState(false);
+  const classes = useRowStyles();
+
+  return (
+    <React.Fragment>
+      <>
+        <TableRow className={classes.root}>
+          <TableCell>
+            <IconButton
+              aria-label="expand row"
+              size="small"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+            </IconButton>
+          </TableCell>
+          <TableCell component="th" scope="row">
+            {ticket.tenPhim}
+          </TableCell>
+          <TableCell align="center">{ticket.thoiLuongPhim}</TableCell>
+          <TableCell align="center">{ticket.ngayDat}</TableCell>
+          <TableCell align="center">
+            {formatMoneyVND(ticket.giaVe * ticket.danhSachGhe.length)}
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+            <Collapse in={open} timeout="auto" unmountOnExit>
+              <Box margin={1}>
+                <Table size="small" aria-label="purchases">
+                  <TableHead style={{ backgroundColor: "#d8d8d8" }}>
+                    <TableRow>
+                      <TableCell align="left">Tên ghế</TableCell>
+                      <TableCell align="center">Hệ thống rạp</TableCell>
+                      <TableCell align="center">Tên hệ thống rạp</TableCell>
+                      <TableCell align="center">Rạp</TableCell>
+                      <TableCell align="right">Giá vé</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {ticket.danhSachGhe.map((item, index) => (
+                      <TableRow key={index}>
+                        <TableCell align="left">{item.tenGhe}</TableCell>
+                        <TableCell align="center">
+                          {item.maHeThongRap}
+                        </TableCell>
+                        <TableCell align="center">
+                          {item.tenHeThongRap}
+                        </TableCell>
+                        <TableCell align="center">{item.tenRap}</TableCell>
+                        <TableCell align="right">
+                          {formatMoneyVND(ticket.giaVe)}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Box>
+            </Collapse>
+          </TableCell>
+        </TableRow>
+      </>
+    </React.Fragment>
+  );
+}
 
 export default function Profile() {
   // State
@@ -151,15 +254,15 @@ export default function Profile() {
 
     updateUser()
       .then((res) => {
-        console.log(res.data);
         dispatch(getInfoUser({ taiKhoan: res.data.taiKhoan }));
         return NotificationManager.success(
           "Cập nhật tài khoản thành công",
-          "Thành công"
+          "Thành công",
+          1000
         );
       })
       .catch((err) => {
-        return NotificationManager.error(err.response.data, "Thất bại");
+        return NotificationManager.error(err.response.data, "Thất bại", 1000);
       });
   };
 
@@ -548,6 +651,9 @@ export default function Profile() {
                           Cập nhật
                         </button>
                       </div>
+
+                      {/* If change userInfo success or false show notification here */}
+                      <NotificationContainer />
                     </form>
                   </div>
                 </div>
@@ -612,9 +718,6 @@ export default function Profile() {
                           Xác nhận
                         </button>
                       </div>
-
-                      {/* If change password success or false show notification here */}
-                      <NotificationContainer />
                     </form>
                   </div>
                 </div>
@@ -629,7 +732,47 @@ export default function Profile() {
           </TabPanel>
           <TabPanel value={tabHeader} index={1}>
             {/* Tab 2 */}
-            Tab 2
+            <div className="profile-info-booking">
+              {getInfoUserData?.thongTinDatVe.length === 0 ? (
+                <Empty>
+                  <span style={{ display: "block" }}>
+                    Mọi vé bạn đặt sẽ được hiển thị tại đây.
+                  </span>
+                  <span style={{ display: "block" }}>
+                    Hiện bạn chưa có bất kỳ đặt vé nào, hãy đặt trên trang chủ
+                    ngay!
+                  </span>
+                </Empty>
+              ) : (
+                <TableContainer component={Paper}>
+                  <Table aria-label="collapsible table">
+                    <TableHead style={{ backgroundColor: "#fb4226" }}>
+                      <TableRow>
+                        <TableCell style={{ color: "white" }} />
+                        <TableCell style={{ color: "white" }}>
+                          Tên phim
+                        </TableCell>
+                        <TableCell style={{ color: "white" }} align="center">
+                          Thời lượng phim (phút)
+                        </TableCell>
+                        <TableCell style={{ color: "white" }} align="center">
+                          Ngày đặt
+                        </TableCell>
+                        <TableCell style={{ color: "white" }} align="center">
+                          Tổng tiền
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody className="profile-info-booking-table-body">
+                      {/* Row booking info */}
+                      {getInfoUserData?.thongTinDatVe.map((ticket, index) => (
+                        <Row key={index} ticket={ticket} />
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              )}
+            </div>
           </TabPanel>
         </div>
       </div>

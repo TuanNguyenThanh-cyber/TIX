@@ -2,19 +2,10 @@ import {
   GET_INFO_USER_REQUEST,
   GET_INFO_USER_FAILURE,
   GET_INFO_USER_SUCCESS,
-  UPDATE_INFO_USER_REQUEST,
-  UPDATE_INFO_USER_FAILURE,
-  UPDATE_INFO_USER_SUCCESS,
 } from "../constants/user";
 
 const initialGetInfoUser = {
   getInfoUserData: null,
-  isLoading: false,
-  error: null,
-};
-
-const initialUpdateInfoUser = {
-  updateInfoUserData: null,
   isLoading: false,
   error: null,
 };
@@ -38,4 +29,3 @@ export function getInfoUserReducer(state = initialGetInfoUser, action) {
       return state;
   }
 }
-
