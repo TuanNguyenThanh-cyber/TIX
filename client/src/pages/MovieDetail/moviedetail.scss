@@ -211,15 +211,16 @@
                 padding: 30px 0;
                 .movieDetail-bottom-showtime-container {
                     display: flex;
-                    border: 1px solid #fff;
+                    border: 1px solid #ebebec;
                     border-radius: 4px;
+
                     .movieDetail-bottom-showtime-left {
                         width: 25%;
-                        border-right: 1px solid #fff;
+                        border-right: 1px solid #d8d8d8;
                         ul {
                             li {
                                 position: relative;
-                                padding: 15px;
+                                padding: 20px;
                                 &:not(:last-child)::after {
                                     content: "";
                                     position: absolute;
@@ -227,23 +228,24 @@
                                     left: 50%;
                                     width: calc(100% - 20px);
                                     transform: translateX(-50%);
-                                    border-bottom: 1px solid #fff;
-                                    border-color: rgba(238, 238, 238, 0.88);
+                                    border-bottom: 1px solid #d8d8d8;
                                 }
 
                                 .movieDetail-bottom-showtime-left-link {
                                     display: inline-flex;
                                     align-items: center;
                                     transition: all 0.5s;
-                                    opacity: 0.6;
+                                    opacity: 0.5;
 
                                     img {
                                         width: 50px;
                                         height: 50px;
-                                        margin-right: 10px;
+                                        margin-right: 15px;
                                     }
                                     span {
-                                        color: white;
+                                        font-size: 16px;
+                                        font-weight: 500;
+                                        color: #fff;
                                     }
 
                                     &:hover {
@@ -260,6 +262,24 @@
 
                     .movieDetail-bottom-showtime-right {
                         width: 75%;
+                        position: relative;
+                        max-height: 600px;
+                        overflow-y: auto;
+                        overflow-x: hidden;
+
+                        &::-webkit-scrollbar-track {
+                            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                            background-color: #d8d8d8;
+                        }
+
+                        &::-webkit-scrollbar {
+                            width: 6px;
+                            background-color: #d8d8d8;
+                        }
+
+                        &::-webkit-scrollbar-thumb {
+                            background-color: #000;
+                        }
 
                         .movieDetail-bottom-showtime-right-item {
                             position: relative;
@@ -274,15 +294,19 @@
                                     margin-right: 10px;
                                 }
                                 span {
-                                    color: white;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                    color: #fff;
                                 }
                             }
 
                             .movieDetail-bottom-showtime-right-digital {
+                                margin-top: 20px;
                                 margin-bottom: 10px;
                                 span {
-                                    color: white;
-                                    font-weight: 600;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                    color: #fff;
                                 }
                             }
 
@@ -296,6 +320,9 @@
                                     font-size: 16px;
                                     cursor: pointer;
                                     transition: all 0.5s;
+                                    margin: 20px 0;
+                                    margin-left: 0;
+                                    margin-right: 30px;
 
                                     .movieDetail-bottom-showtime-right-booking-time-start {
                                         color: $color-green-0;
@@ -322,7 +349,7 @@
                                 left: 50%;
                                 width: calc(100% - 40px);
                                 transform: translateX(-50%);
-                                border-bottom: 1px solid #fff;
+                                border-bottom: 1px solid #000;
                                 border-color: rgba(238, 238, 238, 0.88);
                             }
                         }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import {
   getTheaterSystem,
   getInfoTheaterSystemShowtimes,
@@ -8,7 +9,7 @@ import { getHoursAndMins, getDate } from "../../utils/separateDayAndTime";
 import "./homebookingmovie.scss";
 
 export default function HomeBookingMovie() {
-  // State in component
+  // State and variable in component
   const [indexTheater, setIndexTheater] = useState(0);
   const [indexTheaterCluster, setIndexTheaterCluster] = useState(0);
   const [idTheaterSystem, setIdTheaterSystem] = useState("BHDStar");
@@ -16,6 +17,7 @@ export default function HomeBookingMovie() {
     "bhd-star-cineplex-bitexco"
   );
   const [arrayMovieTab3, setArrayMovieTab3] = useState([]); // Array movie for tab 3
+  const history = useHistory();
 
   // State in reducer
   const { theaterSystemData } = useSelector((state) => state.getTheaterSystem);
@@ -55,6 +57,11 @@ export default function HomeBookingMovie() {
       default:
         break;
     }
+  };
+
+  const handleGoToMovieDetailPage = (e, maPhim) => {
+    e.preventDefault();
+    history.push(`/movie/${maPhim}`);
   };
 
   // When component render call api get all theater system
@@ -161,12 +168,21 @@ export default function HomeBookingMovie() {
         {arrayMovieTab3.map((movie, index) => (
           <div className="listMovie-item" key={index}>
             <div className="listMovie-item-content">
-              <img src={movie.hinhAnh} alt="" />
+              <a
+                href="/"
+                onClick={(e) => handleGoToMovieDetailPage(e, movie.maPhim)}
+              >
+                <img src={movie.hinhAnh} alt="" />
+              </a>
               <div className="listMovie-item-info">
                 <span className="listMovie-item-info-age">P</span>
-                <span className="listMovie-item-info-name">
+                <a
+                  href="/"
+                  onClick={(e) => handleGoToMovieDetailPage(e, movie.maPhim)}
+                  className="listMovie-item-info-name"
+                >
                   {movie.tenPhim}
-                </span>
+                </a>
                 <p className="listMovie-item-info-time">
                   120 phút - TIX 9.4 - IMDb 8.7
                 </p>

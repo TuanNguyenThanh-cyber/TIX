@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getDate } from "../../utils/separateDayAndTime";
+import { getHoursAndMins, getDate } from "../../utils/separateDayAndTime";
 import getVideoIdYoutube from "../../utils/getVideoIdYoutube";
 import AppLayout from "../../layouts/AppLayout";
 import AnimatedProgressProvider from "../../components/AnimatedProgressProvider";
@@ -57,7 +57,8 @@ export default function MovieDetail() {
   );
   const { idMovie } = useParams();
   const [listTheater, setListTheater] = useState([]);
-  const [chooseTheater, setchooseTheater] = useState("");
+  const [listTheaterCluster, setListTheaterCluster] = useState([]);
+  const [chooseTheater, setChooseTheater] = useState("");
   const handlePopUpVideo = (idVideo) => {
     console.log(videoId);
     setPopUp(!isPopUp);
@@ -88,7 +89,7 @@ export default function MovieDetail() {
   // handleChangeIndexTheater
   const handleChangeTheater = (e, theaterName) => {
     e.preventDefault();
-    setchooseTheater(theaterName);
+    setChooseTheater(theaterName);
   };
 
   // Handle showtimes movie
@@ -103,13 +104,39 @@ export default function MovieDetail() {
   });
 
   useEffect(() => {
-    if (listTheater.length === 1) {
-      setchooseTheater(listTheater[0]);
+    if (isLoading === false && getMovieDetailData !== null) {
+      let arrayTheater = getMovieDetailData?.lichChieu.filter((showtime) => {
+        return showtime.thongTinRap.maHeThongRap === chooseTheater;
+      });
+      let arrayTheaterCluster = [];
+      getMovieDetailData.lichChieu.map((showtime) => {
+        if (showtime.thongTinRap.maHeThongRap === chooseTheater) {
+          if (arrayTheaterCluster.length === 0) {
+            arrayTheaterCluster.push(showtime.thongTinRap.tenCumRap);
+          } else {
+            if (!arrayTheaterCluster.includes(showtime.thongTinRap.tenCumRap)) {
+              arrayTheaterCluster.push(showtime.thongTinRap.tenCumRap);
+            }
+          }
+        }
+      });
+      let result = [];
+
+      arrayTheaterCluster.map((itemTheaterCluster) => {
+        let arrayFilterByTheaterCluster = arrayTheater.filter((itemTheater) => {
+          return itemTheater.thongTinRap.tenCumRap === itemTheaterCluster;
+        });
+        result.push(arrayFilterByTheaterCluster);
+      });
+
+      setListTheaterCluster(result);
     }
+  }, [chooseTheater, getMovieDetailData]);
+
+  useEffect(() => {
+    setChooseTheater(listTheater[0]);
   }, [listTheater]);
 
-  console.log(listTheater);
-  console.log(chooseTheater);
   return (
     <AppLayout>
       {isLoading ? (
@@ -317,29 +344,40 @@ export default function MovieDetail() {
                         </ul>
                       </div>
                       <div className="movieDetail-bottom-showtime-right">
-                        <div className="movieDetail-bottom-showtime-right-item">
-                          <div className="movieDetail-bottom-showtime-right-title">
-                            <img
-                              src="/img/Theater/bhd-star-cineplex.png"
-                              alt=""
-                            />
-                            <span>BHD Star Cineplex</span>
-                          </div>
-                          <div className="movieDetail-bottom-showtime-right-digital">
-                            <span>2D Digital</span>
-                          </div>
-                          <div className="movieDetail-bottom-showtime-right-booking">
-                            <button className="btn-booking">
-                              <span className="movieDetail-bottom-showtime-right-booking-time-start">
-                                10:10
+                        {listTheaterCluster.map((theaterCluster, index) => (
+                          <div
+                            className="movieDetail-bottom-showtime-right-item"
+                            key={index}
+                          >
+                            <div className="movieDetail-bottom-showtime-right-title">
+                              <img
+                                src={`/img/Theater/${chooseTheater}.png`}
+                                alt=""
+                              />
+                              <span>
+                                {theaterCluster[0].thongTinRap.tenCumRap}
                               </span>
-                              - 12: 00
-                              <p className="movieDetail-bottom-showtime-right-booking-day">
-                                Ngày chiếu: 2/1/2019
-                              </p>
-                            </button>
+                            </div>
+                            <div className="movieDetail-bottom-showtime-right-digital">
+                              <span>2D Digital</span>
+                            </div>
+                            <div className="movieDetail-bottom-showtime-right-booking">
+                              {theaterCluster.map((item, index) => (
+                                // Khi Click button này để mua vé thì cần mã lịch chiếu, chỉ cần: item.maLichChieu là OK
+                                <button className="btn-booking" key={index}>
+                                  <span className="movieDetail-bottom-showtime-right-booking-time-start">
+                                    {getHoursAndMins(item.ngayChieuGioChieu)}
+                                  </span>
+                                  - {getHoursAndMins(item.ngayChieuGioChieu, 2)}
+                                  <p className="movieDetail-bottom-showtime-right-booking-day">
+                                    Ngày chiếu:
+                                    {getDate(item.ngayChieuGioChieu)}
+                                  </p>
+                                </button>
+                              ))}
+                            </div>
                           </div>
-                        </div>
+                        ))}
                       </div>
                     </div>
                   </div>
