@@ -1,0 +1,180 @@
+#bookingMovie {
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+
+    .bookingMovie-container {
+        width: 100%;
+        display: flex;
+        flex-wrap: nowrap;
+        .bookingMovie-left {
+            padding: 20px;
+            .bookingMovie-left-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px;
+                box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+                .header-movieCluster {
+                    display: flex;
+                    align-items: center;
+                    img {
+                        width: 35px;
+                        height: 35px;
+                        border-radius: 50%;
+                        margin-right: 10px;
+                    }
+                    .header-movieCluster-content {
+                        .header-movieCluster-place {
+                            color: #333;
+                            margin-bottom: 5px;
+                            .header-movieCluster-name {
+                                font-size: 16px;
+                                color: #8bc541;
+                            }
+                        }
+                        .header-movieCluster-hour {
+                            line-height: 5px;
+                            font-size: 14px;
+                            color: #9b9b9b;
+                        }
+                    }
+                }
+                .header-timing {
+                    .header-timing-title {
+                        line-height: 0;
+                        font-size: 10px;
+                        color: #9b9b9b;
+                        text-align: center;
+                    }
+                    .header-timing-countdown {
+                        font-family: "SF Medium";
+                        line-height: 1;
+                        font-size: 29px;
+                        color: #fb4226;
+                        text-align: center;
+                    }
+                }
+            }
+            .bookingMovie-left-content {
+                margin-top: 10px;
+                .bookingMovie-left-title {
+                    margin-bottom: 10px;
+                    text-align: center;
+                    font-size: 30px;
+                    font-weight: 600;
+                    color: #fff;
+                }
+
+                .bookingMovie-left-screen {
+                    // height: 70px;
+                    // width: 100%;
+                    // margin: 15px 0;
+                    // transform: rotateX(-45deg);
+                    // box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    img {
+                        background-color: transparent;
+                        transform: rotate(180deg);
+                    }
+                }
+
+                .bookingMovie-left-button-note {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin: 20px 0;
+                    padding: 0 10px;
+                    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                    .button-note {
+                        padding: 10px;
+                    }
+                    .button-note-text {
+                        color: #fff;
+                        font-size: 15px;
+                    }
+                }
+
+                .bookingMovie-left-row {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+
+                    .bookingMovie-left-row-name {
+                        width: 25px;
+                        color: #fff;
+                    }
+
+                    .bookingMovie-left-row-seats {
+                        width: 100%;
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 5px 10px;
+
+                        .bookingMovie-left-row-seat {
+                            width: 25px;
+                            height: 25px;
+                            border-radius: 50%;
+                            cursor: pointer;
+                            span {
+                                color: #fff;
+                                font-size: 15 px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .bookingMovie-right {
+            background-color: #fff;
+            border-radius: 5px;
+            .bookingMovie-right-top {
+                .bookingMovie-right-movie {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .bookingMovie-right-movie-info {
+                        .bookingMovie-right-movie-name {
+                            font-size: 20px;
+                            font-weight: 600;
+
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1; // Number of line to show: N
+                            line-height: 1.5em; // X
+                            max-height: 1.5em; // X * N
+                        }
+                        .bookingMovie-right-movie-age {
+                            font-size: 14px;
+                            background-color: #00ac4d;
+                            border-radius: 5px;
+                            padding: 5px;
+                            color: #fff;
+                            min-width: 33px;
+                            text-align: center;
+                            display: inline-block;
+                            margin-right: 8px;
+                        }
+                        .bookingMovie-right-movie-detail {
+                            display: inline-block;
+                            font-size: 15px;
+                            color: #9b9b9b;
+                            text-align: center;
+                        }
+                    }
+                    .bookingMovie-right-movie-img {
+                        transform: scale(0.8);
+                        img {
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -49,3 +49,48 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+// Button booking
+.btn-booked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px auto;
+
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #a3a3a3;
+    pointer-events: none;
+    .btn-booked-icon {
+        font-size: 12px;
+        color: #ffffff;
+    }
+}
+.btn-choosing {
+    display: block;
+    margin: 5px auto;
+
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #00ac4d;
+}
+.btn-vip {
+    display: block;
+    margin: 5px auto;
+
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #ff8d00;
+}
+.btn-normal {
+    display: block;
+    margin: 5px auto;
+
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #0daefa;
+}

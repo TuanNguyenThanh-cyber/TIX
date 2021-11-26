@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { getHoursAndMins, getDate } from "../../utils/separateDayAndTime";
 import getVideoIdYoutube from "../../utils/getVideoIdYoutube";
 import AppLayout from "../../layouts/AppLayout";
@@ -22,13 +22,7 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
       {value === index && children}
     </div>
   );
@@ -48,13 +42,11 @@ function a11yProps(index) {
 }
 
 export default function MovieDetail() {
-  // State Component
+  // Variable
   const [isPopUp, setPopUp] = useState(false);
   const [videoId, setVideoId] = useState("");
   const dispatch = useDispatch();
-  const { getMovieDetailData, isLoading } = useSelector(
-    (state) => state.getMovieDetail
-  );
+  const { getMovieDetailData, isLoading } = useSelector((state) => state.getMovieDetail);
   const { idMovie } = useParams();
   const [listTheater, setListTheater] = useState([]);
   const [listTheaterCluster, setListTheaterCluster] = useState([]);
@@ -64,6 +56,7 @@ export default function MovieDetail() {
     setPopUp(!isPopUp);
     setVideoId(idVideo);
   };
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getMovieDetail(idMovie));
@@ -104,6 +97,12 @@ export default function MovieDetail() {
   });
 
   useEffect(() => {
+    if (listTheater.length !== 0) {
+      setChooseTheater(listTheater[0]);
+    }
+  }, [listTheater]);
+
+  useEffect(() => {
     if (isLoading === false && getMovieDetailData !== null) {
       let arrayTheater = getMovieDetailData?.lichChieu.filter((showtime) => {
         return showtime.thongTinRap.maHeThongRap === chooseTheater;
@@ -133,10 +132,12 @@ export default function MovieDetail() {
     }
   }, [chooseTheater, getMovieDetailData]);
 
-  useEffect(() => {
-    setChooseTheater(listTheater[0]);
-  }, [listTheater]);
+  // Handle Booking Movie
+  const handleBookingMovie = (e, idShowtime) => {
+    history.push(`/bookingMovie/${idShowtime}`);
+  };
 
+  console.log(listTheaterCluster);
   return (
     <AppLayout>
       {isLoading ? (
@@ -147,11 +148,7 @@ export default function MovieDetail() {
           <div id="movieDetail">
             {/* Movie Detail Top */}
             <div className="movieDetail-top">
-              <img
-                src={getMovieDetailData?.hinhAnh}
-                alt=""
-                className="movieDetail-background"
-              />
+              <img src={getMovieDetailData?.hinhAnh} alt="" className="movieDetail-background" />
               <div className="movieDetail-gradient"></div>
               <Grid container className="movieDetail-top-main">
                 <Grid item xs={10} className="movieDetail-top-info">
@@ -165,21 +162,12 @@ export default function MovieDetail() {
                     </div>
                     <div className="movieDetail-top-info-title">
                       <span className="movieDetail-top-info-age-type">P</span>
-                      <span className="movieDetail-top-info-name">
-                        {getMovieDetailData?.tenPhim}
-                      </span>
+                      <span className="movieDetail-top-info-name">{getMovieDetailData?.tenPhim}</span>
                     </div>
                     <div className="movieDetail-top-info-time">
                       <span>120 phút - 6.4 IMDb - 2D/Digital</span>
                     </div>
-                    <button
-                      className="movieDetail-top-btn-trailer"
-                      onClick={() =>
-                        handlePopUpVideo(
-                          getVideoIdYoutube(getMovieDetailData?.trailer)
-                        )
-                      }
-                    >
+                    <button className="movieDetail-top-btn-trailer" onClick={() => handlePopUpVideo(getVideoIdYoutube(getMovieDetailData?.trailer))}>
                       Xem trailer
                     </button>
                   </div>
@@ -187,12 +175,7 @@ export default function MovieDetail() {
                 <Grid item xs={2} className="movieDetail-top-rating">
                   {getMovieDetailData?.danhGia && (
                     <div>
-                      <AnimatedProgressProvider
-                        valueStart={0}
-                        valueEnd={getMovieDetailData?.danhGia}
-                        duration={1.5}
-                        easingFunction={easeQuadInOut}
-                      >
+                      <AnimatedProgressProvider valueStart={0} valueEnd={getMovieDetailData?.danhGia} duration={1.5} easingFunction={easeQuadInOut}>
                         {(value) => {
                           const roundedValue = value.toFixed(1);
                           return (
@@ -207,19 +190,10 @@ export default function MovieDetail() {
                         }}
                       </AnimatedProgressProvider>
                       <div className="movieDetail-top-rating-star">
-                        {[
-                          ...Array(Math.floor(getMovieDetailData?.danhGia / 2)),
-                        ].map((star, index) => {
-                          return (
-                            <Star
-                              className="movieDetail-top-rating-icon"
-                              key={index}
-                            ></Star>
-                          );
+                        {[...Array(Math.floor(getMovieDetailData?.danhGia / 2))].map((star, index) => {
+                          return <Star className="movieDetail-top-rating-icon" key={index}></Star>;
                         })}
-                        {getMovieDetailData?.danhGia % 2 !== 0 && (
-                          <StarHalf className="movieDetail-top-rating-icon"></StarHalf>
-                        )}
+                        {getMovieDetailData?.danhGia % 2 !== 0 && <StarHalf className="movieDetail-top-rating-icon"></StarHalf>}
                       </div>
 
                       <div className="movieDetail-top-rating-amount">
@@ -243,45 +217,21 @@ export default function MovieDetail() {
                     aria-label="simple tabs example"
                     className="movieDetail-bottom-tabs"
                   >
-                    <Tab
-                      label="Thông tin"
-                      disableRipple={true}
-                      disableFocusRipple={true}
-                      className="movieDetail-bottom-tab"
-                      {...a11yProps(0)}
-                    />
-                    <Tab
-                      label="Lịch chiếu"
-                      disableRipple={true}
-                      disableFocusRipple={true}
-                      className="movieDetail-bottom-tab"
-                      {...a11yProps(1)}
-                    />
+                    <Tab label="Thông tin" disableRipple={true} disableFocusRipple={true} className="movieDetail-bottom-tab" {...a11yProps(0)} />
+                    <Tab label="Lịch chiếu" disableRipple={true} disableFocusRipple={true} className="movieDetail-bottom-tab" {...a11yProps(1)} />
                   </Tabs>
                 </AppBar>
                 {/* Movie Detail Bottom Content */}
                 <TabPanel value={value} index={0}>
-                  <Grid
-                    container
-                    spacing={5}
-                    className="movieDetail-bottom-content"
-                  >
-                    <Grid
-                      item
-                      xs={6}
-                      className="movieDetail-bottom-content-left"
-                    >
+                  <Grid container spacing={5} className="movieDetail-bottom-content">
+                    <Grid item xs={6} className="movieDetail-bottom-content-left">
                       <div className="movieDetail-bottom-content-row">
                         <p className="contentTitle">Ngày công chiếu</p>
-                        <p className="contentInfo">
-                          {getDate(getMovieDetailData?.ngayKhoiChieu)}
-                        </p>
+                        <p className="contentInfo">{getDate(getMovieDetailData?.ngayKhoiChieu)}</p>
                       </div>
                       <div className="movieDetail-bottom-content-row">
                         <p className="contentTitle">Đánh giá</p>
-                        <p className="contentInfo">
-                          {getMovieDetailData?.danhGia.toFixed(1)}
-                        </p>
+                        <p className="contentInfo">{getMovieDetailData?.danhGia.toFixed(1)}</p>
                       </div>
                       <div className="movieDetail-bottom-content-row">
                         <p className="contentTitle">Thời lượng</p>
@@ -289,9 +239,7 @@ export default function MovieDetail() {
                       </div>
                       <div className="movieDetail-bottom-content-row">
                         <p className="contentTitle">Mã phim</p>
-                        <p className="contentInfo">
-                          {getMovieDetailData?.maPhim}
-                        </p>
+                        <p className="contentInfo">{getMovieDetailData?.maPhim}</p>
                       </div>
                       <div className="movieDetail-bottom-content-row">
                         <p className="contentTitle">Định dạng</p>
@@ -302,18 +250,12 @@ export default function MovieDetail() {
                         <p className="contentInfo">6.4</p>
                       </div>
                     </Grid>
-                    <Grid
-                      item
-                      xs={6}
-                      className="movieDetail-bottom-content-right"
-                    >
+                    <Grid item xs={6} className="movieDetail-bottom-content-right">
                       <div className="movieDetail-bottom-content-row">
                         <p className="contentTitle">Nội dung</p>
                       </div>
                       <div className="movieDetail-bottom-content-row">
-                        <p className="contentInfo">
-                          {getMovieDetailData?.moTa}
-                        </p>
+                        <p className="contentInfo">{getMovieDetailData?.moTa}</p>
                       </div>
                     </Grid>
                   </Grid>
@@ -326,17 +268,8 @@ export default function MovieDetail() {
                           {listTheater &&
                             listTheater.map((theaterName, index) => (
                               <li key={index}>
-                                <a
-                                  href="/"
-                                  className={styleActive(theaterName)}
-                                  onClick={(e) =>
-                                    handleChangeTheater(e, theaterName)
-                                  }
-                                >
-                                  <img
-                                    src={`/img/Theater/${theaterName}.png`}
-                                    alt=""
-                                  />
+                                <a href="/" className={styleActive(theaterName)} onClick={(e) => handleChangeTheater(e, theaterName)}>
+                                  <img src={`/img/Theater/${theaterName}.png`} alt="" />
                                   <span>{theaterName}</span>
                                 </a>
                               </li>
@@ -345,26 +278,17 @@ export default function MovieDetail() {
                       </div>
                       <div className="movieDetail-bottom-showtime-right">
                         {listTheaterCluster.map((theaterCluster, index) => (
-                          <div
-                            className="movieDetail-bottom-showtime-right-item"
-                            key={index}
-                          >
+                          <div className="movieDetail-bottom-showtime-right-item" key={index}>
                             <div className="movieDetail-bottom-showtime-right-title">
-                              <img
-                                src={`/img/Theater/${chooseTheater}.png`}
-                                alt=""
-                              />
-                              <span>
-                                {theaterCluster[0].thongTinRap.tenCumRap}
-                              </span>
+                              <img src={`/img/Theater/${chooseTheater}.png`} alt="" />
+                              <span>{theaterCluster[0].thongTinRap.tenCumRap}</span>
                             </div>
                             <div className="movieDetail-bottom-showtime-right-digital">
                               <span>2D Digital</span>
                             </div>
                             <div className="movieDetail-bottom-showtime-right-booking">
                               {theaterCluster.map((item, index) => (
-                                // Khi Click button này để mua vé thì cần mã lịch chiếu, chỉ cần: item.maLichChieu là OK
-                                <button className="btn-booking" key={index}>
+                                <button className="btn-booking" key={index} onClick={(e) => handleBookingMovie(e, item.maLichChieu)}>
                                   <span className="movieDetail-bottom-showtime-right-booking-time-start">
                                     {getHoursAndMins(item.ngayChieuGioChieu)}
                                   </span>

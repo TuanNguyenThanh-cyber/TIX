@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import {
-  getTheaterSystem,
-  getInfoTheaterSystemShowtimes,
-} from "../../redux/actions/theater";
+import { getTheaterSystem, getInfoTheaterSystemShowtimes } from "../../redux/actions/theater";
 import { getHoursAndMins, getDate } from "../../utils/separateDayAndTime";
 import "./homebookingmovie.scss";
 
@@ -13,18 +10,14 @@ export default function HomeBookingMovie() {
   const [indexTheater, setIndexTheater] = useState(0);
   const [indexTheaterCluster, setIndexTheaterCluster] = useState(0);
   const [idTheaterSystem, setIdTheaterSystem] = useState("BHDStar");
-  const [idTheaterCluster, setIdTheaterCluster] = useState(
-    "bhd-star-cineplex-bitexco"
-  );
+  const [idTheaterCluster, setIdTheaterCluster] = useState("bhd-star-cineplex-bitexco");
   const [arrayMovieTab3, setArrayMovieTab3] = useState([]); // Array movie for tab 3
   const history = useHistory();
 
   // State in reducer
   const { theaterSystemData } = useSelector((state) => state.getTheaterSystem);
   const { gp } = useSelector((state) => state.changeGp);
-  const { theaterSystemShowtimesData } = useSelector(
-    (state) => state.getInfoTheaterSystemShowtimes
-  );
+  const { theaterSystemShowtimesData } = useSelector((state) => state.getInfoTheaterSystemShowtimes);
 
   // useDispatch()
   const dispatch = useDispatch();
@@ -40,6 +33,11 @@ export default function HomeBookingMovie() {
     e.preventDefault();
     setIndexTheaterCluster(index);
     setIdTheaterCluster(maCumRap);
+  };
+
+  // Handle Booking Movie
+  const handleBookingMovie = (e, idShowtime) => {
+    history.push(`/bookingMovie/${idShowtime}`);
   };
 
   const styleActive = (index, type) => {
@@ -114,22 +112,8 @@ export default function HomeBookingMovie() {
         {theaterSystemData &&
           theaterSystemData.map((theaterSystem, index) => (
             <li className="listLogoCinema-item" key={index}>
-              <a
-                href="/"
-                className={styleActive(index, "logo")}
-                onClick={(e) =>
-                  handleChangeTheaterSystem(
-                    e,
-                    index,
-                    theaterSystem.maHeThongRap
-                  )
-                }
-              >
-                <img
-                  src={theaterSystem.logo}
-                  alt={theaterSystem.tenHeThongRap}
-                  className="listLogoCinema-img"
-                />
+              <a href="/" className={styleActive(index, "logo")} onClick={(e) => handleChangeTheaterSystem(e, index, theaterSystem.maHeThongRap)}>
+                <img src={theaterSystem.logo} alt={theaterSystem.tenHeThongRap} className="listLogoCinema-img" />
               </a>
             </li>
           ))}
@@ -138,29 +122,21 @@ export default function HomeBookingMovie() {
       {/* Tab 2 */}
       <div className="listTheaterCluster">
         {theaterSystemShowtimesData &&
-          theaterSystemShowtimesData[0].lstCumRap.map(
-            (theaterCluster, index) => (
-              <div
-                className={styleActive(index, "theaterCluster")}
-                onClick={(e) =>
-                  handleChangeTheaterCluster(e, index, theaterCluster.maCumRap)
-                }
-                key={index}
-              >
-                <div className="theaterCluster-info">
-                  <span className="theaterCluster-name">
-                    {theaterCluster.tenCumRap}
-                  </span>
-                  <span className="theaterCluster-address">
-                    {theaterCluster.diaChi}
-                  </span>
-                  <a href="/" className="theaterCluster-detail">
-                    [chi tiết]
-                  </a>
-                </div>
+          theaterSystemShowtimesData[0].lstCumRap.map((theaterCluster, index) => (
+            <div
+              className={styleActive(index, "theaterCluster")}
+              onClick={(e) => handleChangeTheaterCluster(e, index, theaterCluster.maCumRap)}
+              key={index}
+            >
+              <div className="theaterCluster-info">
+                <span className="theaterCluster-name">{theaterCluster.tenCumRap}</span>
+                <span className="theaterCluster-address">{theaterCluster.diaChi}</span>
+                <a href="/" className="theaterCluster-detail">
+                  [chi tiết]
+                </a>
               </div>
-            )
-          )}
+            </div>
+          ))}
       </div>
 
       {/* Tab 3 */}
@@ -168,24 +144,15 @@ export default function HomeBookingMovie() {
         {arrayMovieTab3.map((movie, index) => (
           <div className="listMovie-item" key={index}>
             <div className="listMovie-item-content">
-              <a
-                href="/"
-                onClick={(e) => handleGoToMovieDetailPage(e, movie.maPhim)}
-              >
+              <a href="/" onClick={(e) => handleGoToMovieDetailPage(e, movie.maPhim)}>
                 <img src={movie.hinhAnh} alt="" />
               </a>
               <div className="listMovie-item-info">
                 <span className="listMovie-item-info-age">P</span>
-                <a
-                  href="/"
-                  onClick={(e) => handleGoToMovieDetailPage(e, movie.maPhim)}
-                  className="listMovie-item-info-name"
-                >
+                <a href="/" onClick={(e) => handleGoToMovieDetailPage(e, movie.maPhim)} className="listMovie-item-info-name">
                   {movie.tenPhim}
                 </a>
-                <p className="listMovie-item-info-time">
-                  120 phút - TIX 9.4 - IMDb 8.7
-                </p>
+                <p className="listMovie-item-info-time">120 phút - TIX 9.4 - IMDb 8.7</p>
               </div>
             </div>
             <div className="listMovie-item-typeMovie">
@@ -193,14 +160,10 @@ export default function HomeBookingMovie() {
             </div>
             {movie.lstLichChieuTheoPhim.map((showtime, item) => (
               <div className="listMovie-item-booking" key={item}>
-                <button className="listMovie-item-booking-time">
-                  <span className="listMovie-item-booking-time-start">
-                    {getHoursAndMins(showtime.ngayChieuGioChieu)}
-                  </span>
-                  - {getHoursAndMins(showtime.ngayChieuGioChieu, 2)}
-                  <p className="listMovie-item-booking-day">
-                    Ngày chiếu: {getDate(showtime.ngayChieuGioChieu)}
-                  </p>
+                <button className="listMovie-item-booking-time" onClick={(e) => handleBookingMovie(e, showtime.maLichChieu)}>
+                  <span className="listMovie-item-booking-time-start">{getHoursAndMins(showtime.ngayChieuGioChieu)}</span>-{" "}
+                  {getHoursAndMins(showtime.ngayChieuGioChieu, 2)}
+                  <p className="listMovie-item-booking-day">Ngày chiếu: {getDate(showtime.ngayChieuGioChieu)}</p>
                 </button>
               </div>
             ))}

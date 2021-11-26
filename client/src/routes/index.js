@@ -7,6 +7,7 @@ const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 const Profile = lazy(() => import("../pages/Profile"));
 const MovieDetail = lazy(() => import("../pages/MovieDetail"));
+const BookingMovie = lazy(() => import("../pages/BookingMovie"));
 
 export default function Routes() {
   return (
@@ -32,6 +33,9 @@ export default function Routes() {
               </Route>
               <Route path="/movie/:idMovie" exact>
                 <MovieDetail></MovieDetail>
+              </Route>
+              <Route path="/bookingMovie/:idBooking" exact>
+                <BookingMovie></BookingMovie>
               </Route>
             </Switch>
           </Route>

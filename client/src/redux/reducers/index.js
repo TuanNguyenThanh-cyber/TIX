@@ -2,11 +2,8 @@ import { combineReducers } from "redux";
 import { loginReducer, registerReducer } from "./auth";
 import { getMovieListReducer, getMovieDetailReducer } from "./movie";
 import { getInfoUserReducer } from "./user";
-import {
-  getTheaterSystemReducer,
-  getTheaterClusterReducer,
-  getInfoTheaterSystemShowtimesReducer,
-} from "./theater";
+import { getTicketRoomListReducer } from "./booking";
+import { getTheaterSystemReducer, getTheaterClusterReducer, getInfoTheaterSystemShowtimesReducer } from "./theater";
 import { changeGpReducer } from "./gp";
 
 const rootReducer = combineReducers({
@@ -20,6 +17,7 @@ const rootReducer = combineReducers({
   getTheaterCluster: getTheaterClusterReducer,
   getInfoTheaterSystemShowtimes: getInfoTheaterSystemShowtimesReducer,
   getInfoUser: getInfoUserReducer,
+  getTicketRoomList: getTicketRoomListReducer,
 });
 
 export default rootReducer;

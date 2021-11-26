@@ -20,27 +20,20 @@ export default function CardMovie() {
   // Custom Carousel
   const handleItemSlide = (index, item) => {};
   const customArrowPrev = (onClickHandler, hasPrev, label) =>
-    hasPrev && (
-      <button
-        className="button-custom-control button-custom-prev"
-        onClick={onClickHandler}
-        title={label}
-      ></button>
-    );
+    hasPrev && <button className="button-custom-control button-custom-prev" onClick={onClickHandler} title={label}></button>;
   const customArrowNext = (onClickHandler, hasNext, label) =>
-    hasNext && (
-      <button
-        className="button-custom-control button-custom-next"
-        onClick={onClickHandler}
-        title={label}
-      ></button>
-    );
+    hasNext && <button className="button-custom-control button-custom-next" onClick={onClickHandler} title={label}></button>;
 
   // Handle PopUp Video
   const handlePopUpVideo = (e, trailer) => {
     e.preventDefault();
     setIsVideoPopUp(true);
     setVideoID(getVideoIdYoutube(trailer));
+  };
+
+  // Buy ticket
+  const handleBuyTicket = (idMovie) => {
+    history.push(`/movie/${idMovie}`);
   };
 
   return (
@@ -62,20 +55,10 @@ export default function CardMovie() {
               {list.map((movie, index) => (
                 <Grid item xs={3} key={index}>
                   <div className="cardMovie-movie">
-                    <Link
-                      className="cardMovie-movie-content"
-                      to={`/movie/${movie.maPhim}`}
-                    >
-                      <img
-                        src={movie.hinhAnh}
-                        alt=""
-                        className="cardMovie-movie-img"
-                      />
+                    <Link className="cardMovie-movie-content" to={`/movie/${movie.maPhim}`}>
+                      <img src={movie.hinhAnh} alt="" className="cardMovie-movie-img" />
                       <div className="backgroundLinear"></div>
-                      <button
-                        className="btn-play"
-                        onClick={(e) => handlePopUpVideo(e, movie.trailer)}
-                      >
+                      <button className="btn-play" onClick={(e) => handlePopUpVideo(e, movie.trailer)}>
                         <img src="/img/play-video.png" alt="" />
                       </button>
                       <div className="cardMovie-rating">
@@ -86,19 +69,10 @@ export default function CardMovie() {
                             justifyContent: "center",
                           }}
                         >
-                          {[...Array(Math.floor(movie.danhGia / 2))].map(
-                            (star, index) => {
-                              return (
-                                <Star
-                                  className="cardMovie-rating-star"
-                                  key={index}
-                                ></Star>
-                              );
-                            }
-                          )}
-                          {movie.danhGia % 2 !== 0 && (
-                            <StarHalf className="cardMovie-rating-star"></StarHalf>
-                          )}
+                          {[...Array(Math.floor(movie.danhGia / 2))].map((star, index) => {
+                            return <Star className="cardMovie-rating-star" key={index}></Star>;
+                          })}
+                          {movie.danhGia % 2 !== 0 && <StarHalf className="cardMovie-rating-star"></StarHalf>}
                         </div>
                       </div>
                     </Link>
@@ -112,7 +86,9 @@ export default function CardMovie() {
                         <p>120 phút</p>
                       </div>
                       <div className="btn-red-buyticket">
-                        <button className="btn-buy-ticket">Mua vé</button>
+                        <button className="btn-buy-ticket" onClick={() => handleBuyTicket(movie.maPhim)}>
+                          Mua vé
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -121,11 +97,7 @@ export default function CardMovie() {
             </Grid>
           ))}
       </Carousel>
-      <VideoPopUp
-        isPopUp={isVideoPopUp}
-        setPopUp={setIsVideoPopUp}
-        videoID={videoID}
-      ></VideoPopUp>
+      <VideoPopUp isPopUp={isVideoPopUp} setPopUp={setIsVideoPopUp} videoID={videoID}></VideoPopUp>
     </div>
   );
 }
