@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
 import { getTicketRoomList } from "../../redux/actions/booking";
+import { formatMoneyVND } from "../../utils/formatMoneyVND";
 import LoadingPage from "../../components/LoadingPage";
 import hanldeListSeat from "../../utils/handleListSeat";
 import Countdown from "react-countdown";
@@ -13,24 +14,37 @@ import "./booking.scss";
 export default function BookingMovie() {
   const arrayAlphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P"];
   const [listSeat, setListSeat] = useState([]);
-  let listUserChooseSeat = [];
+  let [listUserChooseSeat, setListUserChooseSeat] = useState([]);
+  let [totalPrice, setTotalPrice] = useState(0);
 
   const { idBooking } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
   const { getTicketRoomListData, isLoading } = useSelector((state) => state.getTicketRoomList);
 
+  // When getTicketRoomListData has data => hanldeListSeat => setListSeat
   useEffect(() => {
-    // When getTicketRoomListData has data => hanldeListSeat => setListSeat
     getTicketRoomListData?.danhSachGhe && setListSeat(hanldeListSeat(getTicketRoomListData?.danhSachGhe, 10));
   }, [getTicketRoomListData]);
 
-  // Get List Ticket Room
+  // Get List Ticket Room from API
   useEffect(() => {
     dispatch(getTicketRoomList(idBooking));
   }, []);
 
-  // Handle Choose Seat
+  // When listUserChooseSeat change => handle the totalPrice ticket
+  useEffect(() => {
+    let resultPrice = listUserChooseSeat.reduce((result, item, index) => {
+      return (result += item.giaVe);
+    }, 0);
+    setTotalPrice(resultPrice);
+    return () => {
+      setTotalPrice(0);
+    };
+  }, [listUserChooseSeat]);
+
+  console.log(totalPrice);
+  // Handle Choose Seat => change color button and setListUserChooseSeat
   const handleChooseSeat = (e, seat) => {
     if (e.currentTarget.className.includes("btn-choosing")) {
       e.currentTarget.className = seat.daDat
@@ -38,12 +52,11 @@ export default function BookingMovie() {
         : seat.loaiGhe === "Thuong"
         ? "bookingMovie-left-row-seat btn-normal"
         : "bookingMovie-left-row-seat btn-vip";
-      listUserChooseSeat.pop(seat);
+      setListUserChooseSeat(listUserChooseSeat.filter((item) => item !== seat));
     } else {
       e.currentTarget.className = "bookingMovie-left-row-seat btn-choosing";
-      listUserChooseSeat.push(seat);
+      setListUserChooseSeat([...listUserChooseSeat, seat]);
     }
-    console.log(listUserChooseSeat);
   };
 
   // Count down here !
@@ -60,7 +73,7 @@ export default function BookingMovie() {
   const renderer = ({ hours, minutes, seconds, completed }) => {
     if (completed) {
       // Render a complete state
-      return <Completionist />;
+      // return <Completionist />;
     } else {
       // Render a countdown
       return (
@@ -79,6 +92,7 @@ export default function BookingMovie() {
       ) : (
         <div id="bookingMovie">
           <div className="bookingMovie-container">
+            {/* Booking Movie Left */}
             <Grid item xs={8} className="bookingMovie-left">
               <div className="bookingMovie-left-header">
                 <div className="header-movieCluster">
@@ -129,7 +143,7 @@ export default function BookingMovie() {
                   </div>
                 </div>
                 {listSeat.map((seats, index) => (
-                  <div className="bookingMovie-left-row">
+                  <div className="bookingMovie-left-row" key={index}>
                     <span className="bookingMovie-left-row-name">{arrayAlphabet[index]}</span>
                     <div className="bookingMovie-left-row-seats" key={index}>
                       {seats.map((seat, index) => (
@@ -152,19 +166,48 @@ export default function BookingMovie() {
                 ))}
               </div>
             </Grid>
+
+            {/* Booking Movie Right */}
             <Grid item xs={4} className="bookingMovie-right">
+              {/* Booking Movie Right Top */}
               <div className="bookingMovie-right-top">
                 <div className="bookingMovie-right-movie">
-                  <div className="bookingMovie-right-movie-info">
+                  {/* Booking Movie Right Top Info */}
+                  <Grid item xs={8} className="bookingMovie-right-movie-info">
                     <p className="bookingMovie-right-movie-name">Chị chị em em</p>
-                    <p className="bookingMovie-right-movie-age">P</p>
-                    <p className="bookingMovie-right-movie-detail">120 phút - 2D - Phụ đề</p>
-                  </div>
-                  <div className="bookingMovie-right-movie-img">
+                    <div className="bookingMovie-right-movie-detail">
+                      <p className="bookingMovie-right-movie-age">P</p>
+                      <p className="bookingMovie-right-movie-desc">120 phút - 2D - Phụ đề</p>
+                    </div>
+                    <span className="bookingMovie-right-movie-seat">Ghế đang chọn: </span>
+                    <div style={{ display: "inline-flex", flexWrap: "wrap" }}>
+                      {listUserChooseSeat.map((chooseSeat, index) => (
+                        <button
+                          className={
+                            chooseSeat.daDat
+                              ? "bookingMovie-left-row-seat btn-booked"
+                              : chooseSeat.loaiGhe === "Thuong"
+                              ? "bookingMovie-left-row-seat btn-normal"
+                              : "bookingMovie-left-row-seat btn-vip"
+                          }
+                          style={{ margin: "0 10px 10px 0" }}
+                          key={index}
+                        >
+                          <span>{chooseSeat.tenGhe}</span>
+                        </button>
+                      ))}
+                    </div>
+                    <p className="bookingMovie-right-movie-price">Tổng tiền: {formatMoneyVND(totalPrice)}</p>
+                  </Grid>
+
+                  {/* Booking Movie Right Top Img */}
+                  <Grid item xs={4} className="bookingMovie-right-movie-img">
                     <img src="/img/trang-ti-16194120693380_215x318.jpg" alt="" />
-                  </div>
+                  </Grid>
                 </div>
               </div>
+
+              {/* Booking Movie Right Bottom */}
               <div className="bookingMovie-right-bottom"></div>
             </Grid>
           </div>
