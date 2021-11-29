@@ -131,8 +131,15 @@
                 background-color: #fff;
                 border-radius: 10px;
                 padding: 20px;
+                margin-bottom: 20px;
                 .bookingMovie-right-movie {
                     display: flex;
+                    padding-bottom: 20px;
+
+                    background-image: linear-gradient(to right, #9b9b9b 0%, #9b9b9b 50%, transparent 50%);
+                    background-size: 10px 1px;
+                    background-repeat: repeat-x;
+                    background-position: bottom;
                     .bookingMovie-right-movie-info {
                         .bookingMovie-right-movie-name {
                             font-size: 20px;
@@ -172,7 +179,7 @@
                             color: #fb4226;
                             font-weight: bold;
                             margin-right: 10px;
-                            margin-bottom: 10px;
+                            margin-bottom: 20px;
                         }
                         .bookingMovie-right-movie-price {
                             color: #fb4226;
@@ -181,6 +188,101 @@
                     }
                     .bookingMovie-right-movie-img {
                         img {
+                            border-radius: 5px;
+                        }
+                    }
+                }
+                .bookingMovie-right-info {
+                    padding: 15px 0;
+                    background-image: linear-gradient(to right, #9b9b9b 0%, #9b9b9b 50%, transparent 50%);
+                    background-size: 10px 1px;
+                    background-repeat: repeat-x;
+                    background-position: bottom;
+                    p {
+                        font-size: 14px;
+                        color: #9b9b9b;
+                        margin-bottom: 5px;
+                    }
+                    input {
+                        border: none;
+                        width: 100%;
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+                }
+            }
+
+            .bookingMovie-right-middle {
+                background-color: #fff;
+                border-radius: 10px;
+                padding: 20px;
+                margin-bottom: 20px;
+
+                .bookingMovie-right-middle-title {
+                }
+
+                .bookingMovie-right-middle-payment-method {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    margin-top: 20px;
+
+                    .bookingMovie-right-middle-payment-method-info {
+                        display: flex;
+                        align-items: center;
+
+                        .logo-payment {
+                            width: 50px;
+                            height: 50px;
+                        }
+
+                        .payment-name {
+                            margin-left: 10px;
+                        }
+                    }
+
+                    .bookingMovie-right-middle-payment-method-checkbox {
+                        .checkbox-payment {
+                        }
+                    }
+                }
+            }
+
+            .bookingMovie-right-bottom {
+                display: flex;
+                align-items: center;
+                background-color: #fff;
+                border-radius: 10px;
+                .bookingMovie-right-bottom-left {
+                    padding: 20px;
+                    width: 50%;
+                    .bookingMovie-right-bottom-total-price {
+                        font-size: 30px;
+                        color: #00ac4d;
+                    }
+                }
+                .bookingMovie-right-bottom-right {
+                    width: 50%;
+                    height: 100%;
+                    padding: 25px 10px 25px 30px;
+                    background-color: #00ac4d;
+                    .btn-booking-ticket {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        cursor: pointer;
+
+                        .btn-booking-ticket-text {
+                            font-size: 25px;
+                            color: #fff;
+                            text-transform: uppercase;
+                        }
+                        .btn-booking-ticket-icon {
+                            font-size: 30px;
+                            color: #fff;
                         }
                     }
                 }

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@material-ui/core";
 import { Close } from "@material-ui/icons";
-import { getTicketRoomList } from "../../redux/actions/booking";
+import { getTicketRoomList, bookingTicket } from "../../redux/actions/booking";
+import { getInfoUser } from "../../redux/actions/user";
 import { formatMoneyVND } from "../../utils/formatMoneyVND";
+import { NavigateNext } from "@material-ui/icons";
 import LoadingPage from "../../components/LoadingPage";
 import hanldeListSeat from "../../utils/handleListSeat";
 import Countdown from "react-countdown";
@@ -16,11 +18,54 @@ export default function BookingMovie() {
   const [listSeat, setListSeat] = useState([]);
   let [listUserChooseSeat, setListUserChooseSeat] = useState([]);
   let [totalPrice, setTotalPrice] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState("zalopay");
 
   const { idBooking } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+  const [taiKhoan, setTaiKhoan] = useState("");
   const { getTicketRoomListData, isLoading } = useSelector((state) => state.getTicketRoomList);
+  const { getInfoUserData } = useSelector((state) => state.getInfoUser);
+
+  // Check user isLogin => if not => go to the Login page
+  useEffect(() => {
+    if (!localStorage.getItem("userInfo")) {
+      history.push("/login");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Bạn không thể truy cập trang này vì lý do chưa đăng nhập, vui lòng đăng nhập để có thể truy cập!",
+      });
+    } else {
+      setTaiKhoan(JSON.parse(localStorage.getItem("userInfo")).taiKhoan);
+    }
+  });
+
+  // Count down here !
+  // When count down finish => return popup notice user
+  const Completionist = () =>
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Hết giờ đặt vé! Vui lòng quay trở lại!",
+    }).then((result) => {
+      history.go(0);
+    });
+  // Renderer callback with condition
+  const renderer = ({ hours, minutes, seconds, completed }) => {
+    if (completed) {
+      // Render a complete state
+      return <Completionist />;
+    } else {
+      // Render a countdown
+      return (
+        <div className="header-timing-countdown">
+          <span className="header-timing-star">{minutes < 10 ? "0" + minutes : minutes}</span>:
+          <span className="header-timing-end">{seconds < 10 ? "0" + seconds : seconds}</span>
+        </div>
+      );
+    }
+  };
 
   // When getTicketRoomListData has data => hanldeListSeat => setListSeat
   useEffect(() => {
@@ -29,8 +74,11 @@ export default function BookingMovie() {
 
   // Get List Ticket Room from API
   useEffect(() => {
-    dispatch(getTicketRoomList(idBooking));
-  }, []);
+    if (taiKhoan !== "") {
+      dispatch(getTicketRoomList(idBooking));
+      dispatch(getInfoUser({ taiKhoan: taiKhoan }));
+    }
+  }, [idBooking, taiKhoan]);
 
   // When listUserChooseSeat change => handle the totalPrice ticket
   useEffect(() => {
@@ -43,7 +91,6 @@ export default function BookingMovie() {
     };
   }, [listUserChooseSeat]);
 
-  console.log(totalPrice);
   // Handle Choose Seat => change color button and setListUserChooseSeat
   const handleChooseSeat = (e, seat) => {
     if (e.currentTarget.className.includes("btn-choosing")) {
@@ -59,29 +106,43 @@ export default function BookingMovie() {
     }
   };
 
-  // Count down here !
-  // When count down finish => return popup notice user
-  const Completionist = () =>
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Hết giờ! Vui lòng quay trở lại!",
-    }).then((result) => {
-      history.go(0);
+  // Handle Payment-Method
+  const handlePayment = (e) => {
+    setPaymentMethod(e.target.value);
+  };
+
+  // Handle Booking Ticket
+  const handleBookingTicket = () => {
+    const danhSachVe = [];
+    listUserChooseSeat.map((item) => {
+      danhSachVe.push({ maGhe: item.maGhe, giaVe: item.giaVe });
     });
-  // Renderer callback with condition
-  const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      // Render a complete state
-      // return <Completionist />;
+    const objectToBookingTicket = {
+      maLichChieu: idBooking,
+      danhSachVe: danhSachVe,
+      taiKhoanNguoiDung: taiKhoan,
+    };
+    if (danhSachVe.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Bạn chưa đặt vé nào cả!",
+      });
     } else {
-      // Render a countdown
-      return (
-        <div className="header-timing-countdown">
-          <span className="header-timing-star">{minutes < 10 ? "0" + minutes : minutes}</span>:
-          <span className="header-timing-end">{seconds < 10 ? "0" + seconds : seconds}</span>
-        </div>
-      );
+      Swal.fire({
+        title: "Xác nhận",
+        text: "Xác nhận đặt vé, bạn có muốn đặt thêm vé nào không?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Tiếp tục",
+        cancelButtonText: "Trở lại",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(bookingTicket(objectToBookingTicket, taiKhoan));
+        }
+      });
     }
   };
 
@@ -174,7 +235,7 @@ export default function BookingMovie() {
                 <div className="bookingMovie-right-movie">
                   {/* Booking Movie Right Top Info */}
                   <Grid item xs={8} className="bookingMovie-right-movie-info">
-                    <p className="bookingMovie-right-movie-name">Chị chị em em</p>
+                    <p className="bookingMovie-right-movie-name">{getTicketRoomListData?.thongTinPhim?.tenPhim}</p>
                     <div className="bookingMovie-right-movie-detail">
                       <p className="bookingMovie-right-movie-age">P</p>
                       <p className="bookingMovie-right-movie-desc">120 phút - 2D - Phụ đề</p>
@@ -190,7 +251,7 @@ export default function BookingMovie() {
                               ? "bookingMovie-left-row-seat btn-normal"
                               : "bookingMovie-left-row-seat btn-vip"
                           }
-                          style={{ margin: "0 10px 10px 0" }}
+                          style={{ margin: "0 20px 20px 0" }}
                           key={index}
                         >
                           <span>{chooseSeat.tenGhe}</span>
@@ -202,13 +263,95 @@ export default function BookingMovie() {
 
                   {/* Booking Movie Right Top Img */}
                   <Grid item xs={4} className="bookingMovie-right-movie-img">
-                    <img src="/img/trang-ti-16194120693380_215x318.jpg" alt="" />
+                    <img src={getTicketRoomListData?.thongTinPhim?.hinhAnh} alt="" />
                   </Grid>
+                </div>
+
+                <div className="bookingMovie-right-info">
+                  <p>Tài khoản</p>
+                  <input type="text" defaultValue={getInfoUserData?.taiKhoan} readOnly />
+                </div>
+
+                <div className="bookingMovie-right-info">
+                  <p>Người nhận mã vé</p>
+                  <input type="text" defaultValue={getInfoUserData?.hoTen} readOnly />
+                </div>
+
+                <div className="bookingMovie-right-info">
+                  <p>Email nhận mã vé</p>
+                  <input type="text" defaultValue={getInfoUserData?.email} readOnly />
+                </div>
+
+                <div className="bookingMovie-right-info">
+                  <p>Số điện thoại nhận mã vé</p>
+                  <input type="tel" defaultValue={getInfoUserData?.soDT} readOnly />
+                </div>
+              </div>
+
+              {/* Booking Movie Right Middle */}
+              <div className="bookingMovie-right-middle">
+                <p className="bookingMovie-right-middle-title">Phương thức thanh toán</p>
+                {/* Zalo Pay */}
+                <div className="bookingMovie-right-middle-payment-method">
+                  <div className="bookingMovie-right-middle-payment-method-info">
+                    <img src="/img/Footer/zalopay.png" alt="" className="logo-payment" />
+                    <span className="payment-name">Thanh toán qua Zalopay</span>
+                  </div>
+                  <div className="bookingMovie-right-middle-payment-method-checkbox">
+                    <input
+                      type="radio"
+                      name="checkboxPayment"
+                      className="checkbox-payment"
+                      value="zalopay"
+                      onChange={handlePayment}
+                      defaultChecked={true}
+                    />
+                  </div>
+                </div>
+                {/* Vetcombank */}
+                <div className="bookingMovie-right-middle-payment-method">
+                  <div className="bookingMovie-right-middle-payment-method-info">
+                    <img src="/img/Footer/VCB.png" alt="" className="logo-payment" />
+                    <span className="payment-name">Thanh toán qua Vietcombank</span>
+                  </div>
+                  <div className="bookingMovie-right-middle-payment-method-checkbox">
+                    <input type="radio" name="checkboxPayment" className="checkbox-payment" value="vietcombank" onChange={handlePayment} />
+                  </div>
+                </div>
+                {/* Viettinbank */}
+                <div className="bookingMovie-right-middle-payment-method">
+                  <div className="bookingMovie-right-middle-payment-method-info">
+                    <img src="/img/Footer/VIETTINBANK.png" alt="" className="logo-payment" />
+                    <span className="payment-name">Thanh toán qua Viettinbank</span>
+                  </div>
+                  <div className="bookingMovie-right-middle-payment-method-checkbox">
+                    <input type="radio" name="checkboxPayment" className="checkbox-payment" value="viettinbank" onChange={handlePayment} />
+                  </div>
+                </div>
+                {/* Payoo */}
+                <div className="bookingMovie-right-middle-payment-method">
+                  <div className="bookingMovie-right-middle-payment-method-info">
+                    <img src="/img/Footer/payoo.jpg" alt="" className="logo-payment" />
+                    <span className="payment-name">Thanh toán qua Payoo</span>
+                  </div>
+                  <div className="bookingMovie-right-middle-payment-method-checkbox">
+                    <input type="radio" name="checkboxPayment" className="checkbox-payment" value="payoo" onChange={handlePayment} />
+                  </div>
                 </div>
               </div>
 
               {/* Booking Movie Right Bottom */}
-              <div className="bookingMovie-right-bottom"></div>
+              <div className="bookingMovie-right-bottom">
+                <div className="bookingMovie-right-bottom-left">
+                  <span className="bookingMovie-right-bottom-total-price">{formatMoneyVND(totalPrice)}</span>
+                </div>
+                <div className="bookingMovie-right-bottom-right">
+                  <button className="btn-booking-ticket" onClick={handleBookingTicket}>
+                    <span className="btn-booking-ticket-text">Đặt vé</span>
+                    <NavigateNext className="btn-booking-ticket-icon" />
+                  </button>
+                </div>
+              </div>
             </Grid>
           </div>
         </div>

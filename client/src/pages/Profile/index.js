@@ -39,10 +39,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import userApi from "../../services/userApi";
 import Swal from "sweetalert2";
-import {
-  NotificationContainer,
-  NotificationManager,
-} from "react-notifications";
+import { NotificationContainer, NotificationManager } from "react-notifications";
 import { useHistory, useParams } from "react-router-dom";
 import { getInfoUser } from "../../redux/actions/user";
 import { formatMoneyVND } from "../../utils/formatMoneyVND";
@@ -57,19 +54,13 @@ const phoneRegVn = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
 const schemaForChangeInfo = yup.object().shape({
   taiKhoan: yup.string().required("Tài khoản không được để trống"),
   hoTen: yup.string().required("Họ và tên không được để trống"),
-  email: yup
-    .string()
-    .required("Email không được để trống")
-    .email("Không đúng định dạng email"),
+  email: yup.string().required("Email không được để trống").email("Không đúng định dạng email"),
   soDt: yup.string().required("Số điện thoại không được để trống"),
 });
 
 // Schema validation Change Password
 const schemaForChangePassword = yup.object().shape({
-  matKhau: yup
-    .string()
-    .required("Mật khẩu không được để trống")
-    .min(8, "Mật khẩu phải từ 8 kí tự trở lên"),
+  matKhau: yup.string().required("Mật khẩu không được để trống").min(8, "Mật khẩu phải từ 8 kí tự trở lên"),
   nhapLaiMatKhau: yup
     .string()
     .required("Vui lòng nhập lại mật khẩu")
@@ -82,13 +73,7 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
+    <div role="tabpanel" hidden={value !== index} id={`simple-tabpanel-${index}`} aria-labelledby={`simple-tab-${index}`} {...other}>
       {value === index && <>{children}</>}
     </div>
   );
@@ -136,11 +121,7 @@ function Row(props) {
       <>
         <TableRow className={classes.root}>
           <TableCell>
-            <IconButton
-              aria-label="expand row"
-              size="small"
-              onClick={() => setOpen(!open)}
-            >
+            <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
               {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
             </IconButton>
           </TableCell>
@@ -149,9 +130,7 @@ function Row(props) {
           </TableCell>
           <TableCell align="center">{ticket.thoiLuongPhim}</TableCell>
           <TableCell align="center">{ticket.ngayDat}</TableCell>
-          <TableCell align="center">
-            {formatMoneyVND(ticket.giaVe * ticket.danhSachGhe.length)}
-          </TableCell>
+          <TableCell align="center">{formatMoneyVND(ticket.giaVe * ticket.danhSachGhe.length)}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -171,16 +150,10 @@ function Row(props) {
                     {ticket.danhSachGhe.map((item, index) => (
                       <TableRow key={index}>
                         <TableCell align="left">{item.tenGhe}</TableCell>
-                        <TableCell align="center">
-                          {item.maHeThongRap}
-                        </TableCell>
-                        <TableCell align="center">
-                          {item.tenHeThongRap}
-                        </TableCell>
+                        <TableCell align="center">{item.maHeThongRap}</TableCell>
+                        <TableCell align="center">{item.tenHeThongRap}</TableCell>
                         <TableCell align="center">{item.tenRap}</TableCell>
-                        <TableCell align="right">
-                          {formatMoneyVND(ticket.giaVe)}
-                        </TableCell>
+                        <TableCell align="right">{formatMoneyVND(ticket.giaVe)}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -255,11 +228,7 @@ export default function Profile() {
     updateUser()
       .then((res) => {
         dispatch(getInfoUser({ taiKhoan: res.data.taiKhoan }));
-        return NotificationManager.success(
-          "Cập nhật tài khoản thành công",
-          "Thành công",
-          1000
-        );
+        return NotificationManager.success("Cập nhật tài khoản thành công", "Thành công", 1000);
       })
       .catch((err) => {
         return NotificationManager.error(err.response.data, "Thất bại", 1000);
@@ -297,11 +266,7 @@ export default function Profile() {
           .updateInfoUser(objToChangePassword)
           // Change password success
           .then((res) => {
-            Swal.fire(
-              "Thay đổi mật khẩu thành công!",
-              "Quay trở lại trang đăng nhập!",
-              "success"
-            ).then((result) => {
+            Swal.fire("Thay đổi mật khẩu thành công!", "Quay trở lại trang đăng nhập!", "success").then((result) => {
               localStorage.removeItem("userInfo");
               history.push("/login");
             });
@@ -366,10 +331,7 @@ export default function Profile() {
     <div id="profile">
       <div className="profile-container">
         {/* Background and Image */}
-        <div
-          className="profile-background"
-          style={{ backgroundImage: "url(/img/bg-profile.jpg)" }}
-        >
+        <div className="profile-background" style={{ backgroundImage: "url(/img/bg-profile.jpg)" }}>
           <img src="/img/Header/avatar.png" className="profile-avatar" alt="" />
         </div>
 
@@ -381,41 +343,21 @@ export default function Profile() {
         {/* Tabs */}
         <div className={classes.root}>
           <AppBar position="static" className="profile-appbar">
-            <Tabs
-              value={tabHeader}
-              onChange={handleChangeTabHeader}
-              aria-label="simple tabs example"
-              className="profile-tabs"
-            >
-              <Tab
-                label="Thông tin tài khoản"
-                {...a11yProps(0)}
-                className="profile-tab"
-              />
-              <Tab
-                label="Thông tin đặt vé"
-                {...a11yProps(1)}
-                className="profile-tab"
-              />
+            <Tabs value={tabHeader} onChange={handleChangeTabHeader} aria-label="simple tabs example" className="profile-tabs">
+              <Tab label="Thông tin tài khoản" {...a11yProps(0)} className="profile-tab" />
+              <Tab label="Thông tin đặt vé" {...a11yProps(1)} className="profile-tab" />
             </Tabs>
           </AppBar>
           <TabPanel value={tabHeader} index={0}>
             {/* Tab 1 */}
             <div className="profile-account">
-              <Tabs
-                orientation="vertical"
-                value={tabProfileMenu}
-                onChange={handleChangeTabProfileMeunu}
-                className="profile-menu-tabs"
-              >
+              <Tabs orientation="vertical" value={tabProfileMenu} onChange={handleChangeTabProfileMeunu} className="profile-menu-tabs">
                 {/* Thông tin cá nhân Tab */}
                 <Tab
                   label={
                     <div className="profile-menu-line">
                       <AccountCircle className="profile-menu-icon" />
-                      <span className="profile-menu-title">
-                        Thông tin cá nhân
-                      </span>
+                      <span className="profile-menu-title">Thông tin cá nhân</span>
                     </div>
                   }
                   className="profile-menu-tab"
@@ -426,9 +368,7 @@ export default function Profile() {
                   label={
                     <div className="profile-menu-line">
                       <Person className="profile-menu-icon" />
-                      <span className="profile-menu-title">
-                        Thay đổi thông tin
-                      </span>
+                      <span className="profile-menu-title">Thay đổi thông tin</span>
                     </div>
                   }
                   className="profile-menu-tab"
@@ -439,9 +379,7 @@ export default function Profile() {
                   label={
                     <div className="profile-menu-line">
                       <LockOpen className="profile-menu-icon" />
-                      <span className="profile-menu-title">
-                        Thay đổi mật khẩu
-                      </span>
+                      <span className="profile-menu-title">Thay đổi mật khẩu</span>
                     </div>
                   }
                   className="profile-menu-tab"
@@ -461,126 +399,63 @@ export default function Profile() {
                 />
               </Tabs>
               {/* Thông tin cá nhân TabPanel */}
-              <TabPanel
-                value={tabProfileMenu}
-                index={0}
-                className="profile-content"
-              >
+              <TabPanel value={tabProfileMenu} index={0} className="profile-content">
                 <div className="profile-content-container">
                   <div className="profile-content-info">
-                    <p className="profile-content-info-title">
-                      Thông tin cá nhân
-                    </p>
+                    <p className="profile-content-info-title">Thông tin cá nhân</p>
 
-                    <Grid
-                      container
-                      spacing={2}
-                      className="profile-content-info-line"
-                    >
-                      <Grid
-                        item
-                        xs={6}
-                        className="profile-content-info-line-item"
-                      >
+                    <Grid container spacing={2} className="profile-content-info-line">
+                      <Grid item xs={6} className="profile-content-info-line-item">
                         <div className="profile-content-info-icon">
                           <AccountBox className="profile-icon" />
                         </div>
-                        <span className="profile-content-info-text">
-                          Tài khoản: {getInfoUserData?.taiKhoan}
-                        </span>
+                        <span className="profile-content-info-text">Tài khoản: {getInfoUserData?.taiKhoan}</span>
                       </Grid>
-                      <Grid
-                        item
-                        xs={6}
-                        className="profile-content-info-line-item"
-                      >
+                      <Grid item xs={6} className="profile-content-info-line-item">
                         <div className="profile-content-info-icon">
                           <Person className="profile-icon" />
                         </div>
-                        <span className="profile-content-info-text">
-                          Họ Tên: {getInfoUserData?.hoTen}
-                        </span>
+                        <span className="profile-content-info-text">Họ Tên: {getInfoUserData?.hoTen}</span>
                       </Grid>
                     </Grid>
 
-                    <Grid
-                      container
-                      spacing={2}
-                      className="profile-content-info-line"
-                    >
-                      <Grid
-                        item
-                        xs={6}
-                        className="profile-content-info-line-item"
-                      >
+                    <Grid container spacing={2} className="profile-content-info-line">
+                      <Grid item xs={6} className="profile-content-info-line-item">
                         <div className="profile-content-info-icon">
                           <Call className="profile-icon" />
                         </div>
-                        <span className="profile-content-info-text">
-                          Số điện thoại: {getInfoUserData?.soDT}
-                        </span>
+                        <span className="profile-content-info-text">Số điện thoại: {getInfoUserData?.soDT}</span>
                       </Grid>
-                      <Grid
-                        item
-                        xs={6}
-                        className="profile-content-info-line-item"
-                      >
+                      <Grid item xs={6} className="profile-content-info-line-item">
                         <div className="profile-content-info-icon">
                           <Email className="profile-icon" />
                         </div>
-                        <span className="profile-content-info-text">
-                          Email: {getInfoUserData?.email}
-                        </span>
+                        <span className="profile-content-info-text">Email: {getInfoUserData?.email}</span>
                       </Grid>
                     </Grid>
-                    <Grid
-                      container
-                      spacing={2}
-                      className="profile-content-info-line"
-                    >
-                      <Grid
-                        item
-                        xs={6}
-                        className="profile-content-info-line-item"
-                      >
+                    <Grid container spacing={2} className="profile-content-info-line">
+                      <Grid item xs={6} className="profile-content-info-line-item">
                         <div className="profile-content-info-icon">
                           <PersonPin className="profile-icon" />
                         </div>
-                        <span className="profile-content-info-text">
-                          Mã nhóm: {getInfoUserData?.maNhom}
-                        </span>
+                        <span className="profile-content-info-text">Mã nhóm: {getInfoUserData?.maNhom}</span>
                       </Grid>
-                      <Grid
-                        item
-                        xs={6}
-                        className="profile-content-info-line-item"
-                      >
+                      <Grid item xs={6} className="profile-content-info-line-item">
                         <div className="profile-content-info-icon">
                           <VerifiedUser className="profile-icon" />
                         </div>
-                        <span className="profile-content-info-text">
-                          Mã loại: Khách Hàng
-                        </span>
+                        <span className="profile-content-info-text">Mã loại: Khách Hàng</span>
                       </Grid>
                     </Grid>
                   </div>
                 </div>
               </TabPanel>
               {/* Thay đổi thông tin TabPanel */}
-              <TabPanel
-                value={tabProfileMenu}
-                index={1}
-                className="profile-content"
-              >
+              <TabPanel value={tabProfileMenu} index={1} className="profile-content">
                 <div className="profile-content-container">
                   <div className="profile-content-change-info">
-                    <p className="profile-content-change-info-title">
-                      Thay đổi thông tin
-                    </p>
-                    <form
-                      onSubmit={handleSubmitForChangeInfo(handleUpdateInfoUser)}
-                      className="profile-content-change-info-form"
-                    >
+                    <p className="profile-content-change-info-title">Thay đổi thông tin</p>
+                    <form onSubmit={handleSubmitForChangeInfo(handleUpdateInfoUser)} className="profile-content-change-info-form">
                       <div className="profile-content-change-info-line">
                         <div className="profile-content-change-info-icon">
                           <AccountBox className="profile-icon" />
@@ -592,11 +467,7 @@ export default function Profile() {
                           inputProps={{ ...registerForChangeInfo("taiKhoan") }}
                         />
                       </div>
-                      {errorsForChangeInfo.taiKhoan && (
-                        <Alert severity="error">
-                          {errorsForChangeInfo.taiKhoan.message}
-                        </Alert>
-                      )}
+                      {errorsForChangeInfo.taiKhoan && <Alert severity="error">{errorsForChangeInfo.taiKhoan.message}</Alert>}
                       <div className="profile-content-change-info-line">
                         <div className="profile-content-change-info-icon">
                           <Person className="profile-icon" />
@@ -608,11 +479,7 @@ export default function Profile() {
                           inputProps={{ ...registerForChangeInfo("hoTen") }}
                         />
                       </div>
-                      {errorsForChangeInfo.hoTen && (
-                        <Alert severity="error">
-                          {errorsForChangeInfo.hoTen.message}
-                        </Alert>
-                      )}
+                      {errorsForChangeInfo.hoTen && <Alert severity="error">{errorsForChangeInfo.hoTen.message}</Alert>}
                       <div className="profile-content-change-info-line">
                         <div className="profile-content-change-info-icon">
                           <Email className="profile-icon" />
@@ -624,11 +491,7 @@ export default function Profile() {
                           inputProps={{ ...registerForChangeInfo("email") }}
                         />
                       </div>
-                      {errorsForChangeInfo.email && (
-                        <Alert severity="error">
-                          {errorsForChangeInfo.email.message}
-                        </Alert>
-                      )}
+                      {errorsForChangeInfo.email && <Alert severity="error">{errorsForChangeInfo.email.message}</Alert>}
                       <div className="profile-content-change-info-line">
                         <div className="profile-content-change-info-icon">
                           <Call className="profile-icon" />
@@ -640,11 +503,7 @@ export default function Profile() {
                           inputProps={{ ...registerForChangeInfo("soDt") }}
                         />
                       </div>
-                      {errorsForChangeInfo.soDt && (
-                        <Alert severity="error">
-                          {errorsForChangeInfo.soDt.message}
-                        </Alert>
-                      )}
+                      {errorsForChangeInfo.soDt && <Alert severity="error">{errorsForChangeInfo.soDt.message}</Alert>}
 
                       <div className="profile-content-change-info-btn">
                         <button type="submit" className="btn-change-info">
@@ -659,22 +518,11 @@ export default function Profile() {
                 </div>
               </TabPanel>
               {/* Thay đổi mật khẩu TabPanel */}
-              <TabPanel
-                value={tabProfileMenu}
-                index={2}
-                className="profile-content"
-              >
+              <TabPanel value={tabProfileMenu} index={2} className="profile-content">
                 <div className="profile-content-container">
                   <div className="profile-content-change-password">
-                    <p className="profile-content-change-password-title">
-                      Thay đổi mật khẩu
-                    </p>
-                    <form
-                      onSubmit={handleSubmitForChangePassword(
-                        handleChangePassword
-                      )}
-                      className="profile-content-change-password-form"
-                    >
+                    <p className="profile-content-change-password-title">Thay đổi mật khẩu</p>
+                    <form onSubmit={handleSubmitForChangePassword(handleChangePassword)} className="profile-content-change-password-form">
                       <div className="profile-content-change-password-line">
                         <div className="profile-content-change-password-icon">
                           <Lock className="profile-icon" />
@@ -689,11 +537,7 @@ export default function Profile() {
                           }}
                         />
                       </div>
-                      {errorsForChangePassword.matKhau && (
-                        <Alert severity="error">
-                          {errorsForChangePassword.matKhau.message}
-                        </Alert>
-                      )}
+                      {errorsForChangePassword.matKhau && <Alert severity="error">{errorsForChangePassword.matKhau.message}</Alert>}
                       <div className="profile-content-change-password-line">
                         <div className="profile-content-change-password-icon">
                           <LockOpen className="profile-icon" />
@@ -708,11 +552,7 @@ export default function Profile() {
                           }}
                         />
                       </div>
-                      {errorsForChangePassword.nhapLaiMatKhau && (
-                        <Alert severity="error">
-                          {errorsForChangePassword.nhapLaiMatKhau.message}
-                        </Alert>
-                      )}
+                      {errorsForChangePassword.nhapLaiMatKhau && <Alert severity="error">{errorsForChangePassword.nhapLaiMatKhau.message}</Alert>}
                       <div className="profile-content-change-password-btn">
                         <button type="submit" className="btn-change-password">
                           Xác nhận
@@ -723,11 +563,7 @@ export default function Profile() {
                 </div>
               </TabPanel>
               {/* Đăng xuất TabPanel */}
-              <TabPanel
-                value={tabProfileMenu}
-                index={3}
-                className="profile-content"
-              ></TabPanel>
+              <TabPanel value={tabProfileMenu} index={3} className="profile-content"></TabPanel>
             </div>
           </TabPanel>
           <TabPanel value={tabHeader} index={1}>
@@ -735,13 +571,8 @@ export default function Profile() {
             <div className="profile-info-booking">
               {getInfoUserData?.thongTinDatVe.length === 0 ? (
                 <Empty>
-                  <span style={{ display: "block" }}>
-                    Mọi vé bạn đặt sẽ được hiển thị tại đây.
-                  </span>
-                  <span style={{ display: "block" }}>
-                    Hiện bạn chưa có bất kỳ đặt vé nào, hãy đặt trên trang chủ
-                    ngay!
-                  </span>
+                  <span style={{ display: "block" }}>Mọi vé bạn đặt sẽ được hiển thị tại đây.</span>
+                  <span style={{ display: "block" }}>Hiện bạn chưa có bất kỳ đặt vé nào, hãy đặt trên trang chủ ngay!</span>
                 </Empty>
               ) : (
                 <TableContainer component={Paper}>
@@ -749,9 +580,7 @@ export default function Profile() {
                     <TableHead style={{ backgroundColor: "#fb4226" }}>
                       <TableRow>
                         <TableCell style={{ color: "white" }} />
-                        <TableCell style={{ color: "white" }}>
-                          Tên phim
-                        </TableCell>
+                        <TableCell style={{ color: "white" }}>Tên phim</TableCell>
                         <TableCell style={{ color: "white" }} align="center">
                           Thời lượng phim (phút)
                         </TableCell>
