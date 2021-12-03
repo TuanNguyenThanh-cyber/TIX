@@ -9,7 +9,7 @@ import { formatMoneyVND } from "../../utils/formatMoneyVND";
 import { NavigateNext } from "@material-ui/icons";
 import LoadingPage from "../../components/LoadingPage";
 import hanldeListSeat from "../../utils/handleListSeat";
-import Countdown from "react-countdown";
+import { ArrowBack } from "@material-ui/icons";
 import Swal from "sweetalert2";
 import "./booking.scss";
 
@@ -19,6 +19,7 @@ export default function BookingMovie() {
   let [listUserChooseSeat, setListUserChooseSeat] = useState([]);
   let [totalPrice, setTotalPrice] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("zalopay");
+  const [render, setRender] = useState();
 
   const { idBooking } = useParams();
   const dispatch = useDispatch();
@@ -40,32 +41,6 @@ export default function BookingMovie() {
       setTaiKhoan(JSON.parse(localStorage.getItem("userInfo")).taiKhoan);
     }
   });
-
-  // Count down here !
-  // When count down finish => return popup notice user
-  const Completionist = () =>
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Hết giờ đặt vé! Vui lòng quay trở lại!",
-    }).then((result) => {
-      history.go(0);
-    });
-  // Renderer callback with condition
-  const renderer = ({ hours, minutes, seconds, completed }) => {
-    if (completed) {
-      // Render a complete state
-      return <Completionist />;
-    } else {
-      // Render a countdown
-      return (
-        <div className="header-timing-countdown">
-          <span className="header-timing-star">{minutes < 10 ? "0" + minutes : minutes}</span>:
-          <span className="header-timing-end">{seconds < 10 ? "0" + seconds : seconds}</span>
-        </div>
-      );
-    }
-  };
 
   // When getTicketRoomListData has data => hanldeListSeat => setListSeat
   useEffect(() => {
@@ -146,6 +121,29 @@ export default function BookingMovie() {
     }
   };
 
+  // Handle Back Page
+  const handleBackPage = () => {
+    history.goBack();
+  };
+
+  // Handle Image Theater
+  const handleImageTheater = () => {
+    const theaterClusterName = getTicketRoomListData.thongTinPhim.tenCumRap;
+    if (theaterClusterName.includes("BHD")) {
+      return "/img/Theater/BHDStar.png";
+    } else if (theaterClusterName.includes("CGV")) {
+      return "/img/Theater/CGV.png";
+    } else if (theaterClusterName.includes("CNS")) {
+      return "/img/Theater/CineStar.png";
+    } else if (theaterClusterName.includes("GLX")) {
+      return "/img/Theater/Galaxy.png";
+    } else if (theaterClusterName.includes("Lotte")) {
+      return "/img/Theater/LotteCinima.png";
+    } else if (theaterClusterName.includes("MegaGS")) {
+      return "/img/Theater/MegaGS.png";
+    }
+  };
+
   return (
     <>
       {isLoading ? (
@@ -156,8 +154,13 @@ export default function BookingMovie() {
             {/* Booking Movie Left */}
             <Grid item xs={8} className="bookingMovie-left">
               <div className="bookingMovie-left-header">
+                <div className="header-back">
+                  <button className="btn-back" onClick={handleBackPage}>
+                    <ArrowBack className="icon-back" />
+                  </button>
+                </div>
                 <div className="header-movieCluster">
-                  <img src="/img/Theater/BHDStar.png" alt="" />
+                  <img src={handleImageTheater()} alt="" />
                   <div className="header-movieCluster-content">
                     <div className="header-movieCluster-place">
                       <span className="header-movieCluster-name">{getTicketRoomListData?.thongTinPhim.tenCumRap}</span>
@@ -167,11 +170,6 @@ export default function BookingMovie() {
                       {getTicketRoomListData?.thongTinPhim.tenRap}
                     </span>
                   </div>
-                </div>
-                <div className="header-timing">
-                  <span className="header-timing-title">Thời gian giữ ghế</span>
-                  {/* Countdown here! (300000s = 5mins) */}
-                  <Countdown date={Date.now() + 300000} renderer={renderer} />
                 </div>
               </div>
               <div className="bookingMovie-left-content">

@@ -1,4 +1,5 @@
 export function getHoursAndMins(stringDate, bonusHours) {
+  // bonusHours: that means get hours and mins then plus it to bonusHours
   let dateObj = new Date(stringDate);
   let hour = dateObj.getHours();
   let min = dateObj.getMinutes();

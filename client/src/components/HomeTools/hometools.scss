@@ -35,7 +35,7 @@
         margin-right: 10px;
     }
 
-    .homeTools-day {
+    .homeTools-theaterCluster {
         width: calc(70% / 4);
         margin-right: 10px;
     }
@@ -47,10 +47,22 @@
 
     .homeTools-btn {
         width: calc(70% / 4);
-        button {
+        .btn-booking-wating {
             cursor: pointer;
             width: 100%;
             background-color: #4a4a4a;
+            border: none;
+            text-transform: uppercase;
+            border-radius: 5px;
+            padding: 15px 25px;
+            color: $color-white-0;
+            font-size: 14px;
+            font-weight: 400;
+        }
+        .btn-booking-success {
+            cursor: pointer;
+            width: 100%;
+            background-color: #fb4226;
             border: none;
             text-transform: uppercase;
             border-radius: 5px;

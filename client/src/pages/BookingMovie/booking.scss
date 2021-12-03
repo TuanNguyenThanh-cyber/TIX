@@ -13,8 +13,24 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                padding: 10px;
-                box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+                padding: 10px 20px;
+                box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 1.95px 2.6px;
+                .header-back {
+                    .btn-back {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        background-color: #fff;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        .icon-back {
+                            font-size: 20px;
+                            color: #333;
+                        }
+                    }
+                }
                 .header-movieCluster {
                     display: flex;
                     align-items: center;
@@ -30,7 +46,7 @@
                             margin-bottom: 5px;
                             .header-movieCluster-name {
                                 font-size: 16px;
-                                color: #8bc541;
+                                color: #00ac4d;
                             }
                         }
                         .header-movieCluster-hour {
@@ -38,21 +54,6 @@
                             font-size: 14px;
                             color: #9b9b9b;
                         }
-                    }
-                }
-                .header-timing {
-                    .header-timing-title {
-                        line-height: 0;
-                        font-size: 10px;
-                        color: #9b9b9b;
-                        text-align: center;
-                    }
-                    .header-timing-countdown {
-                        font-family: "SF Medium";
-                        line-height: 1;
-                        font-size: 29px;
-                        color: #fb4226;
-                        text-align: center;
                     }
                 }
             }
