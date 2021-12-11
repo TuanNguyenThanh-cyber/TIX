@@ -128,18 +128,18 @@ export default function BookingMovie() {
 
   // Handle Image Theater
   const handleImageTheater = () => {
-    const theaterClusterName = getTicketRoomListData.thongTinPhim.tenCumRap;
-    if (theaterClusterName.includes("BHD")) {
+    const theaterClusterName = getTicketRoomListData?.thongTinPhim?.tenCumRap;
+    if (theaterClusterName && theaterClusterName.includes("BHD")) {
       return "/img/Theater/BHDStar.png";
-    } else if (theaterClusterName.includes("CGV")) {
+    } else if (theaterClusterName && theaterClusterName.includes("CGV")) {
       return "/img/Theater/CGV.png";
-    } else if (theaterClusterName.includes("CNS")) {
+    } else if (theaterClusterName && theaterClusterName.includes("CNS")) {
       return "/img/Theater/CineStar.png";
-    } else if (theaterClusterName.includes("GLX")) {
+    } else if (theaterClusterName && theaterClusterName.includes("GLX")) {
       return "/img/Theater/Galaxy.png";
-    } else if (theaterClusterName.includes("Lotte")) {
+    } else if (theaterClusterName && theaterClusterName.includes("Lotte")) {
       return "/img/Theater/LotteCinima.png";
-    } else if (theaterClusterName.includes("MegaGS")) {
+    } else if (theaterClusterName && theaterClusterName.includes("MegaGS")) {
       return "/img/Theater/MegaGS.png";
     }
   };
