@@ -63,28 +63,27 @@ export const arrayProvinces = [
 
 export const arraySliders = [
   {
-    srcImg: "/img/Slider/trang-ti-16190592773054.jpg",
+    srcImg: "./img/Slider/trang-ti-16190592773054.jpg",
     videoID: "VTnGOjtaWAY",
   },
   {
-    srcImg: "/img/Slider/nguoi-nhan-ban-seobok-c18-16173645196710.jpg",
+    srcImg: "./img/Slider/nguoi-nhan-ban-seobok-c18-16173645196710.jpg",
     videoID: "JNZv1SgHv68",
   },
   {
-    srcImg: "/img/Slider/thien-than-ho-menh-16157904502407.jpg",
+    srcImg: "./img/Slider/thien-than-ho-menh-16157904502407.jpg",
     videoID: "1H-2FeFOM08",
   },
   {
-    srcImg:
-      "/img/Slider/detective-conan-scarlet-bullet-tham-tu-lung-danh-conan-vien-dan-do-c13-16188002680135.jpg",
+    srcImg: "./img/Slider/detective-conan-scarlet-bullet-tham-tu-lung-danh-conan-vien-dan-do-c13-16188002680135.jpg",
     videoID: "HSow7Ep6l_4",
   },
   {
-    srcImg: "/img/Slider/ban-tay-diet-quy-demon-hunter-c16-16165641754017.png",
+    srcImg: "./img/Slider/ban-tay-diet-quy-demon-hunter-c16-16165641754017.png",
     videoID: "s05oOsz_SvA",
   },
   {
-    srcImg: "/img/Slider/lat-mat-48h-16176186348562.jpg",
+    srcImg: "./img/Slider/lat-mat-48h-16176186348562.jpg",
     videoID: "kBY2k3G6LsM",
   },
 ];
@@ -175,8 +174,7 @@ export const arrayNewsTab1 = [
   [
     {
       img: "/img/News/Tab1/rom-phim-thang-giai-cao-nhat-tai-lhp-quoc-te-busan-an-dinh-ngay-ra-rap-tai-viet-nam-15910933229816.png",
-      title:
-        "Ròm – Phim thắng giải cao nhất tại LHP quốc tế Busan  ấn định ngày ra rạp tại Việt Nam",
+      title: "Ròm – Phim thắng giải cao nhất tại LHP quốc tế Busan  ấn định ngày ra rạp tại Việt Nam",
       description:
         "Sau khi chính thức được cấp giấy phép phát hành, bộ phim Ròm của đạo diễn Trần Thanh Huy thông báo ngày khởi chiếu tại Việt Nam vào cuối tháng 7 tới đây.",
     },
@@ -190,15 +188,13 @@ export const arrayNewsTab1 = [
   [
     {
       img: "/img/News/Tab1/promising-young-woman-bong-hong-nuoc-anh-carey-mulligan-va-man-tra-thu-dan-ong-de-doi-16166710855522.png",
-      title:
-        "PROMISING YOUNG WOMAN | Bông hồng nước Anh Carey Mulligan và màn trả thù đàn ông để đời",
+      title: "PROMISING YOUNG WOMAN | Bông hồng nước Anh Carey Mulligan và màn trả thù đàn ông để đời",
       description:
         "Đề cử giải Oscar danh giá vừa gọi tên Carey Mulligan ở hạng mục nữ chính xuất sắc nhất cho vai diễn 'đẫm máu' nhất sự nghiệp của cô trong phim Promising Young Woman (tựa Việt: Cô Gái Trẻ Hứa Hẹn). ",
     },
     {
       img: "/img/News/Tab1/vua-dep-lai-vua-tai-nang-dan-sao-nam-cua-phim-ban-tay-diet-quy-dam-bao-don-tim-hoi-chi-em-16165783843676.png",
-      title:
-        "VỪA ĐẸP LẠI VỪA TÀI NĂNG, DÀN SAO NAM CỦA PHIM “BÀN TAY DIỆT QUỶ” ĐẢM BẢO ĐỐN TIM HỘI CHỊ EM",
+      title: "VỪA ĐẸP LẠI VỪA TÀI NĂNG, DÀN SAO NAM CỦA PHIM “BÀN TAY DIỆT QUỶ” ĐẢM BẢO ĐỐN TIM HỘI CHỊ EM",
       description:
         "Quy tụ 3 nam tài tử vừa điển trai, vừa được đánh giá cao về năng lực diễn xuất là Park Seo Joon, Woo Do Hwan và Choi Woo Sik, tác phẩm kinh dị – hành động “Bàn Tay Diệt Quỷ” hứa hẹn sẽ làm cho hội chị em phải mê mẩn vào tháng tới.",
     },
@@ -214,13 +210,11 @@ export const arrayNewsTab1 = [
     },
     {
       img: "/img/News/Tab1/tiec-trang-mau-chinh-thuc-can-moc-100-ty-chi-sau-2-tuan-cong-chieu-16043751284117.png",
-      title:
-        "Tiệc Trăng Máu chính thức cán mốc 100 tỷ chỉ sau 2 tuần công chiếu ",
+      title: "Tiệc Trăng Máu chính thức cán mốc 100 tỷ chỉ sau 2 tuần công chiếu ",
     },
     {
       img: "/img/News/Tab1/ngo-thanh-van-chinh-thuc-khoi-dong-cuoc-thi-thiet-ke-trang-phuc-cho-sieu-anh-hung-dau-tien-cua-viet-nam-vinaman-16041584850247.jpg",
-      title:
-        "NGÔ THANH VÂN CHÍNH THỨC KHỞI ĐỘNG CUỘC THI THIẾT KẾ TRANG PHỤC CHO SIÊU ANH HÙNG ĐẦU TIÊN CỦA VIỆT NAM – VINAMAN",
+      title: "NGÔ THANH VÂN CHÍNH THỨC KHỞI ĐỘNG CUỘC THI THIẾT KẾ TRANG PHỤC CHO SIÊU ANH HÙNG ĐẦU TIÊN CỦA VIỆT NAM – VINAMAN",
     },
   ],
 ];
@@ -230,14 +224,12 @@ export const arrayNewsTab2 = [
     {
       img: "/img/News/Tab2/review-tan-tich-quy-am-relic-ba-the-he-va-moi-lien-ket-15965255784224.png",
       title: "Review: Tàn Tích Quỷ Ám (Relic) - Ba thế hệ và mối liên kết",
-      description:
-        "Điểm nhấn của phim kinh dị năm 2020 chính là Tàn Tích Quỷ Ám",
+      description: "Điểm nhấn của phim kinh dị năm 2020 chính là Tàn Tích Quỷ Ám",
     },
     {
       img: "/img/News/Tab2/review-dinh-thu-oan-khuat-ghost-of-war-15965120886610.png",
       title: "Review: Dinh Thự Oan Khuất (Ghost Of War)",
-      description:
-        "Tuy là một bộ phim có chất lượng tốt, nhưng có vẻ Dinh Thự Oan Khuất vẫn chưa đủ để đem khán giả trở lại phòng vé!",
+      description: "Tuy là một bộ phim có chất lượng tốt, nhưng có vẻ Dinh Thự Oan Khuất vẫn chưa đủ để đem khán giả trở lại phòng vé!",
     },
   ],
   [
@@ -265,13 +257,11 @@ export const arrayNewsTab2 = [
     },
     {
       img: "/img/News/Tab2/review-sieu-ve-si-so-vo-giai-cuu-tong-thong-chua-bao-gio-lay-loi-va-hai-huoc-den-the-15840925506832.jpg",
-      title:
-        "[Review] Siêu Vệ Sĩ Sợ Vợ - Giải cứu Tổng thống chưa bao giờ lầy lội và hài hước đến thế",
+      title: "[Review] Siêu Vệ Sĩ Sợ Vợ - Giải cứu Tổng thống chưa bao giờ lầy lội và hài hước đến thế",
     },
     {
       img: "/img/News/Tab2/review-bloodshot-mo-man-an-tuong-cho-vu-tru-sieu-anh-hung-valiant-15840731141389.jpg",
-      title:
-        "[Review] Bloodshot - Mở màn ấn tượng cho Vũ trụ Siêu anh hùng Valiant",
+      title: "[Review] Bloodshot - Mở màn ấn tượng cho Vũ trụ Siêu anh hùng Valiant",
     },
   ],
 ];
@@ -281,22 +271,19 @@ export const arrayNewsTab3 = [
     {
       img: "/img/News/Tab3/bhd-59k-ve-ca-tuan-16190002421777.jpg",
       title: "BHD 59K/VÉ CẢ TUẦN !!!",
-      description:
-        "Tận hưởng Ưu Đãi lên đến 3 VÉ BHD Star mỗi tuần chỉ với giá 59k/vé khi mua vé trên TIX hoặc Mục Vé Phim trên ZaloPay.",
+      description: "Tận hưởng Ưu Đãi lên đến 3 VÉ BHD Star mỗi tuần chỉ với giá 59k/vé khi mua vé trên TIX hoặc Mục Vé Phim trên ZaloPay.",
     },
     {
       img: "/img/News/Tab3/tix-1k-ve-ngai-chi-gia-ve-16045662877511.jpg",
       title: "TIX 1K/VÉ NGẠI CHI GIÁ VÉ",
-      description:
-        "Đồng giá 1k/vé cả tuần tất cả các rạp trên TIX + Nhận thêm 02 voucher thanh toán ZaloPay thả ga",
+      description: "Đồng giá 1k/vé cả tuần tất cả các rạp trên TIX + Nhận thêm 02 voucher thanh toán ZaloPay thả ga",
     },
   ],
   [
     {
       img: "/img/News/Tab3/dong-gia-1k-ve-khi-mua-ve-qua-tix-16010092946804.png",
       title: "ĐỒNG GIÁ 1K/VÉ KHI MUA VÉ QUA TIX ",
-      description:
-        "ĐỒNG GIÁ 1K/VÉ KHI MUA VÉ QUA TIX. Hành trình tìm Ròm và Phúc chỉ với 1k cả tuần + nhận thêm 02 voucher khi đặt vé qua TIX.",
+      description: "ĐỒNG GIÁ 1K/VÉ KHI MUA VÉ QUA TIX. Hành trình tìm Ròm và Phúc chỉ với 1k cả tuần + nhận thêm 02 voucher khi đặt vé qua TIX.",
     },
     {
       img: "/img/News/Tab3/bhd-star-ve-chi-59-000d-ca-tuan-15937622264546.jpg",
@@ -312,13 +299,11 @@ export const arrayNewsTab3 = [
     },
     {
       img: "/img/News/Tab3/123phim-thu-6-khong-den-toi-uu-dai-huy-diet-11k-ve-anh-trai-yeu-quai-15746757294099.jpg",
-      title:
-        "[123Phim] Thứ 6 Không Đen Tối -  Ưu đãi huỷ diệt 11k/vé Anh Trai Yêu Quái",
+      title: "[123Phim] Thứ 6 Không Đen Tối -  Ưu đãi huỷ diệt 11k/vé Anh Trai Yêu Quái",
     },
     {
       img: "/img/News/Tab3/123phim-nhap-ma-psm30k-giam-ngay-30k-khi-dat-ve-phap-su-mu-ai-chet-gio-tay-15729439018211.jpg",
-      title:
-        "[123Phim] NHẬP MÃ 'PSM30K' - Giảm ngay 30k khi đặt vé Pháp Sư Mù: Ai Chết Giơ Tay",
+      title: "[123Phim] NHẬP MÃ 'PSM30K' - Giảm ngay 30k khi đặt vé Pháp Sư Mù: Ai Chết Giơ Tay",
     },
     {
       img: "/img/News/Tab3/mega-gs-mot-doa-hoa-thay-ngan-loi-yeu-15713106082164.jpg",
