@@ -63,27 +63,27 @@ export const arrayProvinces = [
 
 export const arraySliders = [
   {
-    srcImg: "./img/Slider/trang-ti-16190592773054.jpg",
+    srcImg: "/img/Slider/trang-ti-16190592773054.jpg",
     videoID: "VTnGOjtaWAY",
   },
   {
-    srcImg: "./img/Slider/nguoi-nhan-ban-seobok-c18-16173645196710.jpg",
+    srcImg: "/img/Slider/nguoi-nhan-ban-seobok-c18-16173645196710.jpg",
     videoID: "JNZv1SgHv68",
   },
   {
-    srcImg: "./img/Slider/thien-than-ho-menh-16157904502407.jpg",
+    srcImg: "/img/Slider/thien-than-ho-menh-16157904502407.jpg",
     videoID: "1H-2FeFOM08",
   },
   {
-    srcImg: "./img/Slider/detective-conan-scarlet-bullet-tham-tu-lung-danh-conan-vien-dan-do-c13-16188002680135.jpg",
+    srcImg: "/img/Slider/detective-conan-scarlet-bullet-tham-tu-lung-danh-conan-vien-dan-do-c13-16188002680135.jpg",
     videoID: "HSow7Ep6l_4",
   },
   {
-    srcImg: "./img/Slider/ban-tay-diet-quy-demon-hunter-c16-16165641754017.png",
+    srcImg: "/img/Slider/ban-tay-diet-quy-demon-hunter-c16-16165641754017.png",
     videoID: "s05oOsz_SvA",
   },
   {
-    srcImg: "./img/Slider/lat-mat-48h-16176186348562.jpg",
+    srcImg: "/img/Slider/lat-mat-48h-16176186348562.jpg",
     videoID: "kBY2k3G6LsM",
   },
 ];
