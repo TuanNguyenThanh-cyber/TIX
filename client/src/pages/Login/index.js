@@ -12,10 +12,7 @@ import "./login.scss";
 // Tạo schema validation
 const schema = yup.object().shape({
   taiKhoan: yup.string().required("Tài khoản không được để trống"),
-  matKhau: yup
-    .string()
-    .required("Mật khẩu không được để trống")
-    .min(8, "Mật khẩu phải từ 8 kí tự trở lên"),
+  matKhau: yup.string().required("Mật khẩu không được để trống").min(8, "Mật khẩu phải từ 8 kí tự trở lên"),
 });
 
 export default function Login() {
@@ -42,50 +39,26 @@ export default function Login() {
   }
 
   return (
-    <div id="login">
+    <div id="login" style={{ backgroundImage: `url("/img/bg-login.jpg")` }}>
       <div className="login-container">
         <p className="login-title">Đăng nhập</p>
         <form className="login-form" onSubmit={handleSubmit(handleLogin)}>
           <div className="login-form-item">
             <div className="login-form-input-label">
-              <input
-                type="text"
-                className="login-form-input"
-                placeholder="Tài khoản"
-                {...register("taiKhoan")}
-              />
+              <input type="text" className="login-form-input" placeholder="Tài khoản" {...register("taiKhoan")} />
             </div>
-            {errors.taiKhoan && (
-              <div className="login-form-error">{errors.taiKhoan.message}</div>
-            )}
+            {errors.taiKhoan && <div className="login-form-error">{errors.taiKhoan.message}</div>}
           </div>
 
           <div className="login-form-item">
             <div className="login-form-input-label">
-              <input
-                type="password"
-                className="login-form-input"
-                placeholder="Mật khẩu"
-                {...register("matKhau")}
-              />
+              <input type="password" className="login-form-input" placeholder="Mật khẩu" {...register("matKhau")} />
             </div>
-            {errors.matKhau && (
-              <div className="login-form-error">{errors.matKhau.message}</div>
-            )}
+            {errors.matKhau && <div className="login-form-error">{errors.matKhau.message}</div>}
           </div>
 
           <button type="submit" className="btn-login">
-            {isLoading ? (
-              <ReactLoading
-                type="spinningBubbles"
-                color="#fff"
-                height={15}
-                width={15}
-                className="react-loading"
-              />
-            ) : (
-              "Đăng nhập"
-            )}
+            {isLoading ? <ReactLoading type="spinningBubbles" color="#fff" height={15} width={15} className="react-loading" /> : "Đăng nhập"}
           </button>
 
           {error && <div className="login-form-error">{error}</div>}
@@ -99,9 +72,7 @@ export default function Login() {
           <a href="/">Need help?</a>
         </div>
 
-        <p className="login-text-info">
-          Đăng nhập để được nhiều ưu đãi, mua vé và bảo mật thông tin!
-        </p>
+        <p className="login-text-info">Đăng nhập để được nhiều ưu đãi, mua vé và bảo mật thông tin!</p>
 
         <p className="login-text-no-account">
           Nếu bạn chưa có tài khoản?
