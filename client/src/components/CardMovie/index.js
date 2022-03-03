@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-import { Star, StarHalf } from "@material-ui/icons";
+import { Star, StarHalf, NavigateBefore, NavigateNext } from "@material-ui/icons";
 import { Grid } from "@material-ui/core";
 import { Carousel } from "react-responsive-carousel";
 import arrayConversion from "../../utils/arrayConversion";
@@ -20,9 +20,17 @@ export default function CardMovie() {
   // Custom Carousel
   const handleItemSlide = (index, item) => {};
   const customArrowPrev = (onClickHandler, hasPrev, label) =>
-    hasPrev && <button className="button-custom-control button-custom-prev" onClick={onClickHandler} title={label}></button>;
+    hasPrev && (
+      <button className="button-custom-control button-custom-prev" onClick={onClickHandler} title={label}>
+        <NavigateBefore className="button-custom-icon" />
+      </button>
+    );
   const customArrowNext = (onClickHandler, hasNext, label) =>
-    hasNext && <button className="button-custom-control button-custom-next" onClick={onClickHandler} title={label}></button>;
+    hasNext && (
+      <button className="button-custom-control button-custom-next" onClick={onClickHandler} title={label}>
+        <NavigateNext className="button-custom-icon" />
+      </button>
+    );
 
   // Handle PopUp Video
   const handlePopUpVideo = (e, trailer) => {

@@ -53,13 +53,19 @@
         }
 
         .button-custom-prev {
-            background-image: url("https://tix.vn/app/assets/img/icons/back-session.png");
             left: 15px;
         }
 
         .button-custom-next {
-            background-image: url("https://tix.vn/app/assets/img/icons/next-session.png");
             right: 15px;
+        }
+
+        .button-custom-icon {
+            font-size: 50px;
+            color: white;
+            font-weight: 500;
+            background-color: #7a7a7a;
+            border-radius: 50%;
         }
 
         .button-custom-control {
@@ -77,6 +83,9 @@
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 }
